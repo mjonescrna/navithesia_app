@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "411220272299",
+    "project_id": "navithesia",
+    "storage_bucket": "navithesia.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:411220272299:android:782f0f6f7a600aad7e83ee",
+        "android_client_info": {
+          "package_name": "com.navithesia.navithesia_beta"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyClIvjEVNzlhmOqz9zm-kZpxFGSb_VWtXI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

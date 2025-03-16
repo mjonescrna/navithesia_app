@@ -1,0 +1,3025 @@
+﻿import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:intl/intl.dart';
+import 'dart:convert';
+import 'package:flutter/services.dart' show rootBundle;
+import 'package:navithesia_beta/constants/app_constants.dart';
+import 'package:navithesia_beta/providers/case_provider.dart';
+import 'package:navithesia_beta/models/clinical_case_model.dart';
+import 'package:navithesia_beta/constants/coa_constants.dart';
+import 'package:navithesia_beta/models/coa_category_model.dart' as cat;
+import 'package:uuid/uuid.dart';
+import 'package:navithesia_beta/providers/theme_provider.dart';
+import 'package:navithesia_beta/providers/category_provider.dart';
+import 'package:navithesia_beta/constants/app_text_styles.dart' as styles;
+import 'package:navithesia_beta/constants/app_colors.dart' as colors;
+
+// Add a simple Logger class to fix issues
+class Logger {
+  static void debug(String message) {
+    print('DEBUG: $message');
+  }
+
+  static void info(String message) {
+    print('INFO: $message');
+  }
+
+  static void warn(String message) {
+    print('WARN: $message');
+  }
+
+  static void error(String message) {
+    print('ERROR: $message');
+  }
+}
+
+// Extension to capitalize first letter of a string
+extension StringExtension on String {
+  String capitalize() {
+    return isEmpty ? this : '${this[0].toUpperCase()}${substring(1)}';
+  }
+}
+
+class AddCaseScreen extends StatefulWidget {
+  final ClinicalCase? existingCase;
+
+  const AddCaseScreen({super.key, this.existingCase});
+
+  @override
+  State<AddCaseScreen> createState() => _AddCaseScreenState();
+}
+
+class _AddCaseScreenState extends State<AddCaseScreen> {
+  bool _isLoading = false;
+  bool _hasError = false;
+  String _errorMessage = '';
+  final _formKey = GlobalKey<FormState>();
+  final _procedureController = TextEditingController();
+  final _locationController = TextEditingController();
+  final _patientAgeController = TextEditingController(text: '50');
+  final _notesController = TextEditingController();
+  final _durationController = TextEditingController();
+  final _searchController = TextEditingController();
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
+
+  DateTime _selectedDate = DateTime.now();
+  String _selectedGender = 'Male';
+  String _selectedASAClass = 'ASA I';
+  final Set<String> _selectedAnesthesiaTypes = {'general_anesthesia'};
+  bool _isEmergency = false;
+  bool _didPreanesthesiaAssessment = false;
+  bool _didPostanesthesiaAssessment = false;
+  bool _isSimulatedCase = false; // Flag to indicate if this is a simulated case
+
+  // Anesthesia Procedure state variables
+  bool _isAnesthesiaProcedure = false;
+  String _selectedAnesthesiaProcedureCategory = '';
+  String _selectedAnesthesiaProcedure = '';
+
+  // Anesthesia procedure categories and procedures
+  final Map<String, List<String>> _anesthesiaProcedures = {
+    'Neuraxial Blocks': ['Thoracic Epidural', 'Lumbar Epidural'],
+    'Peripheral Nerve Blocks': [
+      'Regional Anesthesia Upper',
+      'Regional Anesthesia Lower',
+      'Regional Anesthesia Other',
+    ],
+    'Point of Care Ultrasound': [
+      'Gastric Ultrasound',
+      'Transthoracic Echocardiogram (TTE)',
+      'Transesophageal Echocardiogram (TEE)',
+    ],
+    'Imaging Assessments': ['Assessment of Chest X-Ray'],
+    'Line Placements': ['Central Line Placement', 'Arterial Line Placement'],
+    'Airway Management': ['Tracheal Intubation'],
+  };
+
+  // For procedures autocomplete
+  List<Map<String, dynamic>> _allProcedures = [];
+  List<Map<String, dynamic>> _filteredProcedures = [];
+  List<String> _procedureSuggestions = [];
+  bool _isLoadingProcedures = true;
+  String _procedureCountLabel = '';
+
+  // COA Categories selection
+  final List<String> _genderOptions = const ['Male', 'Female', 'Other'];
+
+  // ASA class options
+  final List<String> _asaOptions = const [
+    'ASA I',
+    'ASA II',
+    'ASA III',
+    'ASA IV',
+    'ASA V',
+    'ASA VI',
+  ];
+
+  // Selected categories
+  final Set<cat.CoaCategory> _selectedCategories = {};
+
+  // Map of common abbreviations to category names
+  final Map<String, String> _categoryAbbreviations = {
+    'ETT': 'Tracheal Intubation',
+    'LMA': 'Supraglottic Airway Device',
+    'A-line': 'Arterial puncture/catheter insertion',
+    'CVC': 'Central Venous Catheter',
+    'CVL': 'Central Venous Catheter',
+    'PICC': 'Central Venous Catheter',
+    'PA': 'Pulmonary Artery Catheter',
+    'CSE': 'Combined Spinal-Epidural',
+    'MAC': 'Monitored Anesthesia Care',
+    'GA': 'General Anesthesia',
+    'ICU': 'Critical Care',
+    'PACU': 'Postanesthetic Assessment',
+  };
+
+  @override
+  void initState() {
+    super.initState();
+
+    // Add debugging information
+    Logger.debug(
+      'AddCaseScreen.initState - caseToEdit: ${widget.existingCase != null ? 'EXISTS' : 'NULL'}',
+    );
+    if (widget.existingCase != null) {
+      Logger.debug(
+        'EDITING CASE: ID=${widget.existingCase!.id}, Procedure=${widget.existingCase!.procedure}',
+      );
+    }
+
+    _loadProcedures();
+
+    if (widget.existingCase != null) {
+      _populateExistingCaseData(widget.existingCase!);
+    }
+
+    // Call our stub methods to fix errors
+    _loadClinicalSites();
+    _loadSettings();
+
+    // Replace AnalyticsHelper with a logging statement
+    Logger.info('Screen view: add_case_screen');
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _updateProcedureCountLabel();
+    });
+  }
+
+  void _populateExistingCaseData(ClinicalCase existingCase) {
+    _selectedDate = existingCase.date;
+    _procedureController.text = existingCase.procedure;
+    _patientAgeController.text = existingCase.patientAge.toString();
+    _selectedGender = existingCase.patientGender;
+    _selectedASAClass = existingCase.patientASA;
+    _selectedAnesthesiaTypes.clear();
+    _selectedAnesthesiaTypes.addAll(existingCase.anesthesiaTypes);
+    _durationController.text = existingCase.duration.toString();
+    _isEmergency = existingCase.isEmergency;
+    _isSimulatedCase = existingCase.isSimulated; // Set the simulated flag
+
+    // Clear and then add all categories from the case
+    _selectedCategories.clear();
+    _selectedCategories.addAll(existingCase.categories);
+
+    // Check if pre/post anesthesia assessments are in the categories
+    _didPreanesthesiaAssessment = existingCase.categories.any(
+      (category) => category.id == 'preanesthetic_assessment',
+    );
+
+    _didPostanesthesiaAssessment = existingCase.categories.any(
+      (category) => category.id == 'postanesthetic_assessment',
+    );
+
+    // Add additional anesthesia types based on selected categories
+    for (final category in existingCase.categories) {
+      if (category.group == 'anesthesia_types') {
+        _selectedAnesthesiaTypes.add(category.id);
+      }
+    }
+
+    // Update age category based on patient age
+    _updateAgeCategory(existingCase.patientAge);
+  }
+
+  Future<void> _loadProcedures() async {
+    try {
+      setState(() {
+        _isLoadingProcedures = true;
+        _hasError = false;
+        _errorMessage = '';
+      });
+
+      // Load the JSON file from assets
+      final String jsonString = await rootBundle.loadString(
+        'assets/clinical_experience_database_clean.json',
+      );
+
+      // Try to decode the JSON
+      final Map<String, dynamic> jsonData = json.decode(jsonString);
+
+      List<Map<String, dynamic>> procedures = [];
+
+      // Check if 'parts' key exists
+      if (!jsonData.containsKey('parts')) {
+        setState(() {
+          _isLoadingProcedures = false;
+          _hasError = true;
+          _errorMessage = 'Invalid JSON format: missing "parts" key';
+        });
+        throw Exception('Invalid JSON format: missing "parts" key');
+      }
+
+      // Parse the new JSON structure with "parts" array
+      final List<dynamic> parts = jsonData['parts'];
+
+      for (var part in parts) {
+        if (!part.containsKey('part_name')) {
+          Logger.warn('AddCaseScreen - Part missing "part_name", skipping');
+          continue;
+        }
+
+        final String partName = part['part_name'];
+        Logger.debug('AddCaseScreen - Processing part: $partName');
+
+        // Handle both "cases" and "procedures" arrays in the JSON
+        List<dynamic> proceduresList = [];
+        if (part.containsKey('cases')) {
+          proceduresList = part['cases'];
+          Logger.debug(
+            'AddCaseScreen - Found ${proceduresList.length} cases in $partName',
+          );
+        } else if (part.containsKey('procedures')) {
+          proceduresList = part['procedures'];
+          Logger.debug(
+            'AddCaseScreen - Found ${proceduresList.length} procedures in $partName',
+          );
+        } else {
+          Logger.warn(
+            'AddCaseScreen - Part "$partName" has no cases or procedures, skipping',
+          );
+          continue;
+        }
+
+        for (var procedure in proceduresList) {
+          if (!procedure.containsKey('name')) {
+            Logger.warn('AddCaseScreen - Procedure missing "name", skipping');
+            continue;
+          }
+
+          // Create a standardized procedure object with safe getters
+          final Map<String, dynamic> standardizedProcedure = {
+            'procedureName': procedure['name'],
+            'category': partName,
+            'physical_status': procedure['physical_status'] ?? 'Unknown',
+            'position': procedure['position'] ?? 'Not specified',
+            'anatomical_category': procedure['anatomical_category'] ?? 'Other',
+            'anesthesia_type':
+                procedure['anesthesia_type'] ?? 'General Anesthesia',
+            'anesthesia_procedures':
+                procedure['anesthesia_procedures'] ?? 'Not specified',
+          };
+
+          procedures.add(standardizedProcedure);
+        }
+      }
+
+      Logger.info(
+        'AddCaseScreen - Total procedures loaded: ${procedures.length}',
+      );
+
+      if (procedures.isEmpty) {
+        Logger.warn('AddCaseScreen - No procedures were loaded!');
+      }
+
+      setState(() {
+        _allProcedures = procedures;
+        _filteredProcedures = procedures;
+        _procedureSuggestions =
+            []; // Initialize variable to avoid undefined error
+        _isLoadingProcedures = false;
+      });
+      Logger.debug(
+        'AddCaseScreen - _allProcedures updated with ${_allProcedures.length} procedures',
+      );
+    } catch (e, stackTrace) {
+      setState(() {
+        _allProcedures = [];
+        _filteredProcedures = [];
+        _procedureSuggestions =
+            []; // Initialize variable to avoid undefined error
+        _isLoadingProcedures = false;
+        _hasError = true;
+        _errorMessage = 'Error loading procedures: $e';
+      });
+      Logger.error(
+        'AddCaseScreen - Failed to load procedures: $e\n$stackTrace',
+      );
+    }
+  }
+
+  // Generate procedure suggestions based on input
+  void _updateProcedureSuggestions(String query) {
+    Logger.debug('_updateProcedureSuggestions called with query: "$query"');
+    Logger.debug('Current _allProcedures length: ${_allProcedures.length}');
+
+    if (_allProcedures.isEmpty) {
+      Logger.warn('No procedures loaded, cannot search');
+      // Don't show an empty suggestion box if there are no procedures
+      setState(() {
+        _procedureSuggestions = [];
+      });
+      return;
+    }
+
+    if (query.isEmpty) {
+      setState(() {
+        _procedureSuggestions = [];
+      });
+      Logger.debug('Query is empty, cleared suggestions');
+      return;
+    }
+
+    // Check for c-section alias
+    bool isCSection = false;
+    if (query.toLowerCase() == 'c-section' ||
+        query.toLowerCase() == 'c section' ||
+        query.toLowerCase() == 'csection') {
+      isCSection = true;
+    }
+
+    // Split query into individual words for better matching
+    final List<String> queryWords =
+        query
+            .toLowerCase()
+            .split(' ')
+            .where((word) => word.isNotEmpty)
+            .toList();
+
+    if (queryWords.isEmpty) {
+      setState(() {
+        _procedureSuggestions = [];
+      });
+      return;
+    }
+
+    Logger.debug('Searching for words: $queryWords');
+
+    // Map to hold procedure names with their score (for sorting)
+    Map<String, int> matchScores = {};
+
+    for (var procedure in _allProcedures) {
+      final String procedureName = procedure['procedureName'] as String;
+      if (procedureName.isEmpty) continue;
+
+      final String lowerProcedureName = procedureName.toLowerCase();
+      final List<String> procedureWords = lowerProcedureName.split(' ');
+
+      // Special case for c-section alias
+      if (isCSection && lowerProcedureName.contains('cesarean section')) {
+        matchScores[procedureName] = 200; // Give it highest priority
+        continue;
+      }
+
+      // Calculate match score
+      int score = 0;
+
+      // For each word in the query
+      for (final queryWord in queryWords) {
+        // Skip very short words (less than 2 chars) unless it's the only word
+        if (queryWord.length < 2 && queryWords.length > 1) continue;
+
+        // Exact match for the entire name gets highest score
+        if (lowerProcedureName == queryWord) {
+          score += 100;
+          continue;
+        }
+
+        // Procedure starts with the query word
+        if (lowerProcedureName.startsWith(queryWord)) {
+          score += 75;
+          continue;
+        }
+
+        // Any word in procedure starts with the query word
+        bool anyWordStartsWith = false;
+        for (final word in procedureWords) {
+          if (word.startsWith(queryWord)) {
+            anyWordStartsWith = true;
+            break;
+          }
+        }
+
+        if (anyWordStartsWith) {
+          score += 50;
+          continue;
+        }
+
+        // Procedure contains the query word
+        if (lowerProcedureName.contains(queryWord)) {
+          score += 25;
+          continue;
+        }
+
+        // Check if all letters in the query word appear in order
+        bool allLettersMatch = true;
+        int lastIndex = -1;
+
+        for (int i = 0; i < queryWord.length; i++) {
+          final int index = lowerProcedureName.indexOf(
+            queryWord[i],
+            lastIndex + 1,
+          );
+          if (index == -1) {
+            allLettersMatch = false;
+            break;
+          }
+          lastIndex = index;
+        }
+
+        if (allLettersMatch) {
+          score += 10;
+        }
+      }
+
+      // Add to map if there's a match with minimum threshold score
+      // Higher threshold for single-letter searches to avoid too many matches
+      final int threshold =
+          queryWords.length == 1 && queryWords[0].length == 1 ? 50 : 10;
+
+      if (score > threshold) {
+        matchScores[procedureName] = score;
+      }
+    }
+
+    Logger.debug('Number of matches found: ${matchScores.length}');
+
+    // Sort by score (highest first) and take top results
+    final List<String> suggestions =
+        matchScores.keys.toList()
+          ..sort((a, b) => matchScores[b]!.compareTo(matchScores[a]!));
+
+    setState(() {
+      _procedureSuggestions =
+          suggestions.take(10).toList(); // Show up to 10 suggestions
+    });
+
+    Logger.debug(
+      'Updated _procedureSuggestions with ${_procedureSuggestions.length} suggestions',
+    );
+    if (_procedureSuggestions.isNotEmpty) {
+      Logger.debug(
+        'Top suggestions: ${_procedureSuggestions.take(3).join(', ')}',
+      );
+    }
+  }
+
+  // Auto-fill procedure details when selecting a procedure
+  void _selectProcedure(String procedureName) {
+    Logger.debug('Selecting procedure: $procedureName');
+    final selectedProcedure = _allProcedures.firstWhere(
+      (procedure) => procedure['procedureName'] == procedureName,
+      orElse: () => <String, dynamic>{},
+    );
+
+    if (selectedProcedure.isNotEmpty) {
+      Logger.debug(
+        'Found procedure in database: ${selectedProcedure['procedureName']}',
+      );
+      setState(() {
+        // Clear previous suggestions
+        _procedureSuggestions = [];
+
+        // Set the procedure name
+        _procedureController.text = procedureName;
+
+        // Clear previous categories for a fresh start
+        _selectedCategories.clear();
+
+        // Enhanced procedure parsing - use the new detailed parser
+        _parseProcedureDetails(selectedProcedure);
+
+        Logger.debug(
+          'Categories after procedure selection: ${_selectedCategories.map((c) => c.name).join(', ')}',
+        );
+      });
+    }
+  }
+
+  // New method for comprehensive procedure detail parsing
+  void _parseProcedureDetails(Map<String, dynamic> procedure) {
+    final String procedureName = procedure['procedureName'] as String;
+    final String category =
+        procedure['category']?.toString().toLowerCase() ?? '';
+    final String procedureLower = procedureName.toLowerCase();
+
+    Logger.debug(
+      'Parsing procedure details for: $procedureName (${procedure["category"]})',
+    );
+
+    // SPECIAL CASES - Handle specific procedures with known requirements
+    // These override the standard mappings
+
+    // Special case for Labor Analgesia
+    if (procedureLower.contains('labor analgesia') ||
+        procedureLower.contains('epidural for labor') ||
+        procedureLower.contains('labor pain') ||
+        procedureLower.contains('labour analgesia') ||
+        (procedureLower.contains('labor') && procedureLower.contains('pain'))) {
+      Logger.debug('Special case: Labor analgesia procedure detected');
+
+      // For labor analgesia, default to epidural
+      _selectedAnesthesiaTypes.clear();
+      _selectedAnesthesiaTypes.add('epidural');
+      _addCategoryByName('Epidural');
+      _addCategoryByName('Pain Management');
+
+      // Add obstetrical management and labor analgesia
+      _addCategoryByName('Obstetrical management');
+      _addCategoryByName('Analgesia for labor');
+
+      // Set gender to female for labor analgesia
+      _selectedGender = 'Female';
+
+      // Set default age to 30 for labor analgesia patients
+      _patientAgeController.text = '30';
+      _updateAgeCategory(30);
+
+      return; // Skip remaining procedure parsing since we've handled labor analgesia specifically
+    }
+
+    // Special case for C-section
+    if (procedureLower.contains('cesarean') ||
+        procedureLower.contains('c-section') ||
+        procedureLower.contains('c section')) {
+      Logger.debug('Special case: Cesarean section procedure detected');
+
+      // For C-sections, default to spinal only
+      _selectedAnesthesiaTypes.clear();
+      _selectedAnesthesiaTypes.add('spinal');
+      _addCategoryByName('Spinal');
+
+      // Add obstetrical management
+      _addCategoryByName('Obstetrical management');
+      _addCategoryByName('Cesarean delivery');
+
+      // Set gender to female for C-section
+      _selectedGender = 'Female';
+
+      return; // Skip remaining procedure parsing since we've handled C-section specifically
+    }
+
+    // Handle other neurosurgical procedures
+    if (procedureLower.contains('craniec') ||
+        procedureLower.contains('craniot') ||
+        procedureLower.contains('brain') ||
+        procedureLower.contains('intracranial')) {
+      Logger.debug('Special case: Neurosurgical cranial procedure detected');
+
+      // Ensure general anesthesia is selected
+      _selectedAnesthesiaTypes.clear();
+      _selectedAnesthesiaTypes.add('general_anesthesia');
+      _addCategoryByName('General Anesthesia');
+      _addCategoryByName('Tracheal intubation (ETT)');
+
+      // Arterial line is standard for craniotomies/craniectomies
+      _addCategoryByName('Arterial puncture/catheter insertion (A-line)');
+      _addCategoryByName('Intra-arterial blood pressure monitoring');
+
+      // Standard anatomical locations
+      _addCategoryByName('Intracranial');
+
+      // Often ASA III or higher
+      if (_selectedASAClass == 'ASA I' || _selectedASAClass == 'ASA II') {
+        _selectedASAClass = 'ASA III';
+        _addCategoryByName('ASA III');
+      }
+    }
+
+    // 1. Handle gender-specific procedures
+    if (category.contains('obstetric') ||
+        category.contains('gynecologic') ||
+        category.contains('breast') ||
+        procedureLower.contains('breast') ||
+        procedureLower.contains('mastectomy') ||
+        procedureLower.contains('mammoplasty') ||
+        procedureLower.contains('cesarean') ||
+        procedureLower.contains('c-section')) {
+      _selectedGender = 'Female';
+    }
+
+    // 2. Parse ASA class
+    if (procedure['physical_status'] != null) {
+      String physicalStatus = procedure['physical_status'];
+      Logger.debug('Physical status: $physicalStatus');
+
+      RegExp asaRegex = RegExp(r'ASA\s+([IVX]+)');
+      final match = asaRegex.firstMatch(physicalStatus);
+
+      if (match != null) {
+        String asaClass = 'ASA ${match.group(1)}';
+        Logger.debug('Extracted ASA class: $asaClass');
+        if (_asaOptions.contains(asaClass)) {
+          _selectedASAClass = asaClass;
+
+          // Add ASA category for III-VI
+          if (asaClass == 'ASA III') {
+            _addCategoryByName('ASA III');
+          } else if (asaClass == 'ASA IV') {
+            _addCategoryByName('ASA IV');
+          } else if (asaClass == 'ASA V') {
+            _addCategoryByName('ASA V');
+          }
+        }
+      }
+    }
+
+    // 3. Process anesthesia types and procedures
+    if (procedure['anesthesia_type'] != null) {
+      String anesthesiaType = procedure['anesthesia_type'];
+      Logger.debug('Anesthesia type: $anesthesiaType');
+
+      // Clear previous anesthesia selections
+      _selectedAnesthesiaTypes.clear();
+
+      // Parse anesthesia types (they might be combined with "or")
+      List<String> types = anesthesiaType.split(RegExp(r' or | and '));
+
+      for (var type in types) {
+        type = type.trim();
+
+        if (type.toLowerCase().contains('general')) {
+          _selectedAnesthesiaTypes.add('general_anesthesia');
+          _addCategoryByName('General Anesthesia');
+          _addCategoryByName('Tracheal intubation (ETT)');
+        }
+        if (type.toLowerCase().contains('spinal')) {
+          _selectedAnesthesiaTypes.add('spinal');
+          _addCategoryByName('Spinal');
+        }
+        if (type.toLowerCase().contains('epidural')) {
+          _selectedAnesthesiaTypes.add('epidural');
+          _addCategoryByName('Epidural');
+          _addCategoryByName('Pain Management');
+        }
+        if (type.toLowerCase().contains('mac')) {
+          _selectedAnesthesiaTypes.add('mac');
+          _addCategoryByName('Moderate / deep sedation');
+        }
+        if (type.toLowerCase().contains('regional')) {
+          if (type.toLowerCase().contains('upper')) {
+            _selectedAnesthesiaTypes.add('regional_upper');
+            // Use proper COA categories for peripheral anesthesia
+            _addCategoryByName('Peripheral');
+            _addCategoryByName('Anesthesia upper');
+          } else if (type.toLowerCase().contains('lower')) {
+            _selectedAnesthesiaTypes.add('regional_lower');
+            // Use proper COA categories for peripheral anesthesia
+            _addCategoryByName('Peripheral');
+            _addCategoryByName('Anesthesia lower');
+          } else {
+            // Generic regional - add Other regional category
+            _selectedAnesthesiaTypes.add('regional_other');
+            _addCategoryByName('Other');
+            _addCategoryByName('Anesthesia');
+          }
+        }
+        if (type.toLowerCase().contains('combined') &&
+            type.toLowerCase().contains('spinal') &&
+            type.toLowerCase().contains('epidural')) {
+          _selectedAnesthesiaTypes.add('combined_spinal_epidural');
+          // Add both spinal and epidural for CSE
+          _addCategoryByName('Spinal');
+          _addCategoryByName('Epidural');
+        }
+      }
+
+      // Default to general anesthesia if nothing was selected
+      if (_selectedAnesthesiaTypes.isEmpty) {
+        _selectedAnesthesiaTypes.add('general_anesthesia');
+        _addCategoryByName('General Anesthesia');
+        _addCategoryByName('Tracheal intubation (ETT)');
+      }
+    }
+
+    // 4. Process anatomical category - more detailed parsing
+    if (procedure['anatomical_category'] != null) {
+      String anatomicalCategory = procedure['anatomical_category'];
+      Logger.debug('Anatomical category: $anatomicalCategory');
+
+      // Process both through our existing mapper and add specific checks
+      _mapAnatomicalCategories(anatomicalCategory);
+
+      // Special handling for intracranial procedures
+      if (anatomicalCategory.toLowerCase().contains('intracranial') ||
+          anatomicalCategory.toLowerCase().contains('brain') ||
+          category.toLowerCase() == 'neurosurgery' ||
+          procedureLower.contains('craniot') ||
+          procedureLower.contains('craniec')) {
+        _addCategoryByName('Intracranial');
+      }
+    }
+
+    // 5. Parse procedures for specific mention of techniques
+    if (procedure['anesthesia_procedures'] != null) {
+      String procedures = procedure['anesthesia_procedures'];
+      Logger.debug('Anesthesia procedures: $procedures');
+
+      // Common procedures and corresponding categories (using COA official names)
+      Map<String, String> procedureMap = {
+        'arterial': 'Arterial puncture/catheter insertion (A-line)',
+        'art line': 'Arterial puncture/catheter insertion (A-line)',
+        'a-line': 'Arterial puncture/catheter insertion (A-line)',
+        'central': 'Central Venous Catheter (CVC)',
+        'cvl': 'Central Venous Catheter (CVC)',
+        'central venous': 'Central Venous Catheter (CVC)',
+        'ultrasound': 'Ultrasound guided techniques',
+        'laryngeal mask': 'Supraglottic airway (SGA) devices',
+        'lma': 'Supraglottic airway (SGA) devices',
+        'fiberoptic': 'Alternative tracheal intubation/endoscopic techniques',
+        'fiber optic': 'Alternative tracheal intubation/endoscopic techniques',
+        'tracheal': 'Tracheal intubation (ETT)',
+        'intubation': 'Tracheal intubation (ETT)',
+        'ett': 'Tracheal intubation (ETT)',
+        'iv': 'Intravenous catheter placement',
+        'intravenous': 'Intravenous catheter placement',
+        'chest x-ray': 'Assessment of chest x-ray (CXR)',
+        'cxr': 'Assessment of chest x-ray (CXR)',
+        'pulmonary artery': 'Pulmonary Artery Catheter',
+        'pa catheter': 'Pulmonary Artery Catheter',
+        'swan ganz': 'Pulmonary Artery Catheter',
+      };
+
+      String proceduresLower = procedures.toLowerCase();
+
+      // Check for each key phrase
+      procedureMap.forEach((key, categoryName) {
+        if (proceduresLower.contains(key)) {
+          _addCategoryByName(categoryName);
+
+          // Add associated monitoring categories
+          if (key == 'arterial' || key == 'art line' || key == 'a-line') {
+            _addCategoryByName('Intra-arterial blood pressure monitoring');
+          }
+          if (key == 'central' || key == 'cvl' || key == 'central venous') {
+            _addCategoryByName('Ultrasound guided techniques');
+            _addCategoryByName('Vascular');
+            _addCategoryByName('Assessment of chest x-ray (CXR)');
+          }
+          if (key == 'pulmonary artery' ||
+              key == 'pa catheter' ||
+              key == 'swan ganz') {
+            _addCategoryByName('Monitoring');
+          }
+        }
+      });
+
+      // Special handling for Neurosurgery procedures
+      if (category.toLowerCase() == 'neurosurgery') {
+        // Most neurosurgery procedures include arterial lines
+        if (proceduresLower.contains('arterial') ||
+            proceduresLower.contains('invasive')) {
+          _addCategoryByName('Arterial puncture/catheter insertion (A-line)');
+          _addCategoryByName('Intra-arterial blood pressure monitoring');
+        }
+      }
+    }
+
+    // 6. Handle specialty-specific categories
+    if (category.toLowerCase() == 'neurosurgery') {
+      // Neurosurgery specific handling
+      _addCategoryByName('Intracranial');
+
+      // Most neurosurgery procedures involve ASA III or higher patients
+      if (_selectedASAClass == 'ASA I' || _selectedASAClass == 'ASA II') {
+        _selectedASAClass = 'ASA III';
+        _addCategoryByName('ASA III');
+      }
+    }
+
+    // 7. Special procedure types
+    if (procedureLower.contains('cesarean') ||
+        procedureLower.contains('c-section')) {
+      _addCategoryByName('Obstetrical management');
+      _addCategoryByName('Cesarean delivery');
+    }
+
+    if (procedureLower.contains('trauma') ||
+        procedure['physical_status']?.toLowerCase().contains('emergency') ==
+            true ||
+        _isEmergency) {
+      _addCategoryByName('Trauma/Emergency (E)');
+    }
+  }
+
+  // Helper method to map anatomical categories from the procedure database
+  void _mapAnatomicalCategories(String anatomicalCategory) {
+    final String categoryLower = anatomicalCategory.toLowerCase();
+    Logger.debug('Mapping anatomical category: $categoryLower');
+
+    // Define anatomical category mappings - using official COA requirement names
+    final Map<String, List<String>> anatomicalMappings = {
+      'head': ['Intracranial'],
+      'neck': ['Neck'],
+      'chest': ['Intrathoracic'],
+      'abdomen': ['Intraabdominal'],
+      'spine': ['Neuroskeletal (spine)'],
+      'upper extremity': ['Upper Extremity'],
+      'lower extremity': ['Lower Extremity'],
+      'face': ['Oropharyngeal'],
+      'oral': ['Oropharyngeal'],
+      'nasal': ['Oropharyngeal'],
+      'ophthalmic': ['Oropharyngeal'],
+      'ear': ['Oropharyngeal'],
+      'nose': ['Oropharyngeal'],
+      'throat': ['Oropharyngeal'],
+      'breast': ['Intraabdominal'],
+      'cardiac': ['Heart'],
+      'thoracic': ['Intrathoracic'],
+      'vascular': ['Vascular'],
+      'orthopedic': ['Neuroskeletal (spine)'],
+      'urologic': ['Intraabdominal'],
+      'gynecologic': ['Intraabdominal'],
+      'obstetric': ['Obstetrical management'],
+      'pediatric': ['Pediatric 2-12 years'],
+      'trauma': ['Trauma/Emergency (E)'],
+      'emergency': ['Trauma/Emergency (E)'],
+      'laparoscopic': ['Intraabdominal'],
+    };
+
+    // Check for each anatomical category
+    anatomicalMappings.forEach((key, categories) {
+      if (categoryLower.contains(key)) {
+        categories.forEach((category) {
+          _addCategoryByName(category);
+        });
+      }
+    });
+
+    // Special handling for combined categories
+    if (categoryLower.contains('cardiac') &&
+        categoryLower.contains('thoracic')) {
+      _addCategoryByName('Heart');
+      _addCategoryByName('Intrathoracic');
+    }
+
+    if (categoryLower.contains('vascular') &&
+        categoryLower.contains('interventional')) {
+      _addCategoryByName('Vascular');
+    }
+  }
+
+  @override
+  void dispose() {
+    _procedureController.dispose();
+    _locationController.dispose();
+    _patientAgeController.dispose();
+    _notesController.dispose();
+    _durationController.dispose();
+    _searchController.dispose();
+    super.dispose();
+  }
+
+  Future<void> _selectDate(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: _selectedDate,
+      firstDate: DateTime(2000),
+      lastDate: DateTime.now(),
+    );
+    if (picked != null && picked != _selectedDate) {
+      setState(() {
+        _selectedDate = picked;
+      });
+    }
+  }
+
+  void _submitCase() {
+    if (_procedureController.text.isEmpty) {
+      setState(() {
+        _hasError = true;
+        _errorMessage = 'Please enter a procedure';
+      });
+      return;
+    }
+
+    if (_durationController.text.isEmpty) {
+      setState(() {
+        _hasError = true;
+        _errorMessage = 'Please enter a duration in hours';
+      });
+      return;
+    }
+
+    double duration = 0;
+    try {
+      duration = double.parse(_durationController.text);
+      if (duration <= 0) {
+        throw const FormatException('Duration must be greater than 0');
+      }
+    } catch (e) {
+      setState(() {
+        _hasError = true;
+        _errorMessage = 'Please enter a valid duration in hours (e.g. 2.5)';
+      });
+      return;
+    }
+
+    int patientAge = 0;
+    try {
+      patientAge = int.parse(_patientAgeController.text);
+      if (patientAge < 0 || patientAge > 120) {
+        throw const FormatException('Age must be between 0 and 120');
+      }
+    } catch (e) {
+      setState(() {
+        _hasError = true;
+        _errorMessage = 'Please enter a valid patient age (0-120)';
+      });
+      return;
+    }
+
+    // Create the case
+    ClinicalCase updatedCase = ClinicalCase(
+      id: widget.existingCase?.id ?? const Uuid().v4(),
+      date: _selectedDate,
+      procedure: _procedureController.text,
+      patientAge: patientAge,
+      patientGender: _selectedGender,
+      patientASA: _selectedASAClass,
+      isEmergency: _isEmergency,
+      anesthesiaTypes: _selectedAnesthesiaTypes.toList(),
+      categories: _selectedCategories.toList(),
+      duration: duration,
+      notes: _notesController.text,
+      uniqueCategories: _selectedCategories.map((c) => c.id).toSet().toList(),
+      isSimulated:
+          _isSimulatedCase, // Set the simulated flag based on the toggle
+    );
+
+    // Save the case
+    if (widget.existingCase != null) {
+      final navigationContext = context;
+      Provider.of<CaseProvider>(context, listen: false)
+          .updateCase(updatedCase)
+          .then((_) {
+            ScaffoldMessenger.of(navigationContext).showSnackBar(
+              const SnackBar(content: Text('Case updated successfully')),
+            );
+            Navigator.pop(navigationContext, true);
+          })
+          .catchError((error) {
+            setState(() {
+              _hasError = true;
+              _errorMessage = 'Error updating case: ${error.toString()}';
+            });
+          });
+    } else {
+      final navigationContext = context;
+      Provider.of<CaseProvider>(context, listen: false)
+          .addCase(updatedCase)
+          .then((_) {
+            ScaffoldMessenger.of(navigationContext).showSnackBar(
+              const SnackBar(content: Text('Case added successfully')),
+            );
+            Navigator.pop(navigationContext, true);
+          })
+          .catchError((error) {
+            setState(() {
+              _hasError = true;
+              _errorMessage = 'Error adding case: ${error.toString()}';
+            });
+          });
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          widget.existingCase != null
+              ? 'Edit Clinical Case'
+              : 'Add Clinical Case',
+        ),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+        actions: [
+          // Simulation toggle icon - made more prominent
+          Container(
+            margin: const EdgeInsets.only(right: 8.0),
+            padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+            decoration: BoxDecoration(
+              color:
+                  _isSimulatedCase
+                      ? Colors.amber.withOpacity(0.8)
+                      : Colors.transparent,
+              borderRadius: BorderRadius.circular(16.0),
+              border: Border.all(
+                color:
+                    _isSimulatedCase
+                        ? Colors.amber
+                        : Colors.white.withOpacity(0.5),
+                width: 1.0,
+              ),
+            ),
+            child: Tooltip(
+              message:
+                  _isSimulatedCase
+                      ? 'Switch to Actual Case'
+                      : 'Switch to Simulated Case',
+              child: InkWell(
+                onTap: () {
+                  setState(() {
+                    _isSimulatedCase = !_isSimulatedCase;
+                    // Clear selected categories when switching between actual and simulated
+                    _selectedCategories.clear();
+                  });
+                },
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Icon(
+                      _isSimulatedCase ? Icons.science : Icons.person,
+                      size: 20,
+                      color: Colors.white,
+                    ),
+                    const SizedBox(width: 4),
+                    Text(
+                      _isSimulatedCase ? 'Simulation' : 'Actual',
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontWeight:
+                            _isSimulatedCase
+                                ? FontWeight.bold
+                                : FontWeight.normal,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+      body:
+          _isLoadingProcedures
+              ? const Center(child: CircularProgressIndicator())
+              : _hasError
+              ? _buildErrorDisplay()
+              : _buildMainContent(),
+    );
+  }
+
+  Widget _buildErrorDisplay() {
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Icon(Icons.error_outline, color: Colors.red, size: 48.0),
+            const SizedBox(height: 16.0),
+            Text(
+              'Error Loading Data',
+              style: Theme.of(context).textTheme.headlineSmall,
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 8.0),
+            Text(
+              _errorMessage,
+              style: Theme.of(context).textTheme.bodyMedium,
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 24.0),
+            ElevatedButton(
+              onPressed: _loadProcedures,
+              child: const Text('Try Again'),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildMainContent() {
+    return SingleChildScrollView(
+      padding: const EdgeInsets.all(16),
+      child: Column(
+        children: [
+          // Show error message if there is one
+          if (_hasError)
+            Container(
+              padding: const EdgeInsets.all(8),
+              margin: const EdgeInsets.only(bottom: 16),
+              decoration: BoxDecoration(
+                color: Colors.red.shade100,
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: Row(
+                children: [
+                  const Icon(Icons.error_outline, color: Colors.red),
+                  const SizedBox(width: 8),
+                  Expanded(
+                    child: Text(
+                      _errorMessage,
+                      style: const TextStyle(color: Colors.red),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+
+          Form(
+            key: _formKey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                // Date Selection
+                _buildDatePicker(),
+                const SizedBox(height: 16),
+
+                // Procedure
+                _buildProcedureField(),
+                const SizedBox(height: 16),
+
+                // Patient Info Card
+                Card(
+                  margin: const EdgeInsets.symmetric(vertical: 8),
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Patient Information',
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        const SizedBox(height: 16),
+                        _buildPatientAgeField(),
+                        const SizedBox(height: 16),
+                        _buildGenderDropdown(),
+                        const SizedBox(height: 16),
+                        _buildASAClassification(),
+                        const SizedBox(height: 16),
+                        _buildEmergencyCaseToggle(),
+                        const SizedBox(height: 16),
+                        _buildPreanesthesiaAssessmentToggle(),
+                      ],
+                    ),
+                  ),
+                ),
+
+                // Anesthesia Information Card
+                Card(
+                  margin: const EdgeInsets.symmetric(vertical: 8),
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Anesthesia Information',
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        const SizedBox(height: 16),
+                        _buildAnesthesiaTypeDropdown(),
+                        const SizedBox(height: 16),
+                        _buildDurationField(),
+                        const SizedBox(height: 16),
+                        _buildPostanesthesiaAssessmentToggle(),
+                      ],
+                    ),
+                  ),
+                ),
+
+                // COA Categories section
+                _buildCategorySection(),
+
+                // Notes
+                TextFormField(
+                  controller: _notesController,
+                  maxLines: 4,
+                  decoration: const InputDecoration(
+                    labelText: 'Notes',
+                    hintText: 'Enter additional notes (optional)',
+                    alignLabelWithHint: true,
+                  ),
+                ),
+                const SizedBox(height: 24),
+
+                // Submit button
+                ElevatedButton(
+                  onPressed: _isLoading ? null : _submitCase,
+                  child:
+                      _isLoading
+                          ? const SizedBox(
+                            height: 20,
+                            width: 20,
+                            child: CircularProgressIndicator(
+                              strokeWidth: 2,
+                              color: Colors.white,
+                            ),
+                          )
+                          : Text(
+                            widget.existingCase != null
+                                ? 'Update Case'
+                                : 'Save Case',
+                          ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  // Build the Categories section with category chips (bubbles)
+  Widget _buildCategorySection() {
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Use LayoutBuilder to ensure the row fits within constraints
+            LayoutBuilder(
+              builder: (context, constraints) {
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Flexible(
+                          flex: 3,
+                          child: Text(
+                            'COA Requirements',
+                            style: styles.AppTextStyles.subtitle1.copyWith(
+                              fontWeight: FontWeight.bold,
+                            ),
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                        const SizedBox(width: 4),
+                        // Use IntrinsicWidth to only take the space needed
+                        IntrinsicWidth(
+                          child: TextButton.icon(
+                            icon: const Icon(Icons.add, size: 16),
+                            label: const Text(
+                              'Add',
+                              style: TextStyle(fontSize: 12),
+                            ),
+                            style: TextButton.styleFrom(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 6,
+                                vertical: 4,
+                              ),
+                              visualDensity: VisualDensity.compact,
+                              tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                            ),
+                            onPressed: _showCategoriesDialog,
+                          ),
+                        ),
+                      ],
+                    ),
+                    // Simulation status indicator
+                    if (_isSimulatedCase)
+                      Container(
+                        margin: const EdgeInsets.only(top: 8.0),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 10.0,
+                          vertical: 4.0,
+                        ),
+                        decoration: BoxDecoration(
+                          color: Colors.amber.withOpacity(0.2),
+                          borderRadius: BorderRadius.circular(12.0),
+                          border: Border.all(color: Colors.amber, width: 1.0),
+                        ),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Icon(
+                              Icons.science,
+                              size: 16,
+                              color: Colors.amber[800],
+                            ),
+                            const SizedBox(width: 4),
+                            Text(
+                              'Simulation Mode',
+                              style: TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.amber[800],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                  ],
+                );
+              },
+            ),
+            const Divider(),
+            _buildSelectedCategories(),
+          ],
+        ),
+      ),
+    );
+  }
+
+  // Build selected categories with chips (bubbles)
+  Widget _buildSelectedCategories() {
+    // Make sure we have a unique list of categories to display
+    final uniqueCategories =
+        Set<cat.CoaCategory>.from(_selectedCategories).toList();
+    // Sort categories for consistent display
+    uniqueCategories.sort((a, b) => a.name.compareTo(b.name));
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        _selectedCategories.isEmpty
+            ? Padding(
+              padding: const EdgeInsets.symmetric(vertical: 16.0),
+              child: Text(
+                'No categories selected yet. Add relevant categories for this case.',
+                style: TextStyle(
+                  color: colors.AppColors.textSecondary,
+                  fontStyle: FontStyle.italic,
+                ),
+              ),
+            )
+            : Padding(
+              padding: const EdgeInsets.symmetric(vertical: 8.0),
+              child: Wrap(
+                spacing: 8,
+                runSpacing: 10,
+                children:
+                    uniqueCategories.map((category) {
+                      // Group the categories by their group
+                      final groupName = category.group
+                          .split('_')
+                          .map((word) => word.capitalize())
+                          .join(' ');
+
+                      // Create a more attractive chip with group indicator
+                      return Chip(
+                        label: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              category.name,
+                              style: styles.AppTextStyles.bodyText2.copyWith(
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                            if (category.group.isNotEmpty)
+                              Text(
+                                groupName,
+                                style: TextStyle(
+                                  fontSize: 10,
+                                  color: colors.AppColors.textSecondary,
+                                ),
+                              ),
+                          ],
+                        ),
+                        backgroundColor:
+                            _isSimulatedCase
+                                ? Colors.amber.withOpacity(0.2)
+                                : colors.AppColors.background,
+                        deleteIcon: const Icon(Icons.cancel, size: 18),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(16),
+                          side: BorderSide(
+                            color:
+                                _isSimulatedCase
+                                    ? Colors.amber
+                                    : colors.AppColors.primaryColor.withOpacity(
+                                      0.3,
+                                    ),
+                            width: 1,
+                          ),
+                        ),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 12.0,
+                          vertical: 8.0,
+                        ),
+                        onDeleted: () {
+                          setState(() {
+                            _selectedCategories.remove(category);
+                          });
+                        },
+                      );
+                    }).toList(),
+              ),
+            ),
+      ],
+    );
+  }
+
+  // Show dialog to select categories
+  void _showCategoriesDialog() {
+    // Get the category provider
+    final categoryProvider = Provider.of<CategoryProvider>(
+      context,
+      listen: false,
+    );
+
+    // Get available categories
+    final List<cat.CoaCategory> availableCategories = _getAvailableCategories();
+
+    // Organize categories by group for better presentation
+    final Map<String, List<cat.CoaCategory>> categoriesByGroup = {};
+
+    for (var category in availableCategories) {
+      if (!categoriesByGroup.containsKey(category.group)) {
+        categoriesByGroup[category.group] = [];
+      }
+      categoriesByGroup[category.group]!.add(category);
+    }
+
+    // Order of priority for display
+    final List<String> priorityGroups = [
+      'vascular_access', // Placement categories
+      'other_procedures', // Ultrasound and POCUS
+      'anesthesia_types',
+      'regional_anesthesia',
+      'airway_management',
+    ];
+
+    // Sort groups by priority
+    final sortedGroups =
+        categoriesByGroup.keys.toList()..sort((a, b) {
+          final indexA = priorityGroups.indexOf(a);
+          final indexB = priorityGroups.indexOf(b);
+          if (indexA >= 0 && indexB >= 0) {
+            return indexA.compareTo(indexB);
+          } else if (indexA >= 0) {
+            return -1;
+          } else if (indexB >= 0) {
+            return 1;
+          } else {
+            return a.compareTo(b);
+          }
+        });
+
+    String searchQuery = '';
+    List<cat.CoaCategory> filteredCategories = List.from(availableCategories);
+    Map<String, List<cat.CoaCategory>> filteredCategoriesByGroup = Map.from(
+      categoriesByGroup,
+    );
+
+    showDialog(
+      context: context,
+      builder: (BuildContext dialogContext) {
+        // Get the device screen size to calculate appropriate dialog heights
+        final size = MediaQuery.of(dialogContext).size;
+        final keyboardVisible =
+            MediaQuery.of(dialogContext).viewInsets.bottom > 0;
+
+        // Calculate appropriate height based on screen size and keyboard visibility
+        final maxDialogHeight = size.height * (keyboardVisible ? 0.5 : 0.7);
+
+        return StatefulBuilder(
+          builder: (BuildContext context, StateSetter setDialogState) {
+            // Get updated keyboard visibility status
+            final updatedKeyboardVisible =
+                MediaQuery.of(context).viewInsets.bottom > 0;
+
+            // Filter categories based on search, including abbreviations
+            if (searchQuery.isEmpty) {
+              filteredCategories = List.from(availableCategories);
+              filteredCategoriesByGroup = Map.from(categoriesByGroup);
+            } else {
+              final lowerQuery = searchQuery.toLowerCase();
+
+              // Check for abbreviations first
+              String? expandedSearch;
+              for (final entry in _categoryAbbreviations.entries) {
+                if (entry.key.toLowerCase() == lowerQuery) {
+                  expandedSearch = entry.value.toLowerCase();
+                  break;
+                }
+              }
+
+              filteredCategories =
+                  availableCategories.where((category) {
+                    final lowerCatName = category.name.toLowerCase();
+
+                    // Match direct name
+                    if (lowerCatName.contains(lowerQuery)) {
+                      return true;
+                    }
+
+                    // Match expanded abbreviation if found
+                    if (expandedSearch != null &&
+                        lowerCatName.contains(expandedSearch)) {
+                      return true;
+                    }
+
+                    // Match keywords
+                    for (final keyword in category.keywords) {
+                      if (keyword.toLowerCase().contains(lowerQuery)) {
+                        return true;
+                      }
+                    }
+
+                    return false;
+                  }).toList();
+
+              // Rebuild the filtered groups
+              filteredCategoriesByGroup = {};
+              for (var category in filteredCategories) {
+                if (!filteredCategoriesByGroup.containsKey(category.group)) {
+                  filteredCategoriesByGroup[category.group] = [];
+                }
+                filteredCategoriesByGroup[category.group]!.add(category);
+              }
+            }
+
+            return Dialog(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Container(
+                constraints: BoxConstraints(
+                  maxHeight: maxDialogHeight,
+                  maxWidth: size.width * 0.9,
+                ),
+                padding: const EdgeInsets.all(16),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Text(
+                      _isSimulatedCase
+                          ? 'SIMULATED CATEGORIES'
+                          : 'ACTUAL CATEGORIES',
+                      style: styles.AppTextStyles.headline1,
+                    ),
+                    const SizedBox(height: 16),
+                    TextField(
+                      controller: _searchController,
+                      decoration: const InputDecoration(
+                        hintText:
+                            'Search categories or abbreviations (e.g., ETT)...',
+                        prefixIcon: Icon(Icons.search),
+                        border: OutlineInputBorder(),
+                      ),
+                      onChanged: (value) {
+                        setDialogState(() {
+                          searchQuery = value;
+                        });
+                      },
+                    ),
+                    const SizedBox(height: 8),
+
+                    // Category list grouped by category type - Expanded takes remaining space
+                    Expanded(
+                      child: ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: sortedGroups.length,
+                        itemBuilder: (context, groupIndex) {
+                          final groupId = sortedGroups[groupIndex];
+                          // Skip groups with no categories after filtering
+                          if (!filteredCategoriesByGroup.containsKey(groupId) ||
+                              filteredCategoriesByGroup[groupId]!.isEmpty) {
+                            return const SizedBox.shrink();
+                          }
+
+                          // Get categories for this group
+                          final groupCategories =
+                              filteredCategoriesByGroup[groupId]!;
+
+                          // Generate a readable group name
+                          String groupName = groupId
+                              .split('_')
+                              .map((word) => word.capitalize())
+                              .join(' ');
+
+                          return Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              // Group header with improved styling
+                              Container(
+                                width: double.infinity,
+                                padding: const EdgeInsets.symmetric(
+                                  vertical: 10.0,
+                                  horizontal: 12.0,
+                                ),
+                                decoration: BoxDecoration(
+                                  color: Theme.of(
+                                    context,
+                                  ).primaryColor.withOpacity(0.1),
+                                  borderRadius: BorderRadius.circular(8.0),
+                                ),
+                                child: Text(
+                                  groupName,
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 16.0,
+                                    color: Theme.of(context).primaryColor,
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(height: 8.0),
+                              // Categories in this group with improved styling
+                              ...groupCategories.map((category) {
+                                final isSelected = _selectedCategories.contains(
+                                  category,
+                                );
+
+                                return Card(
+                                  elevation: 0,
+                                  color:
+                                      isSelected
+                                          ? Theme.of(
+                                            context,
+                                          ).primaryColor.withOpacity(0.1)
+                                          : null,
+                                  margin: const EdgeInsets.symmetric(
+                                    vertical: 2.0,
+                                  ),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(8.0),
+                                    side: BorderSide(
+                                      color:
+                                          isSelected
+                                              ? Theme.of(context).primaryColor
+                                              : Colors.transparent,
+                                      width: 1.0,
+                                    ),
+                                  ),
+                                  child: ListTile(
+                                    dense: true,
+                                    title: Text(
+                                      category.name,
+                                      style: TextStyle(
+                                        fontWeight:
+                                            isSelected
+                                                ? FontWeight.bold
+                                                : FontWeight.normal,
+                                      ),
+                                    ),
+                                    subtitle:
+                                        category.description.isNotEmpty
+                                            ? Text(
+                                              category.description,
+                                              maxLines: 1,
+                                              overflow: TextOverflow.ellipsis,
+                                              style: TextStyle(
+                                                fontSize: 12.0,
+                                                color: Colors.grey[600],
+                                              ),
+                                            )
+                                            : null,
+                                    trailing:
+                                        isSelected
+                                            ? const Icon(
+                                              Icons.check_circle,
+                                              color: Colors.green,
+                                            )
+                                            : const Icon(
+                                              Icons.add_circle_outline,
+                                            ),
+                                    onTap: () {
+                                      setDialogState(() {
+                                        if (isSelected) {
+                                          setState(() {
+                                            _selectedCategories.remove(
+                                              category,
+                                            );
+                                          });
+                                        } else {
+                                          setState(() {
+                                            _selectedCategories.add(category);
+
+                                            // Special handling for Labor Analgesia
+                                            if (category.name ==
+                                                'Analgesia for Labor') {
+                                              // For labor analgesia, set epidural as the anesthesia type
+                                              _selectedAnesthesiaTypes.clear();
+                                              _selectedAnesthesiaTypes.add(
+                                                'epidural',
+                                              );
+                                              _addCategoryByName(
+                                                'Epidural Anesthesia',
+                                              );
+                                              _addCategoryByName(
+                                                'Obstetrical Management',
+                                              );
+
+                                              // Set gender to female
+                                              _selectedGender = 'Female';
+
+                                              // Set default age to 30
+                                              _patientAgeController.text = '30';
+                                              _updateAgeCategory(30);
+                                            }
+                                          });
+                                        }
+                                      });
+                                    },
+                                  ),
+                                );
+                              }).toList(),
+                              const Divider(),
+                            ],
+                          );
+                        },
+                      ),
+                    ),
+
+                    // Buttons at the bottom
+                    Padding(
+                      padding: const EdgeInsets.only(top: 8.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          TextButton(
+                            onPressed: () => Navigator.pop(context),
+                            child: const Text('Cancel'),
+                          ),
+                          ElevatedButton(
+                            onPressed: () => Navigator.pop(context),
+                            child: const Text('Done'),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            );
+          },
+        );
+      },
+    );
+  }
+
+  List<cat.CoaCategory> _getAvailableCategories() {
+    // Get the category provider to access helper methods
+    final categoryProvider = Provider.of<CategoryProvider>(
+      context,
+      listen: false,
+    );
+
+    // Use the built-in provider methods that already handle simulation vs actual correctly
+    List<cat.CoaCategory> availableCategories =
+        _isSimulatedCase
+            ? categoryProvider.selectableSimulatedCategories
+            : categoryProvider.selectableActualCategories;
+
+    return availableCategories;
+  }
+
+  // Build date picker
+  Widget _buildDatePicker() {
+    return InkWell(
+      onTap: () => _selectDate(context),
+      child: InputDecorator(
+        decoration: const InputDecoration(
+          labelText: 'Date',
+          border: OutlineInputBorder(),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              DateFormat('MMM dd, yyyy').format(_selectedDate),
+              style: const TextStyle(fontSize: 16),
+            ),
+            const Icon(Icons.calendar_today),
+          ],
+        ),
+      ),
+    );
+  }
+
+  // Build procedure field with autocomplete
+  Widget _buildProcedureField() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        TextFormField(
+          controller: _procedureController,
+          decoration: const InputDecoration(
+            labelText: 'Procedure',
+            hintText: 'Enter procedure name',
+            border: OutlineInputBorder(),
+          ),
+          onChanged: (value) {
+            if (!_isAnesthesiaProcedure) {
+              _updateProcedureSuggestions(value);
+            }
+          },
+          validator: (value) {
+            if (value == null || value.isEmpty) {
+              return 'Please enter a procedure';
+            }
+            return null;
+          },
+        ),
+        if (_procedureSuggestions.isNotEmpty && !_isAnesthesiaProcedure)
+          Container(
+            margin: const EdgeInsets.only(top: 4),
+            decoration: BoxDecoration(
+              border: Border.all(color: Colors.grey.shade300),
+              borderRadius: BorderRadius.circular(4),
+              color: Colors.white,
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.3),
+                  spreadRadius: 1,
+                  blurRadius: 3,
+                  offset: const Offset(0, 2),
+                ),
+              ],
+            ),
+            constraints: const BoxConstraints(maxHeight: 200),
+            child: ListView.builder(
+              shrinkWrap: true,
+              itemCount: _procedureSuggestions.length,
+              itemBuilder: (context, index) {
+                final suggestion = _procedureSuggestions[index];
+                return ListTile(
+                  title: _highlightMatchedText(
+                    suggestion,
+                    _procedureController.text,
+                  ),
+                  dense: true,
+                  onTap: () {
+                    _selectProcedure(suggestion);
+                  },
+                );
+              },
+            ),
+          ),
+
+        // Add Anesthesia Procedure toggle below procedure field
+        const SizedBox(height: 16),
+        Row(
+          children: [
+            const Expanded(
+              child: Text(
+                'Anesthesia Procedure',
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              ),
+            ),
+            _buildThemeAwareSwitch(
+              value: _isAnesthesiaProcedure,
+              onChanged: (value) {
+                setState(() {
+                  _isAnesthesiaProcedure = value;
+                  if (value) {
+                    // Clear procedure suggestions when toggling to anesthesia procedure
+                    _procedureSuggestions = [];
+                    // Set default category if none selected
+                    if (_selectedAnesthesiaProcedureCategory.isEmpty &&
+                        _anesthesiaProcedures.isNotEmpty) {
+                      _selectedAnesthesiaProcedureCategory =
+                          _anesthesiaProcedures.keys.first;
+                      // Set default procedure from the category
+                      if (_anesthesiaProcedures[_selectedAnesthesiaProcedureCategory]!
+                          .isNotEmpty) {
+                        _selectedAnesthesiaProcedure =
+                            _anesthesiaProcedures[_selectedAnesthesiaProcedureCategory]!
+                                .first;
+                        // Update procedure name in the text field
+                        _procedureController.text =
+                            _selectedAnesthesiaProcedure;
+                        // Update categories based on selected procedure
+                        _updateCategoriesBasedOnAnesthesiaProcedure();
+                      }
+                    }
+                  }
+                });
+              },
+            ),
+          ],
+        ),
+
+        // Show anesthesia procedure selection when toggle is ON
+        if (_isAnesthesiaProcedure) ...[
+          const SizedBox(height: 16),
+          // Category dropdown
+          DropdownButtonFormField<String>(
+            decoration: const InputDecoration(
+              labelText: 'Procedure Category',
+              border: OutlineInputBorder(),
+              isDense: true, // Make the dropdown more compact
+            ),
+            isExpanded: true, // Allow dropdown to take full width
+            value:
+                _selectedAnesthesiaProcedureCategory.isEmpty
+                    ? _anesthesiaProcedures.keys.first
+                    : _selectedAnesthesiaProcedureCategory,
+            items:
+                _anesthesiaProcedures.keys.map((category) {
+                  return DropdownMenuItem(
+                    value: category,
+                    child: Text(
+                      category,
+                      overflow: TextOverflow.ellipsis, // Handle overflow text
+                    ),
+                  );
+                }).toList(),
+            onChanged: (value) {
+              if (value != null) {
+                setState(() {
+                  _selectedAnesthesiaProcedureCategory = value;
+                  // Reset the selected procedure when category changes
+                  if (_anesthesiaProcedures[value]!.isNotEmpty) {
+                    _selectedAnesthesiaProcedure =
+                        _anesthesiaProcedures[value]!.first;
+                    // Update procedure name in the text field
+                    _procedureController.text = _selectedAnesthesiaProcedure;
+                    // Update categories based on selected procedure
+                    _updateCategoriesBasedOnAnesthesiaProcedure();
+                  }
+                });
+              }
+            },
+          ),
+
+          const SizedBox(height: 16),
+
+          // Specific procedure dropdown
+          DropdownButtonFormField<String>(
+            decoration: const InputDecoration(
+              labelText: 'Specific Procedure',
+              border: OutlineInputBorder(),
+              isDense: true, // Make the dropdown more compact
+            ),
+            isExpanded: true, // Allow dropdown to take full width
+            value:
+                _selectedAnesthesiaProcedure.isEmpty &&
+                        _selectedAnesthesiaProcedureCategory.isNotEmpty
+                    ? _anesthesiaProcedures[_selectedAnesthesiaProcedureCategory]!
+                        .first
+                    : _selectedAnesthesiaProcedure,
+            items:
+                _selectedAnesthesiaProcedureCategory.isNotEmpty
+                    ? _anesthesiaProcedures[_selectedAnesthesiaProcedureCategory]!
+                        .map((procedure) {
+                          return DropdownMenuItem(
+                            value: procedure,
+                            child: Text(
+                              procedure,
+                              overflow:
+                                  TextOverflow.ellipsis, // Handle overflow text
+                            ),
+                          );
+                        })
+                        .toList()
+                    : [],
+            onChanged: (value) {
+              if (value != null) {
+                setState(() {
+                  _selectedAnesthesiaProcedure = value;
+                  // Update procedure name in the text field
+                  _procedureController.text = value;
+                  // Update categories based on selected procedure
+                  _updateCategoriesBasedOnAnesthesiaProcedure();
+                });
+              }
+            },
+          ),
+        ],
+      ],
+    );
+  }
+
+  void _updateCategoriesBasedOnAnesthesiaProcedure() {
+    // Clear previous procedure-related categories
+    _removeCategoryByName('Epidural Anesthesia');
+    _removeCategoryByName('Peripheral Anesthesia upper');
+    _removeCategoryByName('Peripheral Anesthesia lower');
+    _removeCategoryByName('Regional Anesthesia Other');
+    _removeCategoryByName('Ultrasound guided techniques (total of a & b)');
+    _removeCategoryByName('Central Venous Catheter (CVC)');
+    _removeCategoryByName('Arterial puncture/catheter insertion (A-line)');
+    _removeCategoryByName('Tracheal Intubation');
+    _removeCategoryByName('Ultrasound Guided Regional');
+    _removeCategoryByName('Ultrasound Guided Vascular');
+    _removeCategoryByName('Assessment of Chest X-Ray (CXR)');
+    _removeCategoryByName('Intra-arterial Blood Pressure Monitoring');
+    _removeCategoryByName('Pulmonary Artery Catheter Monitoring');
+    _removeCategoryByName('Epidural Pain management');
+    _removeCategoryByName('Oral Tracheal intubation (ETT)');
+
+    if (_isAnesthesiaProcedure && _selectedAnesthesiaProcedure.isNotEmpty) {
+      // Set appropriate categories based on the selected procedure
+      switch (_selectedAnesthesiaProcedure) {
+        case 'Thoracic Epidural':
+        case 'Lumbar Epidural':
+          _addCategoryByName('Epidural Anesthesia');
+          _addCategoryByName('Epidural Pain management');
+          break;
+        case 'Regional Anesthesia Upper':
+          _addCategoryByName('Peripheral Anesthesia upper');
+          _addCategoryByName('Ultrasound Guided Regional');
+          break;
+        case 'Regional Anesthesia Lower':
+          _addCategoryByName('Peripheral Anesthesia lower');
+          _addCategoryByName('Ultrasound Guided Regional');
+          break;
+        case 'Regional Anesthesia Other':
+          _addCategoryByName('Regional Anesthesia Other');
+          _addCategoryByName('Ultrasound Guided Regional');
+          break;
+        case 'Gastric Ultrasound':
+        case 'Transthoracic Echocardiogram (TTE)':
+        case 'Transesophageal Echocardiogram (TEE)':
+          _addCategoryByName('Ultrasound guided techniques (total of a & b)');
+          break;
+        case 'Assessment of Chest X-Ray':
+          _addCategoryByName('Assessment of Chest X-Ray (CXR)');
+          break;
+        case 'Central Line Placement':
+          _addCategoryByName('Central Venous Catheter (CVC)');
+          _addCategoryByName('Ultrasound Guided Vascular');
+          _addCategoryByName('Assessment of Chest X-Ray (CXR)');
+          break;
+        case 'Arterial Line Placement':
+          _addCategoryByName('Arterial puncture/catheter insertion (A-line)');
+          _addCategoryByName('Intra-arterial Blood Pressure Monitoring');
+          break;
+        case 'Tracheal Intubation':
+          _addCategoryByName('Oral Tracheal intubation (ETT)');
+          break;
+        case 'Pulmonary Artery Catheter Placement':
+          _addCategoryByName('Pulmonary Artery Catheter Placement');
+          _addCategoryByName('Pulmonary Artery Catheter Monitoring');
+          _addCategoryByName('Ultrasound Guided Vascular');
+          break;
+      }
+
+      // For all procedures in the Imaging Assessments category, add the CXR assessment requirement
+      if (_selectedAnesthesiaProcedureCategory == 'Imaging Assessments') {
+        _addCategoryByName('Assessment of Chest X-Ray (CXR)');
+      }
+
+      // Update the procedure name in the controller for clarity
+      _procedureController.text =
+          'Anesthesia Procedure: $_selectedAnesthesiaProcedure';
+    }
+  }
+
+  // Build a theme-aware switch that's visible in both light and dark mode
+  Widget _buildThemeAwareSwitch({
+    required bool value,
+    required ValueChanged<bool> onChanged,
+  }) {
+    final isDarkMode = Provider.of<ThemeProvider>(context).isDarkMode;
+
+    return Switch(
+      value: value,
+      onChanged: onChanged,
+      activeColor: isDarkMode ? Colors.lightBlueAccent : null,
+      activeTrackColor: isDarkMode ? Colors.blue[700] : null,
+      inactiveThumbColor: isDarkMode ? Colors.grey[300] : null,
+      inactiveTrackColor: isDarkMode ? Colors.grey[700] : null,
+    );
+  }
+
+  // Build emergency case toggle
+  Widget _buildEmergencyCaseToggle() {
+    return Row(
+      children: [
+        const Expanded(
+          child: Text('Emergency Case', style: TextStyle(fontSize: 16)),
+        ),
+        _buildThemeAwareSwitch(
+          value: _isEmergency,
+          onChanged: (value) {
+            setState(() {
+              _isEmergency = value;
+              if (value) {
+                // Add the trauma/emergency category
+                _addCategoryByName('Trauma / Emergency (E)');
+              } else {
+                // Remove the trauma/emergency category
+                _selectedCategories.removeWhere(
+                  (c) => c.id == 'trauma_emergency',
+                );
+              }
+            });
+          },
+        ),
+      ],
+    );
+  }
+
+  // Build preanesthesia assessment toggle
+  Widget _buildPreanesthesiaAssessmentToggle() {
+    return Row(
+      children: [
+        const Expanded(
+          child: Text(
+            'Preanesthesia Assessment',
+            style: TextStyle(fontSize: 16),
+          ),
+        ),
+        _buildThemeAwareSwitch(
+          value: _didPreanesthesiaAssessment,
+          onChanged: (value) {
+            setState(() {
+              _didPreanesthesiaAssessment = value;
+              if (value) {
+                // Add the preanesthesia assessment category
+                _addCategoryById('preanesthesia_assessment');
+              } else {
+                // Remove the preanesthesia assessment category
+                _removeCategoryById('preanesthesia_assessment');
+              }
+            });
+          },
+        ),
+      ],
+    );
+  }
+
+  // Build postanesthesia assessment toggle
+  Widget _buildPostanesthesiaAssessmentToggle() {
+    return Row(
+      children: [
+        const Expanded(
+          child: Text(
+            'Postanesthesia Assessment',
+            style: TextStyle(fontSize: 16),
+          ),
+        ),
+        _buildThemeAwareSwitch(
+          value: _didPostanesthesiaAssessment,
+          onChanged: (value) {
+            setState(() {
+              _didPostanesthesiaAssessment = value;
+              if (value) {
+                // Add the postanesthesia assessment category
+                _addCategoryById('postanesthesia_assessment');
+              } else {
+                // Remove the postanesthesia assessment category
+                _removeCategoryById('postanesthesia_assessment');
+              }
+            });
+          },
+        ),
+      ],
+    );
+  }
+
+  // Build patient age field
+  Widget _buildPatientAgeField() {
+    return TextFormField(
+      controller: _patientAgeController,
+      decoration: const InputDecoration(
+        labelText: 'Patient Age',
+        hintText: 'Enter patient age',
+        border: OutlineInputBorder(),
+      ),
+      keyboardType: TextInputType.number,
+      validator: (value) {
+        if (value == null || value.isEmpty) {
+          return 'Please enter patient age';
+        }
+        final age = int.tryParse(value);
+        if (age == null || age < 0 || age > 120) {
+          return 'Please enter a valid age between 0 and 120';
+        }
+        return null;
+      },
+      onChanged: (value) {
+        final age = int.tryParse(value);
+        if (age != null && age >= 0 && age <= 120) {
+          _updateAgeCategory(age);
+        }
+      },
+    );
+  }
+
+  // Update age category based on patient age
+  void _updateAgeCategory(int age) {
+    setState(() {
+      // Remove all existing age categories
+      _selectedCategories.removeWhere(
+        (category) =>
+            category.id == 'geriatric' ||
+            category.id == 'pediatric_2_12' ||
+            category.id == 'pediatric_under_2' ||
+            category.id == 'neonate',
+      );
+
+      // Add the appropriate age category based on age
+      String? categoryId;
+      if (age < 1) {
+        categoryId = 'neonate';
+      } else if (age < 2) {
+        categoryId = 'pediatric_under_2';
+      } else if (age < 13) {
+        categoryId = 'pediatric_2_12';
+      } else if (age >= 65) {
+        categoryId = 'geriatric';
+      }
+
+      // If a category was selected, add it
+      if (categoryId != null) {
+        try {
+          final ageCategory = CoaConstants.categories.firstWhere(
+            (category) => category.id == categoryId,
+          );
+          _selectedCategories.add(ageCategory);
+        } catch (e) {
+          debugPrint('Error adding age category: $e');
+        }
+      }
+    });
+  }
+
+  // Build gender dropdown
+  Widget _buildGenderDropdown() {
+    return DropdownButtonFormField<String>(
+      decoration: const InputDecoration(
+        labelText: 'Patient Gender',
+        border: OutlineInputBorder(),
+      ),
+      value: _selectedGender,
+      items:
+          _genderOptions.map((gender) {
+            return DropdownMenuItem(value: gender, child: Text(gender));
+          }).toList(),
+      onChanged: (newValue) {
+        if (newValue != null) {
+          setState(() {
+            _selectedGender = newValue;
+          });
+        }
+      },
+    );
+  }
+
+  // Build ASA classification dropdown
+  Widget _buildASAClassification() {
+    return DropdownButtonFormField<String>(
+      decoration: const InputDecoration(
+        labelText: 'ASA Classification',
+        border: OutlineInputBorder(),
+      ),
+      value: _selectedASAClass,
+      items:
+          _asaOptions.map((asaClass) {
+            return DropdownMenuItem(value: asaClass, child: Text(asaClass));
+          }).toList(),
+      onChanged: (newValue) {
+        if (newValue != null) {
+          setState(() {
+            _selectedASAClass = newValue;
+            _updateASAStatus(newValue);
+          });
+        }
+      },
+    );
+  }
+
+  void _updateASAStatus(String asaClass) {
+    setState(() {
+      // Remove all existing ASA categories
+      _selectedCategories.removeWhere(
+        (category) =>
+            category.id == 'asa_3' ||
+            category.id == 'asa_4' ||
+            category.id == 'asa_5',
+      );
+
+      // Add the new ASA category if applicable
+      String? categoryId;
+      switch (asaClass) {
+        case 'ASA III':
+          categoryId = 'asa_3';
+          break;
+        case 'ASA IV':
+          categoryId = 'asa_4';
+          break;
+        case 'ASA V':
+          categoryId = 'asa_5';
+          break;
+        default:
+          return;
+      }
+
+      final asaCategory = CoaConstants.categories.firstWhere(
+        (category) => category.id == categoryId,
+      );
+      _selectedCategories.add(asaCategory);
+    });
+  }
+
+  // Helper method to get category ID by name
+  String _getCategoryId(String categoryName) {
+    return CoaConstants.categories
+        .firstWhere(
+          (cat) => cat.name == categoryName,
+          orElse: () => CoaConstants.categories.first,
+        )
+        .id;
+  }
+
+  // Helper method to add a category by name
+  void _addCategoryByName(String categoryName) {
+    // Get the category provider
+    final categoryProvider = Provider.of<CategoryProvider>(
+      context,
+      listen: false,
+    );
+    final category = categoryProvider.getCategoryByName(categoryName);
+
+    // If found and not already selected, add it
+    if (category != null) {
+      setState(() {
+        // Check if category is already in the list to avoid duplicates
+        if (!_selectedCategories.any((c) => c.id == category.id)) {
+          _selectedCategories.add(category);
+          // Log for debugging
+          Logger.debug('Added category: ${category.name}');
+        }
+      });
+    } else {
+      Logger.warn('Could not find category: $categoryName');
+    }
+  }
+
+  Widget _highlightMatchedText(String text, String query) {
+    final RegExp regex = RegExp(query, caseSensitive: false);
+    final List<TextSpan> spans = [];
+    int lastIndex = 0;
+
+    for (final Match match in regex.allMatches(text)) {
+      spans.add(
+        TextSpan(
+          text: text.substring(lastIndex, match.start),
+          style: const TextStyle(color: Colors.black54),
+        ),
+      );
+      spans.add(
+        TextSpan(
+          text: text.substring(match.start, match.end),
+          style: const TextStyle(
+            color: Colors.blue,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      );
+      lastIndex = match.end;
+    }
+
+    spans.add(
+      TextSpan(
+        text: text.substring(lastIndex),
+        style: const TextStyle(color: Colors.black54),
+      ),
+    );
+
+    return Text.rich(TextSpan(children: spans));
+  }
+
+  Widget _buildAnesthesiaTypeDropdown() {
+    // Don't show the anesthesia type dropdown if we're in anesthesia procedure mode
+    if (_isAnesthesiaProcedure) {
+      return const SizedBox.shrink();
+    }
+
+    final anesthesiaTypes = [
+      {'value': 'general_anesthesia', 'label': 'General Anesthesia'},
+      {'value': 'spinal', 'label': 'Spinal'},
+      {'value': 'epidural', 'label': 'Epidural'},
+      {'value': 'mac', 'label': 'MAC'},
+      {'value': 'regional_upper', 'label': 'Upper Extremity Block'},
+      {'value': 'regional_lower', 'label': 'Lower Extremity Block'},
+      {
+        'value': 'combined_spinal_epidural',
+        'label': 'Combined Spinal-Epidural',
+      },
+    ];
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Text('Primary Anesthetic'),
+        const SizedBox(height: 8),
+        Container(
+          decoration: BoxDecoration(
+            border: Border.all(color: Colors.grey),
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: Material(
+            color: Colors.transparent,
+            child: InkWell(
+              borderRadius: BorderRadius.circular(8),
+              onTap: _showAnesthesiaTypesDialog,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 12,
+                ),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Text(
+                        _selectedAnesthesiaTypes.isEmpty
+                            ? 'Select primary anesthetic'
+                            : anesthesiaTypes.firstWhere(
+                                  (type) =>
+                                      type['value'] ==
+                                      _selectedAnesthesiaTypes.first,
+                                )['label']
+                                as String,
+                      ),
+                    ),
+                    const Icon(Icons.arrow_drop_down),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  void _showAnesthesiaTypesDialog() {
+    final anesthesiaTypes = [
+      {'value': 'general_anesthesia', 'label': 'General Anesthesia'},
+      {'value': 'spinal', 'label': 'Spinal'},
+      {'value': 'epidural', 'label': 'Epidural'},
+      {'value': 'mac', 'label': 'MAC'},
+      {'value': 'regional_upper', 'label': 'Upper Extremity Block'},
+      {'value': 'regional_lower', 'label': 'Lower Extremity Block'},
+      {
+        'value': 'combined_spinal_epidural',
+        'label': 'Combined Spinal-Epidural',
+      },
+    ];
+
+    // Initialize selected type
+    String selectedType =
+        _selectedAnesthesiaTypes.isNotEmpty
+            ? _selectedAnesthesiaTypes.first
+            : anesthesiaTypes.first['value'] as String;
+
+    showDialog(
+      context: context,
+      builder: (BuildContext dialogContext) {
+        return StatefulBuilder(
+          builder: (BuildContext context, StateSetter setDialogState) {
+            return AlertDialog(
+              title: const Text('Select Primary Anesthetic'),
+              content: SingleChildScrollView(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children:
+                      anesthesiaTypes.map((type) {
+                        return RadioListTile<String>(
+                          title: Text(type['label'] as String),
+                          value: type['value'] as String,
+                          groupValue: selectedType,
+                          onChanged: (String? value) {
+                            if (value != null) {
+                              setDialogState(() {
+                                selectedType = value;
+                              });
+                            }
+                          },
+                        );
+                      }).toList(),
+                ),
+              ),
+              actions: [
+                TextButton(
+                  onPressed: () => Navigator.pop(context),
+                  child: const Text('Cancel'),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    // Update with single selection
+                    setState(() {
+                      _selectedAnesthesiaTypes.clear();
+                      _selectedAnesthesiaTypes.add(selectedType);
+                      _updateCategoriesBasedOnAnesthesiaTypes();
+                    });
+                    Navigator.pop(context);
+                  },
+                  child: const Text('Save'),
+                ),
+              ],
+            );
+          },
+        );
+      },
+    );
+  }
+
+  void _updateCategoriesBasedOnAnesthesiaTypes() {
+    // Remove all existing anesthesia type categories
+    _selectedCategories.removeWhere(
+      (category) => category.group == 'anesthesia_types',
+    );
+
+    // Remove tracheal intubation if general anesthesia is not selected
+    if (!_selectedAnesthesiaTypes.contains('general_anesthesia')) {
+      _selectedCategories.removeWhere(
+        (category) => category.id == 'tracheal_intubation',
+      );
+    }
+
+    // Add categories for each selected anesthesia type
+    for (final typeId in _selectedAnesthesiaTypes) {
+      final category = CoaConstants.categories.firstWhere(
+        (category) => category.id == typeId,
+        orElse:
+            () => cat.CoaCategory(
+              id: typeId,
+              name: 'Unknown',
+              requiredCount: 0,
+              description: 'Unknown category',
+              group: 'unknown',
+              isRequired: false,
+            ),
+      );
+      _selectedCategories.add(category);
+
+      // Add Tracheal Intubation for General Anesthesia
+      if (typeId == 'general_anesthesia') {
+        final trachealIntubation = CoaConstants.categories.firstWhere(
+          (category) => category.id == 'tracheal_intubation',
+          orElse:
+              () => CoaConstants.categories.firstWhere(
+                (category) =>
+                    category.name.toLowerCase() == 'tracheal intubation',
+                orElse:
+                    () => cat.CoaCategory(
+                      id: 'tracheal_intubation',
+                      name: 'Tracheal Intubation',
+                      requiredCount: 0,
+                      description: 'Endotracheal intubation (ETT)',
+                      group: 'airway_management',
+                      isRequired: false,
+                    ),
+              ),
+        );
+        if (!_selectedCategories.contains(trachealIntubation)) {
+          _selectedCategories.add(trachealIntubation);
+        }
+      } else if (typeId == 'regional_upper' ||
+          typeId == 'regional_lower' ||
+          typeId == 'regional_other' ||
+          typeId.contains('pain_management')) {
+        // Add ultrasound guided regional for any regional anesthesia or pain management
+        _addCategoryByName('Ultrasound Guided Regional');
+      }
+    }
+  }
+
+  // Parse anesthesia procedures from the database
+  void _parseAnesthesiaProcedures(String procedures) {
+    if (procedures.isEmpty) return;
+
+    String proceduresLower = procedures.toLowerCase();
+
+    // Check for endotracheal intubation (ETT)
+    if (proceduresLower.contains('endotracheal') ||
+        proceduresLower.contains('intubation') ||
+        proceduresLower.contains('ett')) {
+      _addCategoryByName('Tracheal Intubation');
+    }
+
+    // Check for central venous catheter
+    if (proceduresLower.contains('central') ||
+        proceduresLower.contains('cvc') ||
+        proceduresLower.contains('central venous')) {
+      _addCategoryByName('Central Line Placement');
+      _addCategoryByName('Ultrasound Guided Vascular');
+      _addCategoryByName('Assessment of chest x-ray (CXR)');
+    }
+
+    // Check for arterial line
+    if (proceduresLower.contains('arterial') ||
+        proceduresLower.contains('a-line') ||
+        proceduresLower.contains('a line')) {
+      _addCategoryByName('Arterial Line Placement');
+      _addCategoryByName('Intra-arterial Blood Pressure Monitoring');
+    }
+
+    // Check for PA catheter
+    if (proceduresLower.contains('pulmonary artery') ||
+        proceduresLower.contains('pa catheter') ||
+        proceduresLower.contains('swan ganz')) {
+      _addCategoryByName('Pulmonary Artery Catheter Placement');
+      _addCategoryByName('Pulmonary Artery Catheter Monitoring');
+      _addCategoryByName('Ultrasound Guided Vascular');
+    }
+
+    // Check for regional blocks
+    if (proceduresLower.contains('regional') ||
+        proceduresLower.contains('block')) {
+      if (proceduresLower.contains('upper')) {
+        _addCategoryByName('Regional Anesthesia Upper');
+        _addCategoryByName('Ultrasound Guided Regional');
+      } else if (proceduresLower.contains('lower')) {
+        _addCategoryByName('Regional Anesthesia Lower');
+        _addCategoryByName('Ultrasound Guided Regional');
+      } else {
+        // Generic regional
+        _addCategoryByName('Ultrasound Guided Regional');
+      }
+    }
+  }
+
+  void _autofillProcedure(Map<String, dynamic> procedure) {
+    if (procedure.isEmpty) return;
+
+    // Log what we're autofilling
+    Logger.debug('Autofilling procedure: ${procedure['name']}');
+
+    // Get the procedure name and category
+    final String procedureName = procedure['name'] ?? '';
+    final String category = procedure['part_name'] ?? '';
+    final String procedureLower = procedureName.toLowerCase();
+
+    // Special handling for C-section
+    if (procedureLower.contains('c-section') ||
+        procedureLower.contains('cesarean')) {
+      Logger.debug('Special case: C-section detected');
+
+      // For C-sections, default to spinal only
+      _selectedAnesthesiaTypes.clear();
+      _selectedAnesthesiaTypes.add('spinal');
+      _addCategoryByName('Spinal');
+
+      // Add obstetrical management
+      _addCategoryByName('Obstetrical Management');
+      _addCategoryByName('Cesarean Delivery');
+
+      // Set gender to female for C-section
+      _selectedGender = 'Female';
+
+      return; // Skip remaining procedure parsing since we've handled C-section specifically
+    }
+
+    // Handle other neurosurgical procedures
+    if (procedureLower.contains('craniec') ||
+        procedureLower.contains('craniot') ||
+        procedureLower.contains('brain') ||
+        procedureLower.contains('intracranial')) {
+      Logger.debug('Special case: Neurosurgical cranial procedure detected');
+
+      // Ensure general anesthesia is selected
+      _selectedAnesthesiaTypes.clear();
+      _selectedAnesthesiaTypes.add('general_anesthesia');
+      _addCategoryByName('General Anesthesia');
+      _addCategoryByName('Tracheal Intubation');
+
+      // Arterial line is standard for craniotomies/craniectomies
+      _addCategoryByName('Arterial Line Placement');
+
+      // Standard anatomical locations
+      _addCategoryByName('Head');
+      _addCategoryByName('Intracranial');
+
+      // Often ASA III or higher
+      if (_selectedASAClass == 'ASA I' || _selectedASAClass == 'ASA II') {
+        _selectedASAClass = 'ASA III';
+        _addCategoryByName('ASA III');
+      }
+    }
+
+    // 1. Handle gender-specific procedures
+    if (category.contains('obstetric') ||
+        category.contains('gynecologic') ||
+        category.contains('breast') ||
+        procedureLower.contains('breast') ||
+        procedureLower.contains('mastectomy') ||
+        procedureLower.contains('mammoplasty') ||
+        procedureLower.contains('cesarean') ||
+        procedureLower.contains('c-section')) {
+      _selectedGender = 'Female';
+    }
+
+    // 2. Parse ASA class
+    if (procedure['physical_status'] != null) {
+      String physicalStatus = procedure['physical_status'];
+      Logger.debug('Physical status: $physicalStatus');
+
+      if (physicalStatus.contains('ASA')) {
+        // Extract the ASA class (I-VI)
+        RegExp regExp = RegExp(r'ASA\s+([IVX]+)');
+        var match = regExp.firstMatch(physicalStatus);
+        if (match != null) {
+          String asaClass = match.group(1) ?? '';
+          _selectedASAClass = 'ASA $asaClass';
+          _updateASAStatus(_selectedASAClass);
+        }
+      }
+    }
+
+    // 3. Parse anesthesia type
+    if (procedure['anesthesia_type'] != null) {
+      String anesthesiaType = procedure['anesthesia_type'];
+      Logger.debug('Anesthesia type: $anesthesiaType');
+
+      // Clear previous anesthesia selections
+      _selectedAnesthesiaTypes.clear();
+
+      // Parse anesthesia types (they might be combined with "or")
+      List<String> types = anesthesiaType.split(RegExp(r' or | and '));
+
+      for (var type in types) {
+        type = type.trim();
+
+        if (type.toLowerCase().contains('general')) {
+          _selectedAnesthesiaTypes.add('general_anesthesia');
+          _addCategoryByName('General Anesthesia');
+          _addCategoryByName('Tracheal Intubation');
+        }
+        if (type.toLowerCase().contains('spinal')) {
+          _selectedAnesthesiaTypes.add('spinal');
+          _addCategoryByName('Spinal');
+        }
+        if (type.toLowerCase().contains('epidural')) {
+          _selectedAnesthesiaTypes.add('epidural');
+          _addCategoryByName('Epidural Anesthesia');
+          _addCategoryByName('Epidural Pain management');
+        }
+        if (type.toLowerCase().contains('mac')) {
+          _selectedAnesthesiaTypes.add('mac');
+          _addCategoryByName('MAC (Monitored Anesthesia Care)');
+        }
+        if (type.toLowerCase().contains('regional')) {
+          if (type.toLowerCase().contains('upper')) {
+            _selectedAnesthesiaTypes.add('regional_upper');
+            _addCategoryByName('Peripheral Anesthesia upper');
+            _addCategoryByName('Ultrasound Guided Regional');
+          } else if (type.toLowerCase().contains('lower')) {
+            _selectedAnesthesiaTypes.add('regional_lower');
+            _addCategoryByName('Peripheral Anesthesia lower');
+            _addCategoryByName('Ultrasound Guided Regional');
+          } else {
+            // Generic regional - add both upper and lower
+            _selectedAnesthesiaTypes.add('regional_upper');
+            _addCategoryByName('Peripheral Anesthesia upper');
+            _addCategoryByName('Ultrasound Guided Regional');
+          }
+        }
+        if (type.toLowerCase().contains('combined') &&
+            type.toLowerCase().contains('spinal') &&
+            type.toLowerCase().contains('epidural')) {
+          _addCategoryByName('Combined Spinal-Epidural');
+        }
+      }
+
+      // Default to general anesthesia if nothing was selected
+      if (_selectedAnesthesiaTypes.isEmpty) {
+        _selectedAnesthesiaTypes.add('general_anesthesia');
+        _addCategoryByName('General Anesthesia');
+        _addCategoryByName('Oral Tracheal intubation (ETT)');
+      }
+    }
+
+    // 4. Process anatomical category - more detailed parsing
+    if (procedure['anatomical_category'] != null) {
+      String anatomicalCategory = procedure['anatomical_category'];
+      Logger.debug('Anatomical category: $anatomicalCategory');
+
+      // Process both through our existing mapper and add specific checks
+      _mapAnatomicalCategories(anatomicalCategory);
+
+      // Special handling for intracranial procedures
+      if (anatomicalCategory.toLowerCase().contains('intracranial') ||
+          anatomicalCategory.toLowerCase().contains('brain') ||
+          category.toLowerCase() == 'neurosurgery' ||
+          procedureLower.contains('craniot') ||
+          procedureLower.contains('craniec')) {
+        _addCategoryByName('Intracranial');
+        _addCategoryByName('Head');
+      }
+    }
+
+    // 5. Parse procedures for specific mention of techniques
+    if (procedure['anesthesia_procedures'] != null) {
+      String procedures = procedure['anesthesia_procedures'];
+      Logger.debug('Anesthesia procedures: $procedures');
+
+      // Use our comprehensive procedure parser
+      _parseAnesthesiaProcedures(procedures);
+    }
+
+    // 6. Handle specialty-specific categories
+    if (category.toLowerCase() == 'neurosurgery') {
+      // Neurosurgery specific handling
+      _addCategoryByName('Head');
+      _addCategoryByName('Intracranial');
+
+      // Most neurosurgery procedures involve ASA III or higher patients
+      if (_selectedASAClass == 'ASA I' || _selectedASAClass == 'ASA II') {
+        _selectedASAClass = 'ASA III';
+        _addCategoryByName('ASA III');
+      }
+    }
+
+    // 7. Special procedure types
+    if (procedureLower.contains('cesarean') ||
+        procedureLower.contains('c-section')) {
+      _addCategoryByName('Obstetrical Management');
+      _addCategoryByName('Cesarean Delivery');
+    }
+
+    if (procedureLower.contains('trauma') ||
+        procedure['physical_status']?.toLowerCase().contains('emergency') ==
+            true ||
+        _isEmergency) {
+      _addCategoryByName('Trauma / Emergency (E)');
+    }
+
+    // 8. Check for cardiac, lung, laparoscopic, and other specific procedures
+    if (procedureLower.contains('cardiac') ||
+        procedureLower.contains('heart') ||
+        procedureLower.contains('coronary')) {
+      _addAnesthesiaType('general_anesthesia');
+      _addCategoryByName('General Anesthesia');
+      _addCategoryByName('Tracheal Intubation');
+    }
+
+    if (procedureLower.contains('lung') ||
+        procedureLower.contains('pulmonary') ||
+        procedureLower.contains('pneumo')) {
+      _addAnesthesiaType('general_anesthesia');
+      _addCategoryByName('General Anesthesia');
+      _addCategoryByName('Tracheal Intubation');
+    }
+
+    if (procedureLower.contains('laparoscop') ||
+        procedureLower.contains('colon resection') ||
+        procedureLower.contains('hartmann') ||
+        procedureLower.contains('colostomy') ||
+        procedureLower.contains('exploratory lap')) {
+      _addAnesthesiaType('general_anesthesia');
+      _addCategoryByName('General Anesthesia');
+      _addCategoryByName('Tracheal Intubation');
+    }
+  }
+
+  // Build duration field
+  Widget _buildDurationField() {
+    return TextFormField(
+      controller: _durationController,
+      keyboardType: TextInputType.number,
+      decoration: const InputDecoration(
+        labelText: 'Duration (hours)',
+        border: OutlineInputBorder(),
+      ),
+      validator: (value) {
+        if (value == null || value.isEmpty) {
+          return 'Please enter the duration';
+        }
+        final duration = double.tryParse(value);
+        if (duration == null || duration <= 0) {
+          return 'Please enter a valid duration greater than 0';
+        }
+        return null;
+      },
+    );
+  }
+
+  // Helper method to remove a category by name (instead of by ID)
+  void _removeCategoryByName(String categoryName) {
+    setState(() {
+      _selectedCategories.removeWhere(
+        (category) => category.name == categoryName,
+      );
+      Logger.debug('Removed category (if existed): $categoryName');
+    });
+  }
+
+  // Helper method to add a category by ID
+  void _addCategoryById(String categoryId) {
+    final category = CoaConstants.categories.firstWhere(
+      (c) => c.id == categoryId,
+      orElse:
+          () => cat.CoaCategory(
+            id: categoryId,
+            name: categoryId
+                .split('_')
+                .map((word) => word.capitalize())
+                .join(' '),
+            description: 'Category added by ID',
+            parentId: null,
+            requiredCount: 0,
+            isRequired: false,
+            group: 'other',
+          ),
+    );
+
+    if (!_selectedCategories.contains(category)) {
+      _selectedCategories.add(category);
+    }
+  }
+
+  // Helper method to remove a category by ID
+  void _removeCategoryById(String categoryId) {
+    _selectedCategories.removeWhere((c) => c.id == categoryId);
+  }
+
+  // Add stubs for missing methods
+  void _loadClinicalSites() {
+    // Stub implementation to fix errors
+    Logger.debug("Clinical sites loading not implemented yet");
+  }
+
+  void _loadSettings() {
+    // Stub implementation to fix errors
+    Logger.debug("Settings loading not implemented yet");
+  }
+
+  void _updateProcedureCountLabel() {
+    // Stub implementation to fix errors
+    setState(() {
+      _procedureCountLabel = 'Found ${_allProcedures.length} procedures';
+    });
+  }
+
+  // Helper method to map anatomical categories from the procedure database
+  void _mapAnatomicalCategories(String anatomicalCategory) {
+    final String categoryLower = anatomicalCategory.toLowerCase();
+    Logger.debug('Mapping anatomical category: $categoryLower');
+
+    // Define anatomical category mappings - using official COA requirement names
+    final Map<String, List<String>> anatomicalMappings = {
+      'head': ['Intracranial'],
+      'neck': ['Neck'],
+      'chest': ['Intrathoracic'],
+      'abdomen': ['Intraabdominal'],
+      'spine': ['Neuroskeletal (spine)'],
+      'upper extremity': ['Upper Extremity'],
+      'lower extremity': ['Lower Extremity'],
+      'face': ['Oropharyngeal'],
+      'oral': ['Oropharyngeal'],
+      'nasal': ['Oropharyngeal'],
+      'ophthalmic': ['Oropharyngeal'],
+      'ear': ['Oropharyngeal'],
+      'nose': ['Oropharyngeal'],
+      'throat': ['Oropharyngeal'],
+      'breast': ['Intraabdominal'],
+      'cardiac': ['Heart'],
+      'thoracic': ['Intrathoracic'],
+      'vascular': ['Vascular'],
+      'orthopedic': ['Neuroskeletal (spine)'],
+      'urologic': ['Intraabdominal'],
+      'gynecologic': ['Intraabdominal'],
+      'obstetric': ['Obstetrical management'],
+      'pediatric': ['Pediatric 2-12 years'],
+      'trauma': ['Trauma/Emergency (E)'],
+      'emergency': ['Trauma/Emergency (E)'],
+      'laparoscopic': ['Intraabdominal'],
+    };
+
+    // Check for each anatomical category
+    anatomicalMappings.forEach((key, categories) {
+      if (categoryLower.contains(key)) {
+        categories.forEach((category) {
+          _addCategoryByName(category);
+        });
+      }
+    });
+
+    // Special handling for combined categories
+    if (categoryLower.contains('cardiac') &&
+        categoryLower.contains('thoracic')) {
+      _addCategoryByName('Heart');
+      _addCategoryByName('Intrathoracic');
+    }
+
+    if (categoryLower.contains('vascular') &&
+        categoryLower.contains('interventional')) {
+      _addCategoryByName('Vascular');
+    }
+  }
+
+  // Helper method to add anesthesia type
+  void _addAnesthesiaType(String typeId) {
+    setState(() {
+      if (!_selectedAnesthesiaTypes.contains(typeId)) {
+        _selectedAnesthesiaTypes.add(typeId);
+        _updateCategoriesBasedOnAnesthesiaTypes();
+      }
+    });
+  }
+}

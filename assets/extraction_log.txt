@@ -1,0 +1,66 @@
+2025-03-01 07:59:01,981 - INFO - Starting direct extraction process
+2025-03-01 07:59:01,982 - INFO - Processing PDF files from: C:\Users\mjone\OneDrive\Desktop\Surgical cases
+2025-03-01 07:59:02,174 - INFO - Found 34 PDF files to process
+2025-03-01 07:59:02,174 - INFO - Processing: Abbreviations.pdf
+2025-03-01 07:59:06,999 - WARNING - No procedures extracted from Abbreviations.pdf
+2025-03-01 07:59:07,000 - INFO - Processing: Breast Surgery.pdf
+2025-03-01 07:59:08,356 - WARNING - No procedures extracted from Breast Surgery.pdf
+2025-03-01 07:59:08,356 - INFO - Processing: Burn Surgery.pdf
+2025-03-01 07:59:09,176 - WARNING - No procedures extracted from Burn Surgery.pdf
+2025-03-01 07:59:09,177 - INFO - Processing: Cardiovascular Surgery.pdf
+2025-03-01 07:59:25,748 - INFO - Extracted 1 procedures from Cardiovascular Surgery.pdf
+2025-03-01 07:59:25,749 - INFO - Processing: Craniofacial Surgery.pdf
+2025-03-01 07:59:44,654 - WARNING - No procedures extracted from Craniofacial Surgery.pdf
+2025-03-01 07:59:44,654 - INFO - Processing: Dental Surgery.pdf
+2025-03-01 07:59:45,351 - WARNING - No procedures extracted from Dental Surgery.pdf
+2025-03-01 07:59:45,352 - INFO - Processing: Endocrine Surgery.pdf
+2025-03-01 07:59:48,107 - WARNING - No procedures extracted from Endocrine Surgery.pdf
+2025-03-01 07:59:48,108 - INFO - Processing: General Surgery.pdf
+2025-03-01 08:00:07,065 - INFO - Extracted 4 procedures from General Surgery.pdf
+2025-03-01 08:00:07,066 - INFO - Processing: Hip_Pelvis_Upper Leg Surgery.pdf
+2025-03-01 08:00:10,319 - WARNING - No procedures extracted from Hip_Pelvis_Upper Leg Surgery.pdf
+2025-03-01 08:00:10,320 - INFO - Processing: Knee Surgery.pdf
+2025-03-01 08:00:11,945 - INFO - Extracted 1 procedures from Knee Surgery.pdf
+2025-03-01 08:00:11,945 - INFO - Processing: Liver_Kidney_Pancreas Transplantation Surgery.pdf
+2025-03-01 08:00:16,354 - INFO - Extracted 1 procedures from Liver_Kidney_Pancreas Transplantation Surgery.pdf
+2025-03-01 08:00:16,354 - INFO - Processing: Lower Leg_Ankle_Foot_Other Lower Extremity Surgery.pdf
+2025-03-01 08:00:19,319 - INFO - Extracted 1 procedures from Lower Leg_Ankle_Foot_Other Lower Extremity Surgery.pdf
+2025-03-01 08:00:19,319 - INFO - Processing: Neurosurgery.pdf
+2025-03-01 08:00:37,110 - INFO - Extracted 1 procedures from Neurosurgery.pdf
+2025-03-01 08:00:37,111 - INFO - Processing: Non OR Surgery Adults.pdf
+2025-03-01 08:01:26,245 - WARNING - No procedures extracted from Non OR Surgery Adults.pdf
+2025-03-01 08:01:26,245 - INFO - Processing: Non OR Surgery Pediatrics.pdf
+2025-03-01 08:01:59,293 - WARNING - No procedures extracted from Non OR Surgery Pediatrics.pdf
+2025-03-01 08:01:59,294 - INFO - Processing: Obstetric and Gynecologic Surgery.pdf
+2025-03-01 08:02:14,229 - INFO - Extracted 1 procedures from Obstetric and Gynecologic Surgery.pdf
+2025-03-01 08:02:14,229 - INFO - Processing: Officed Based Anesthesia.pdf
+2025-03-01 08:02:22,792 - WARNING - No procedures extracted from Officed Based Anesthesia.pdf
+2025-03-01 08:02:22,793 - INFO - Processing: Ophthalmic surgery.pdf
+2025-03-01 08:02:38,579 - WARNING - No procedures extracted from Ophthalmic surgery.pdf
+2025-03-01 08:02:38,580 - INFO - Processing: Orthopedic Surgery.pdf
+2025-03-01 08:02:44,994 - INFO - Extracted 2 procedures from Orthopedic Surgery.pdf
+2025-03-01 08:02:44,995 - INFO - Processing: Pediatric Cardiac Surgery.pdf
+2025-03-01 08:03:24,028 - WARNING - No procedures extracted from Pediatric Cardiac Surgery.pdf
+2025-03-01 08:03:24,028 - INFO - Processing: Pediatric General Surgery.pdf
+2025-03-01 08:04:24,602 - WARNING - No procedures extracted from Pediatric General Surgery.pdf
+2025-03-01 08:04:24,602 - INFO - Processing: Pediatric Neurosurgery.pdf
+2025-03-01 08:04:43,861 - WARNING - No procedures extracted from Pediatric Neurosurgery.pdf
+2025-03-01 08:04:43,862 - INFO - Processing: Pediatric Ophthalmic Surgery.pdf
+2025-03-01 08:04:55,067 - WARNING - No procedures extracted from Pediatric Ophthalmic Surgery.pdf
+2025-03-01 08:04:55,067 - INFO - Processing: Pediatric Orthopedic Surgery.pdf
+2025-03-01 08:05:34,287 - WARNING - No procedures extracted from Pediatric Orthopedic Surgery.pdf
+2025-03-01 08:05:34,287 - INFO - Processing: Pediatric Otolaryngology Surgery.pdf
+2025-03-01 08:05:52,649 - WARNING - No procedures extracted from Pediatric Otolaryngology Surgery.pdf
+2025-03-01 08:05:52,649 - INFO - Processing: Pediatric Transplantation Surgery.pdf
+2025-03-01 08:06:05,812 - WARNING - No procedures extracted from Pediatric Transplantation Surgery.pdf
+2025-03-01 08:06:05,813 - INFO - Processing: Pediatric Urology Surgery.pdf
+2025-03-01 08:06:32,893 - WARNING - No procedures extracted from Pediatric Urology Surgery.pdf
+2025-03-01 08:06:32,893 - INFO - Processing: Plastic and Reconstructive Surgery.pdf
+2025-03-01 08:06:40,869 - WARNING - No procedures extracted from Plastic and Reconstructive Surgery.pdf
+2025-03-01 08:06:40,870 - INFO - Processing: Reduced file size General Surgery.pdf
+2025-03-01 08:06:46,513 - INFO - Extracted 4 procedures from Reduced file size General Surgery.pdf
+2025-03-01 08:06:46,513 - INFO - Processing: Regional Blocks Anesthesia.pdf
+2025-03-01 08:06:53,834 - WARNING - No procedures extracted from Regional Blocks Anesthesia.pdf
+2025-03-01 08:06:53,835 - INFO - Processing: Spine Surgery.pdf
+2025-03-01 08:06:55,897 - WARNING - No procedures extracted from Spine Surgery.pdf
+2025-03-01 08:06:55,897 - INFO - Processing: Thoracic Surgery.pdf

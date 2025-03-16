@@ -1,0 +1,2140 @@
+{
+    "parts":  [
+                  {
+                      "part_name":  "General Surgery",
+                      "cases":  [
+                                    {
+                                        "name":  "esophagogastroduodenoscopy (EGD)",
+                                        "physical_status":  "ASA II",
+                                        "position":  "Left Lateral Decubitus",
+                                        "anatomical_category":  "Intra-abdominal",
+                                        "anesthesia_type":  "Monitored Anesthesia Care (MAC)",
+                                        "anesthesia_procedures":  "IV sedation"
+                                    },
+                                    {
+                                        "name":  "Colonoscopy",
+                                        "physical_status":  "ASA II",
+                                        "position":  "Left Lateral Decubitus",
+                                        "anatomical_category":  "Intra-abdominal",
+                                        "anesthesia_type":  "Monitored Anesthesia Care (MAC)",
+                                        "anesthesia_procedures":  "IV sedation"
+                                    },
+                                    {
+                                        "name":  "Colonoscopy & esophagogastroduodenoscopy (EGD)",
+                                        "physical_status":  "ASA II",
+                                        "position":  "Left Lateral Decubitus",
+                                        "anatomical_category":  "Intra-abdominal",
+                                        "anesthesia_type":  "Monitored Anesthesia Care (MAC)",
+                                        "anesthesia_procedures":  "IV sedation"
+                                    },
+                                    {
+                                        "name":  "Percutaneous Endoscopic Gastrostomy (PEG) Tube",
+                                        "physical_status":  "ASA II",
+                                        "position":  "Supine",
+                                        "anatomical_category":  "Intra-abdominal",
+                                        "anesthesia_type":  "Monitored Anesthesia Care (MAC)",
+                                        "anesthesia_procedures":  "IV sedation"
+                                    },
+                                    {
+                                        "name":  "Appendectomy",
+                                        "physical_status":  "ASA II-III",
+                                        "position":  "Supine",
+                                        "anatomical_category":  "Intra-abdominal",
+                                        "anesthesia_type":  "General Anesthesia",
+                                        "anesthesia_procedures":  "Endotracheal intubation"
+                                    },
+                                    {
+                                        "name":  "Laparoscopic Appendectomy",
+                                        "physical_status":  "ASA II-III",
+                                        "position":  "Supine",
+                                        "anatomical_category":  "Intra-abdominal",
+                                        "anesthesia_type":  "General Anesthesia",
+                                        "anesthesia_procedures":  "Endotracheal intubation, laparoscopic instrumentation"
+                                    },
+                                    {
+                                        "name":  "Cholecystectomy (Open)",
+                                        "physical_status":  "ASA II-III",
+                                        "position":  "Supine",
+                                        "anatomical_category":  "Intra-abdominal",
+                                        "anesthesia_type":  "General Anesthesia",
+                                        "anesthesia_procedures":  "Endotracheal intubation"
+                                    },
+                                    {
+                                        "name":  "Laparoscopic Cholecystectomy",
+                                        "physical_status":  "ASA II-III",
+                                        "position":  "Supine (with slight reverse Trendelenburg)",
+                                        "anatomical_category":  "Intra-abdominal",
+                                        "anesthesia_type":  "General Anesthesia",
+                                        "anesthesia_procedures":  "Endotracheal intubation, laparoscopic instrumentation"
+                                    },
+                                    {
+                                        "name":  "Inguinal Hernia Repair (Open)",
+                                        "physical_status":  "ASA II-III",
+                                        "position":  "Supine",
+                                        "anatomical_category":  "Other: Abdominal Wall",
+                                        "anesthesia_type":  "General Anesthesia or Neuraxial anesthesia (spinal)",
+                                        "anesthesia_procedures":  "Endotracheal intubation (if general) or spinal block"
+                                    },
+                                    {
+                                        "name":  "Femoral Hernia Repair",
+                                        "physical_status":  "ASA II-III",
+                                        "position":  "Supine",
+                                        "anatomical_category":  "Other: Abdominal Wall/Groin",
+                                        "anesthesia_type":  "General or Regional Anesthesia",
+                                        "anesthesia_procedures":  "Endotracheal intubation or neuraxial block"
+                                    },
+                                    {
+                                        "name":  "Umbilical Hernia Repair",
+                                        "physical_status":  "ASA II-III",
+                                        "position":  "Supine",
+                                        "anatomical_category":  "Other: Abdominal Wall",
+                                        "anesthesia_type":  "General or Regional Anesthesia",
+                                        "anesthesia_procedures":  "Endotracheal intubation or local + sedation"
+                                    },
+                                    {
+                                        "name":  "Incisional Hernia Repair",
+                                        "physical_status":  "ASA II-III",
+                                        "position":  "Supine",
+                                        "anatomical_category":  "Other: Abdominal Wall",
+                                        "anesthesia_type":  "General Anesthesia",
+                                        "anesthesia_procedures":  "Endotracheal intubation, possible mesh placement"
+                                    },
+                                    {
+                                        "name":  "Exploratory Laparotomy",
+                                        "physical_status":  "ASA II-IV",
+                                        "position":  "Supine",
+                                        "anatomical_category":  "Intra-abdominal",
+                                        "anesthesia_type":  "General Anesthesia",
+                                        "anesthesia_procedures":  "Endotracheal intubation, possible arterial catheter insertion"
+                                    },
+                                    {
+                                        "name":  "Small Bowel Resection",
+                                        "physical_status":  "ASA II-III",
+                                        "position":  "Supine",
+                                        "anatomical_category":  "Intra-abdominal",
+                                        "anesthesia_type":  "General Anesthesia",
+                                        "anesthesia_procedures":  "Endotracheal intubation, IV fluid management"
+                                    },
+                                    {
+                                        "name":  "Colon Resection (Colectomy)",
+                                        "physical_status":  "ASA II-III",
+                                        "position":  "Supine (may use lithotomy for low anterior resection)",
+                                        "anatomical_category":  "Intra-abdominal",
+                                        "anesthesia_type":  "General Anesthesia",
+                                        "anesthesia_procedures":  "Endotracheal intubation, possible epidural analgesia"
+                                    },
+                                    {
+                                        "name":  "Gastric Bypass Surgery (Roux-en-Y)",
+                                        "physical_status":  "ASA II-III",
+                                        "position":  "Supine (reverse Trendelenburg frequently)",
+                                        "anatomical_category":  "Intra-abdominal (stomach)",
+                                        "anesthesia_type":  "General Anesthesia",
+                                        "anesthesia_procedures":  "Endotracheal intubation, possible arterial catheter insertion"
+                                    },
+                                    {
+                                        "name":  "Laparoscopic Sleeve Gastrectomy",
+                                        "physical_status":  "ASA II-III",
+                                        "position":  "Supine (reverse Trendelenburg)",
+                                        "anatomical_category":  "Intra-abdominal (stomach)",
+                                        "anesthesia_type":  "General Anesthesia",
+                                        "anesthesia_procedures":  "Endotracheal intubation, laparoscopic instruments"
+                                    },
+                                    {
+                                        "name":  "Gastric Banding",
+                                        "physical_status":  "ASA II-III",
+                                        "position":  "Supine (reverse Trendelenburg)",
+                                        "anatomical_category":  "Intra-abdominal (stomach)",
+                                        "anesthesia_type":  "General Anesthesia",
+                                        "anesthesia_procedures":  "Endotracheal intubation, laparoscopic instruments"
+                                    },
+                                    {
+                                        "name":  "Splenectomy (Open)",
+                                        "physical_status":  "ASA II-III",
+                                        "position":  "Supine",
+                                        "anatomical_category":  "Intra-abdominal (left upper quadrant)",
+                                        "anesthesia_type":  "General Anesthesia",
+                                        "anesthesia_procedures":  "Endotracheal intubation, possible arterial catheter insertion"
+                                    },
+                                    {
+                                        "name":  "Pancreatectomy (Partial or Total)",
+                                        "physical_status":  "ASA III-IV",
+                                        "position":  "Supine",
+                                        "anatomical_category":  "Intra-abdominal (pancreas)",
+                                        "anesthesia_type":  "General Anesthesia",
+                                        "anesthesia_procedures":  "Endotracheal intubation, arterial catheter insertion, central venous access"
+                                    },
+                                    {
+                                        "name":  "Hepatic Resection",
+                                        "physical_status":  "ASA III-IV",
+                                        "position":  "Supine (sometimes slight right lateral tilt)",
+                                        "anatomical_category":  "Intra-abdominal (liver)",
+                                        "anesthesia_type":  "General Anesthesia",
+                                        "anesthesia_procedures":  "Endotracheal intubation, arterial catheter insertion, CVP monitoring"
+                                    },
+                                    {
+                                        "name":  "Esophagectomy",
+                                        "physical_status":  "ASA III-IV",
+                                        "position":  "Supine or lateral decubitus with prone (Ivor Lewis approach)",
+                                        "anatomical_category":  "Intra-abdominal + Intrathoracic - Other",
+                                        "anesthesia_type":  "General Anesthesia",
+                                        "anesthesia_procedures":  "Double-lumen tube if thoracic approach, arterial catheter insertion, possibly epidural analgesia"
+                                    },
+                                    {
+                                        "name":  "Gastrectomy (Partial or Total)",
+                                        "physical_status":  "ASA II-III",
+                                        "position":  "Supine",
+                                        "anatomical_category":  "Intra-abdominal (stomach)",
+                                        "anesthesia_type":  "General Anesthesia",
+                                        "anesthesia_procedures":  "Endotracheal intubation, fluid/blood management"
+                                    },
+                                    {
+                                        "name":  "Hemorrhoidectomy",
+                                        "physical_status":  "ASA II-III",
+                                        "position":  "Lithotomy or prone jackknife",
+                                        "anatomical_category":  "Perineal",
+                                        "anesthesia_type":  "General or Regional (Saddle/Spinal)",
+                                        "anesthesia_procedures":  "Endotracheal intubation (if general) or saddle block"
+                                    },
+                                    {
+                                        "name":  "Laparoscopic Hernia Repair (TAPP/TEP)",
+                                        "physical_status":  "ASA II-III",
+                                        "position":  "Supine",
+                                        "anatomical_category":  "Other: Abdominal Wall/Groin",
+                                        "anesthesia_type":  "General Anesthesia",
+                                        "anesthesia_procedures":  "Endotracheal intubation, laparoscopic instruments"
+                                    },
+                                    {
+                                        "name":  "Abdominal Wall Reconstruction",
+                                        "physical_status":  "ASA II-III",
+                                        "position":  "Supine",
+                                        "anatomical_category":  "Other: Abdominal Wall",
+                                        "anesthesia_type":  "General Anesthesia",
+                                        "anesthesia_procedures":  "Endotracheal intubation, possible regional block for pain control"
+                                    },
+                                    {
+                                        "name":  "Adhesiolysis",
+                                        "physical_status":  "ASA II-III",
+                                        "position":  "Supine",
+                                        "anatomical_category":  "Intra-abdominal",
+                                        "anesthesia_type":  "General Anesthesia",
+                                        "anesthesia_procedures":  "Endotracheal intubation, laparoscopic or open approach"
+                                    },
+                                    {
+                                        "name":  "Incision and Drainage (I\u0026D) of Abscess",
+                                        "physical_status":  "ASA II-III",
+                                        "position":  "Supine or as needed to expose site",
+                                        "anatomical_category":  "Other: Depends on abscess location",
+                                        "anesthesia_type":  "Local with sedation or General",
+                                        "anesthesia_procedures":  "Local infiltration, possible intubation if general"
+                                    },
+                                    {
+                                        "name":  "Parathyroidectomy",
+                                        "physical_status":  "ASA II-III",
+                                        "position":  "Supine with neck extended",
+                                        "anatomical_category":  "Neck",
+                                        "anesthesia_type":  "General Anesthesia (or local + sedation)",
+                                        "anesthesia_procedures":  "Endotracheal intubation, nerve integrity monitoring"
+                                    },
+                                    {
+                                        "name":  "Thyroidectomy (Partial or Total)",
+                                        "physical_status":  "ASA II-III",
+                                        "position":  "Supine with neck extended",
+                                        "anatomical_category":  "Neck",
+                                        "anesthesia_type":  "General Anesthesia",
+                                        "anesthesia_procedures":  "Endotracheal intubation, possible nerve integrity monitoring"
+                                    },
+                                    {
+                                        "name":  "Fundoplication (Nissen)",
+                                        "physical_status":  "ASA II-III",
+                                        "position":  "Supine (often reverse Trendelenburg)",
+                                        "anatomical_category":  "Intra-abdominal (esophagogastric junction)",
+                                        "anesthesia_type":  "General Anesthesia",
+                                        "anesthesia_procedures":  "Endotracheal intubation, laparoscopic approach"
+                                    },
+                                    {
+                                        "name":  "Debridement",
+                                        "physical_status":  "ASA II-III",
+                                        "position":  "Variable (site dependent)",
+                                        "anatomical_category":  "Other: Site-dependent",
+                                        "anesthesia_type":  "General or Regional",
+                                        "anesthesia_procedures":  "Endotracheal intubation or appropriate regional block"
+                                    },
+                                    {
+                                        "name":  "Excisional Biopsy",
+                                        "physical_status":  "ASA I-III",
+                                        "position":  "Variable (site-dependent)",
+                                        "anatomical_category":  "Other: Site-dependent",
+                                        "anesthesia_type":  "Local + Sedation or General",
+                                        "anesthesia_procedures":  "Local infiltration, possible sedation"
+                                    },
+                                    {
+                                        "name":  "Incisional Biopsy",
+                                        "physical_status":  "ASA I-III",
+                                        "position":  "Variable (site-dependent)",
+                                        "anatomical_category":  "Other: Site-dependent",
+                                        "anesthesia_type":  "Local + Sedation or General",
+                                        "anesthesia_procedures":  "Local infiltration, possible sedation"
+                                    },
+                                    {
+                                        "name":  "Diagnostic Laparoscopy",
+                                        "physical_status":  "ASA II-III",
+                                        "position":  "Supine",
+                                        "anatomical_category":  "Intra-abdominal",
+                                        "anesthesia_type":  "General Anesthesia",
+                                        "anesthesia_procedures":  "Endotracheal intubation, laparoscopic ports"
+        }
+      ]
+    },
+    {
+                      "part_name":  "Cardiovascular (Cardiac) Surgery",
+                      "cases":  [
+                                    {
+                                        "name":  "Coronary Artery Bypass Grafting (CABG)",
+                                        "physical_status":  "ASA III-IV",
+                                        "position":  "Supine",
+                                        "anatomical_category":  "Intrathoracic - Heart",
+                                        "anesthesia_type":  "General Anesthesia",
+                                        "anesthesia_procedures":  "Endotracheal intubation, TEE, invasive hemodynamic monitoring (arterial catheter, central venous line)"
+                                    },
+                                    {
+                                        "name":  "Off-Pump Coronary Artery Bypass (OPCAB)",
+                                        "physical_status":  "ASA III-IV",
+                                        "position":  "Supine",
+                                        "anatomical_category":  "Intrathoracic - Heart",
+                                        "anesthesia_type":  "General Anesthesia",
+                                        "anesthesia_procedures":  "Endotracheal intubation, TEE, invasive hemodynamic monitoring"
+                                    },
+                                    {
+                                        "name":  "Minimally Invasive Direct Coronary Artery Bypass (MIDCAB)",
+                                        "physical_status":  "ASA III-IV",
+                                        "position":  "Supine (with slight left lateral tilt)",
+                                        "anatomical_category":  "Intrathoracic - Heart",
+                                        "anesthesia_type":  "General Anesthesia",
+                                        "anesthesia_procedures":  "Endotracheal intubation, possible single-lung ventilation, TEE, invasive monitoring"
+                                    },
+                                    {
+                                        "name":  "Percutaneous Coronary Intervention (Angioplasty with Stent)",
+                                        "physical_status":  "ASA II-III",
+                                        "position":  "Supine",
+                                        "anatomical_category":  "Vascular (endovascular approach)",
+                                        "anesthesia_type":  "Local Anesthesia with Sedation (MAC) or light General Anesthesia",
+                                        "anesthesia_procedures":  "Radial/femoral artery access, sedation, hemodynamic monitoring"
+                                    },
+                                    {
+                                        "name":  "Aortic Valve Replacement (AVR)",
+                                        "physical_status":  "ASA III-IV",
+                                        "position":  "Supine",
+                                        "anatomical_category":  "Intrathoracic - Heart",
+                                        "anesthesia_type":  "General Anesthesia",
+                                        "anesthesia_procedures":  "Endotracheal intubation, TEE, arterial and central venous lines"
+                                    },
+                                    {
+                                        "name":  "Mitral Valve Repair or Replacement",
+                                        "physical_status":  "ASA III-IV",
+                                        "position":  "Supine",
+                                        "anatomical_category":  "Intrathoracic - Heart",
+                                        "anesthesia_type":  "General Anesthesia",
+                                        "anesthesia_procedures":  "Endotracheal intubation, TEE, arterial catheter"
+                                    },
+                                    {
+                                        "name":  "Tricuspid Valve Repair",
+                                        "physical_status":  "ASA III-IV",
+                                        "position":  "Supine",
+                                        "anatomical_category":  "Intrathoracic - Heart",
+                                        "anesthesia_type":  "General Anesthesia",
+                                        "anesthesia_procedures":  "Endotracheal intubation, TEE, arterial catheter"
+                                    },
+                                    {
+                                        "name":  "Tricuspid Valve Replacement",
+                                        "physical_status":  "ASA III-IV",
+                                        "position":  "Supine",
+                                        "anatomical_category":  "Intrathoracic - Heart",
+                                        "anesthesia_type":  "General Anesthesia",
+                                        "anesthesia_procedures":  "Endotracheal intubation, arterial catheter, TEE"
+                                    },
+                                    {
+                                        "name":  "Heart Transplant",
+                                        "physical_status":  "ASA IV-V",
+                                        "position":  "Supine",
+                                        "anatomical_category":  "Intrathoracic - Heart",
+                                        "anesthesia_type":  "General Anesthesia",
+                                        "anesthesia_procedures":  "Endotracheal intubation, TEE, multiple large-bore IVs, arterial and central venous lines"
+                                    },
+                                    {
+                                        "name":  "Aortic Aneurysm Repair (Open)",
+                                        "physical_status":  "ASA III-IV",
+                                        "position":  "Supine",
+                                        "anatomical_category":  "Vascular (Abdominal/Thoracoabdominal)",
+                                        "anesthesia_type":  "General Anesthesia",
+                                        "anesthesia_procedures":  "Endotracheal intubation, arterial catheter, possible central line"
+                                    },
+                                    {
+                                        "name":  "Endovascular Aneurysm Repair (EVAR)",
+                                        "physical_status":  "ASA III-IV",
+                                        "position":  "Supine",
+                                        "anatomical_category":  "Vascular",
+                                        "anesthesia_type":  "Local/Regional with Sedation or General Anesthesia",
+                                        "anesthesia_procedures":  "Femoral artery access, hemodynamic monitoring"
+                                    },
+                                    {
+                                        "name":  "Peripheral Arterial Bypass Surgery",
+                                        "physical_status":  "ASA III",
+                                        "position":  "Supine",
+                                        "anatomical_category":  "Vascular",
+                                        "anesthesia_type":  "General or Regional Anesthesia",
+                                        "anesthesia_procedures":  "Endotracheal intubation (if general) or nerve block; arterial catheter for BP monitoring"
+                                    },
+                                    {
+                                        "name":  "Carotid Endarterectomy",
+                                        "physical_status":  "ASA III",
+                                        "position":  "Supine with head extended/turned",
+                                        "anatomical_category":  "Neck (Carotid Artery)",
+                                        "anesthesia_type":  "General or Regional (cervical plexus block)",
+                                        "anesthesia_procedures":  "Endotracheal intubation (if general), arterial catheter"
+                                    },
+                                    {
+                                        "name":  "Endarterectomy (Other Vessels)",
+                                        "physical_status":  "ASA III",
+                                        "position":  "Supine or as needed",
+                                        "anatomical_category":  "Vascular",
+                                        "anesthesia_type":  "General or Regional",
+                                        "anesthesia_procedures":  "Endotracheal intubation (if general), possible local infiltration, arterial catheter"
+                                    },
+                                    {
+                                        "name":  "Ventricular Assist Device (VAD) Implantation",
+                                        "physical_status":  "ASA IV-V",
+                                        "position":  "Supine",
+                                        "anatomical_category":  "Intrathoracic - Heart",
+                                        "anesthesia_type":  "General Anesthesia",
+                                        "anesthesia_procedures":  "Endotracheal intubation, TEE, invasive hemodynamic monitoring, arterial catheter"
+                                    },
+                                    {
+                                        "name":  "Maze Procedure",
+                                        "physical_status":  "ASA III-IV",
+                                        "position":  "Supine",
+                                        "anatomical_category":  "Intrathoracic - Heart",
+                                        "anesthesia_type":  "General Anesthesia",
+                                        "anesthesia_procedures":  "Endotracheal intubation, TEE"
+                                    },
+                                    {
+                                        "name":  "Congenital Heart Defect Repair (e.g., Tetralogy of Fallot)",
+                                        "physical_status":  "ASA III-IV",
+                                        "position":  "Supine",
+                                        "anatomical_category":  "Intrathoracic - Heart",
+                                        "anesthesia_type":  "General Anesthesia",
+                                        "anesthesia_procedures":  "Endotracheal intubation, TEE or epicardial echo, invasive monitoring (arterial and central venous)"
+                                    },
+                                    {
+                                        "name":  "Ross Procedure",
+                                        "physical_status":  "ASA III-IV",
+                                        "position":  "Supine",
+                                        "anatomical_category":  "Intrathoracic - Heart",
+                                        "anesthesia_type":  "General Anesthesia",
+                                        "anesthesia_procedures":  "Endotracheal intubation, TEE"
+                                    },
+                                    {
+                                        "name":  "Aortic Dissection Repair (Ascending)",
+                                        "physical_status":  "ASA IV-V",
+                                        "position":  "Supine",
+                                        "anatomical_category":  "Intrathoracic - Heart (Ascending)",
+                                        "anesthesia_type":  "General Anesthesia",
+                                        "anesthesia_procedures":  "Endotracheal intubation, TEE, arterial catheter, central venous line"
+                                    },
+                                    {
+                                        "name":  "Ascending Aorta Replacement",
+                                        "physical_status":  "ASA IV",
+                                        "position":  "Supine",
+                                        "anatomical_category":  "Intrathoracic - Heart",
+                                        "anesthesia_type":  "General Anesthesia",
+                                        "anesthesia_procedures":  "Endotracheal intubation, TEE, arterial catheter, central venous line"
+                                    },
+                                    {
+                                        "name":  "Cardiac Ablation Surgery",
+                                        "physical_status":  "ASA II-III",
+                                        "position":  "Supine",
+                                        "anatomical_category":  "Intrathoracic - Heart",
+                                        "anesthesia_type":  "General Anesthesia",
+                                        "anesthesia_procedures":  "Endotracheal intubation"
+                                    },
+                                    {
+                                        "name":  "Pericardiectomy",
+                                        "physical_status":  "ASA III-IV",
+                                        "position":  "Supine",
+                                        "anatomical_category":  "Intrathoracic - Heart",
+                                        "anesthesia_type":  "General Anesthesia",
+                                        "anesthesia_procedures":  "Endotracheal intubation, TEE, arterial catheter"
+                                    },
+                                    {
+                                        "name":  "Pulmonary Thromboendarterectomy",
+                                        "physical_status":  "ASA III-IV",
+                                        "position":  "Supine",
+                                        "anatomical_category":  "Intrathoracic - Heart (Pulmonary Arteries)",
+                                        "anesthesia_type":  "General Anesthesia",
+                                        "anesthesia_procedures":  "Endotracheal intubation, TEE"
+                                    },
+                                    {
+                                        "name":  "Coronary Endarterectomy",
+                                        "physical_status":  "ASA III-IV",
+                                        "position":  "Supine",
+                                        "anatomical_category":  "Intrathoracic - Heart",
+                                        "anesthesia_type":  "General Anesthesia",
+                                        "anesthesia_procedures":  "Endotracheal intubation, TEE, arterial catheter, central venous line"
+                                    },
+                                    {
+                                        "name":  "Ventricular Septal Defect (VSD) Repair",
+                                        "physical_status":  "ASA III-IV",
+                                        "position":  "Supine",
+                                        "anatomical_category":  "Intrathoracic - Heart",
+                                        "anesthesia_type":  "General Anesthesia",
+                                        "anesthesia_procedures":  "Endotracheal intubation, arterial catheter, central venous line, TEE"
+                                    },
+                                    {
+                                        "name":  "Atrial Septal Defect (ASD) Repair",
+                                        "physical_status":  "ASA III",
+                                        "position":  "Supine",
+                                        "anatomical_category":  "Intrathoracic - Heart",
+                                        "anesthesia_type":  "General Anesthesia",
+                                        "anesthesia_procedures":  "Endotracheal intubation, arterial catheter, central venous line, TEE"
+                                    },
+                                    {
+                                        "name":  "Saphenous Vein Harvesting",
+                                        "physical_status":  "ASA II-III",
+                                        "position":  "Supine (leg externally rotated if open harvest)",
+                                        "anatomical_category":  "Extremities (Leg)",
+                                        "anesthesia_type":  "General Anesthesia (or local with sedation if standalone)",
+                                        "anesthesia_procedures":  "Endotracheal intubation (if general) or sedation"
+                                    },
+                                    {
+                                        "name":  "Left Ventricular Reconstruction (Ventriculoplasty)",
+                                        "physical_status":  "ASA III-IV",
+                                        "position":  "Supine",
+                                        "anatomical_category":  "Intrathoracic - Heart",
+                                        "anesthesia_type":  "General Anesthesia",
+                                        "anesthesia_procedures":  "Endotracheal intubation, arterial catheter, central venous line, TEE"
+                                    },
+                                    {
+                                        "name":  "Myocardial Revascularization",
+                                        "physical_status":  "ASA III-IV",
+                                        "position":  "Supine",
+                                        "anatomical_category":  "Intrathoracic - Heart",
+                                        "anesthesia_type":  "General Anesthesia",
+                                        "anesthesia_procedures":  "Endotracheal intubation, arterial catheter, central venous line, TEE"
+                                    },
+                                    {
+                                        "name":  "Atrial Fibrillation (AFib) Ablation",
+                                        "physical_status":  "ASA III",
+                                        "position":  "Supine",
+                                        "anatomical_category":  "Heart: Closed Heart",
+                                        "anesthesia_type":  "General Anesthesia",
+                                        "anesthesia_procedures":  "Endotracheal intubation, transesophageal echocardiography (TEE), arterial line, central venous catheter"
+                                    },
+                                    {
+                                        "name":  "Atrial Flutter (A Flutter) Ablation",
+                                        "physical_status":  "ASA III",
+                                        "position":  "Supine",
+                                        "anatomical_category":  "Heart: Closed Heart",
+                                        "anesthesia_type":  "General Anesthesia",
+                                        "anesthesia_procedures":  "Endotracheal intubation, transesophageal echocardiography (TEE), arterial line, central venous catheter"
+                                    },
+                                    {
+                                        "name":  "Supraventricular Tachycardia (SVT) Ablation",
+                                        "physical_status":  "ASA III",
+                                        "position":  "Supine",
+                                        "anatomical_category":  "Heart: Closed Heart",
+                                        "anesthesia_type":  "General Anesthesia",
+                                        "anesthesia_procedures":  "Endotracheal intubation, transesophageal echocardiography (TEE), arterial line, central venous catheter"
+                                    },
+                                    {
+                                        "name":  "Transesophageal Echocardiogram (TEE)",
+                                        "physical_status":  "ASA III",
+                                        "position":  "Supine",
+                                        "anatomical_category":  "Heart: Closed Heart",
+                                        "anesthesia_type":  "Monitored Anesthesia Care (MAC)",
+                                        "anesthesia_procedures":  "IV sedation, transesophageal echocardiography (TEE)"
+                                    }
+      ]
+    },
+    {
+                      "part_name":  "Orthopedic Surgery \u0026 Orthopedic Trauma Procedures",
+                      "cases":  [
+                                    {
+                                        "name":  "Hip Joint Replacement (Total Hip Arthroplasty)",
+                                        "physical_status":  "ASA II-III",
+                                        "position":  "Lateral decubitus or Supine",
+                                        "anatomical_category":  "Other: Musculoskeletal - Hip Joint",
+                                        "anesthesia_type":  "General Anesthesia or Spinal Anesthesia with sedation",
+                                        "anesthesia_procedures":  "Endotracheal intubation; possible peripheral nerve block (e.g., fascia iliaca block)"
+                                    },
+                                    {
+                                        "name":  "Knee Joint Replacement (Total Knee Arthroplasty)",
+                                        "physical_status":  "ASA II-III",
+                                        "position":  "Supine with a knee bump",
+                                        "anatomical_category":  "Other: Musculoskeletal - Knee Joint",
+                                        "anesthesia_type":  "General Anesthesia or Spinal Anesthesia with sedation",
+                                        "anesthesia_procedures":  "Endotracheal intubation if general; neuraxial block with or without adjunct peripheral nerve block"
+                                    },
+                                    {
+                                        "name":  "Shoulder Joint Replacement (Total Shoulder Arthroplasty)",
+                                        "physical_status":  "ASA II-III",
+                                        "position":  "Beach chair",
+                                        "anatomical_category":  "Other: Musculoskeletal - Shoulder",
+                                        "anesthesia_type":  "General Anesthesia (often with regional adjunct)",
+                                        "anesthesia_procedures":  "Endotracheal intubation; interscalene nerve block"
+                                    },
+                                    {
+                                        "name":  "Elbow Joint Replacement",
+                                        "physical_status":  "ASA II-III",
+                                        "position":  "Supine or lateral decubitus",
+                                        "anatomical_category":  "Other: Musculoskeletal - Elbow",
+                                        "anesthesia_type":  "General Anesthesia",
+                                        "anesthesia_procedures":  "Endotracheal intubation; possible regional block as adjunct"
+                                    },
+                                    {
+                                        "name":  "ACL Reconstruction",
+                                        "physical_status":  "ASA II-III",
+                                        "position":  "Supine with knee in flexion",
+                                        "anatomical_category":  "Other: Musculoskeletal - Knee Ligaments",
+                                        "anesthesia_type":  "General Anesthesia with Regional block",
+                                        "anesthesia_procedures":  "Endotracheal intubation; femoral nerve block or adductor canal block"
+                                    },
+                                    {
+                                        "name":  "Rotator Cuff Repair",
+                                        "physical_status":  "ASA II-III",
+                                        "position":  "Beach chair or lateral decubitus",
+                                        "anatomical_category":  "Other: Musculoskeletal - Shoulder",
+                                        "anesthesia_type":  "General Anesthesia (often with regional adjunct)",
+                                        "anesthesia_procedures":  "Endotracheal intubation; interscalene nerve block"
+                                    },
+                                    {
+                                        "name":  "Lumbar Spinal Fusion",
+                                        "physical_status":  "ASA II-III",
+                                        "position":  "Prone",
+                                        "anatomical_category":  "Neuroskeletal - Spine",
+                                        "anesthesia_type":  "General Anesthesia",
+                                        "anesthesia_procedures":  "Endotracheal intubation; arterial catheter; neuromonitoring; ESP block"
+                                    },
+                                    {
+                                        "name":  "Cervical Spinal Fusion",
+                                        "physical_status":  "ASA II-III",
+                                        "position":  "Supine (anterior) or Prone (posterior)",
+                                        "anatomical_category":  "Neuroskeletal - Spine",
+                                        "anesthesia_type":  "General Anesthesia",
+                                        "anesthesia_procedures":  "Endotracheal intubation; arterial catheter"
+                                    },
+                                    {
+                                        "name":  "Laminectomy",
+                                        "physical_status":  "ASA II-III",
+                                        "position":  "Prone",
+                                        "anatomical_category":  "Neuroskeletal - Spine",
+                                        "anesthesia_type":  "General Anesthesia",
+                                        "anesthesia_procedures":  "Endotracheal intubation; ESP block; possible arterial catheter"
+                                    },
+                                    {
+                                        "name":  "Open Reduction Internal Fixation (ORIF) for Fractures",
+                                        "physical_status":  "ASA II-III",
+                                        "position":  "Variable",
+                                        "anatomical_category":  "Other: Musculoskeletal - Fracture",
+                                        "anesthesia_type":  "General Anesthesia",
+                                        "anesthesia_procedures":  "Endotracheal intubation; regional nerve block for pain"
+                                    },
+                                    {
+                                        "name":  "External Fixation for Fractures",
+                                        "physical_status":  "ASA II-III",
+                                        "position":  "Supine",
+                                        "anatomical_category":  "Other: Musculoskeletal - Extremity Fracture",
+                                        "anesthesia_type":  "General or Regional Anesthesia",
+                                        "anesthesia_procedures":  "Endotracheal intubation (if general) or peripheral nerve block"
+                                    },
+                                    {
+                                        "name":  "Diagnostic/Therapeutic Arthroscopy",
+                                        "physical_status":  "ASA I-II",
+                                        "position":  "Supine or Lateral decubitus",
+                                        "anatomical_category":  "Other: Musculoskeletal - Joint",
+                                        "anesthesia_type":  "General Anesthesia or Regional",
+                                        "anesthesia_procedures":  "Endotracheal intubation (if general) or nerve block"
+                                    },
+                                    {
+                                        "name":  "Carpal Tunnel Release",
+                                        "physical_status":  "ASA I-II",
+                                        "position":  "Supine (arm on arm board)",
+                                        "anatomical_category":  "Extremities - Upper (Hand/Wrist)",
+                                        "anesthesia_type":  "Local Anesthesia with Sedation or Regional block",
+                                        "anesthesia_procedures":  "Local infiltration or median nerve block; sedation as needed"
+                                    },
+                                    {
+                                        "name":  "Meniscectomy",
+                                        "physical_status":  "ASA I-II",
+                                        "position":  "Supine",
+                                        "anatomical_category":  "Other: Musculoskeletal - Knee Joint",
+                                        "anesthesia_type":  "General Anesthesia or Neuraxial (spinal)",
+                                        "anesthesia_procedures":  "Endotracheal intubation if general; neuraxial block with or without adductor canal block"
+                                    },
+                                    {
+                                        "name":  "Meniscus Repair",
+                                        "physical_status":  "ASA I-II",
+                                        "position":  "Supine",
+                                        "anatomical_category":  "Other: Musculoskeletal - Knee Joint",
+                                        "anesthesia_type":  "General Anesthesia or Neuraxial (spinal)",
+                                        "anesthesia_procedures":  "Endotracheal intubation if general; neuraxial block with or without adductor canal block"
+                                    },
+                                    {
+                                        "name":  "Osteotomy (High Tibial Osteotomy)",
+                                        "physical_status":  "ASA II-III",
+                                        "position":  "Supine",
+                                        "anatomical_category":  "Other: Musculoskeletal - Bone (Lower Limb)",
+                                        "anesthesia_type":  "General Anesthesia",
+                                        "anesthesia_procedures":  "Endotracheal intubation; regional block for postoperative pain"
+                                    },
+                                    {
+                                        "name":  "Tendon Repair",
+                                        "physical_status":  "ASA I-II or II-III",
+                                        "position":  "Supine or Prone",
+                                        "anatomical_category":  "Other: Musculoskeletal - Tendon",
+                                        "anesthesia_type":  "General Anesthesia or Regional",
+                                        "anesthesia_procedures":  "Endotracheal intubation if general; nerve block as adjunct"
+                                    },
+                                    {
+                                        "name":  "Ligament Repair",
+                                        "physical_status":  "ASA I-II or II-III",
+                                        "position":  "Supine",
+                                        "anatomical_category":  "Other: Musculoskeletal - Ligament",
+                                        "anesthesia_type":  "General Anesthesia or Regional",
+                                        "anesthesia_procedures":  "Endotracheal intubation if general; nerve block if regional"
+                                    },
+                                    {
+                                        "name":  "Hip Resurfacing",
+                                        "physical_status":  "ASA II-III",
+                                        "position":  "Lateral decubitus or Supine",
+                                        "anatomical_category":  "Other: Musculoskeletal - Hip Joint",
+                                        "anesthesia_type":  "General Anesthesia or Spinal Anesthesia",
+                                        "anesthesia_procedures":  "Endotracheal intubation; regional block for postoperative pain"
+                                    },
+                                    {
+                                        "name":  "Knee Arthroscopy",
+                                        "physical_status":  "ASA I-II",
+                                        "position":  "Supine (with knee positioned for access)",
+                                        "anatomical_category":  "Other: Musculoskeletal - Knee Joint",
+                                        "anesthesia_type":  "General Anesthesia or Neuraxial (spinal)",
+                                        "anesthesia_procedures":  "Endotracheal intubation if general; neuraxial block with or without adductor canal block"
+                                    },
+                                    {
+                                        "name":  "Ankle Fracture Repair",
+                                        "physical_status":  "ASA II-III",
+                                        "position":  "Supine",
+                                        "anatomical_category":  "Other: Musculoskeletal - Ankle",
+                                        "anesthesia_type":  "General Anesthesia or Spinal Anesthesia",
+                                        "anesthesia_procedures":  "Endotracheal intubation; regional block (popliteal/distal sciatic and adductor canal)"
+                                    },
+                                    {
+                                        "name":  "Wrist Fracture Repair",
+                                        "physical_status":  "ASA I-II or II-III",
+                                        "position":  "Supine (arm on hand table)",
+                                        "anatomical_category":  "Extremities - Upper (Wrist)",
+                                        "anesthesia_type":  "General Anesthesia or Regional (e.g., Bier block, brachial plexus block)",
+                                        "anesthesia_procedures":  "Endotracheal intubation if general; nerve block if regional"
+                                    },
+                                    {
+                                        "name":  "Clavicle Fracture Repair (ORIF)",
+                                        "physical_status":  "ASA I-II or II-III",
+                                        "position":  "Supine or Beach chair",
+                                        "anatomical_category":  "Other: Musculoskeletal - Clavicle",
+                                        "anesthesia_type":  "General Anesthesia or Regional",
+                                        "anesthesia_procedures":  "Endotracheal intubation if general; nerve block (interscalene, superficial cervical plexus, or clavipectoral plane block) if regional"
+                                    },
+                                    {
+                                        "name":  "Tibial Plateau Fracture Repair",
+                                        "physical_status":  "ASA II-III",
+                                        "position":  "Supine",
+                                        "anatomical_category":  "Other: Musculoskeletal - Knee/Leg Bone",
+                                        "anesthesia_type":  "General Anesthesia",
+                                        "anesthesia_procedures":  "Endotracheal intubation; regional block for adjunct analgesia"
+                                    },
+                                    {
+                                        "name":  "Open Reduction Internal Fixation (ORIF) Tibial Plateau Fracture Repair",
+                                        "physical_status":  "ASA II",
+                                        "position":  "Supine",
+                                        "anatomical_category":  "Other: Lower Extremity",
+                                        "anesthesia_type":  "General Anesthesia or Regional Anesthesia (Spinal)",
+                                        "anesthesia_procedures":  "Endotracheal intubation (if general) or spinal block"
+                                    },
+                                    {
+                                        "name":  "Osteosynthesis (Bone Fixation with Implants)",
+                                        "physical_status":  "ASA II-III",
+                                        "position":  "Variable (commonly Supine)",
+                                        "anatomical_category":  "Other: Musculoskeletal - Bone",
+                                        "anesthesia_type":  "General Anesthesia",
+                                        "anesthesia_procedures":  "Endotracheal intubation; regional block as needed"
+                                    }
+      ]
+    },
+    {
+                      "part_name":  "Orthopedic Trauma Procedures",
+                      "procedures":  [
+                                         {
+                                             "name":  "Intramedullary Nailing for Femoral Shaft Fracture",
+                                             "physical_status":  "ASA II-III",
+                                             "position":  "Supine on a fracture table",
+                                             "anatomical_category":  "Other: Musculoskeletal - Long Bone (Femur)",
+                                             "anesthesia_type":  "General Anesthesia or Regional (Spinal/Epidural) with sedation",
+                                             "anesthesia_procedures":  "Endotracheal intubation (if general) or neuraxial block with adjunct nerve blocks (e.g., fascia iliaca block)"
+                                         },
+                                         {
+                                             "name":  "Intramedullary Nailing for Tibial Shaft Fracture",
+                                             "physical_status":  "ASA II-III",
+                                             "position":  "Supine",
+                                             "anatomical_category":  "Other: Musculoskeletal - Long Bone (Tibia)",
+                                             "anesthesia_type":  "General Anesthesia or Regional",
+                                             "anesthesia_procedures":  "Endotracheal intubation (if general) or appropriate neuraxial/nerve block (e.g., femoral or adductor canal block)"
+                                         },
+                                         {
+                                             "name":  "Intramedullary Nailing for Humeral Shaft Fracture",
+                                             "physical_status":  "ASA II-III",
+                                             "position":  "Supine or Beach chair",
+                                             "anatomical_category":  "Other: Musculoskeletal - Long Bone (Humerus)",
+                                             "anesthesia_type":  "General Anesthesia",
+                                             "anesthesia_procedures":  "Endotracheal intubation; possible interscalene block"
+                                         },
+                                         {
+                                             "name":  "External Fixation for Open or Comminuted Fractures",
+                                             "physical_status":  "ASA II-III",
+                                             "position":  "Supine",
+                                             "anatomical_category":  "Other: Musculoskeletal - Extremity Fracture",
+                                             "anesthesia_type":  "General or Regional Anesthesia",
+                                             "anesthesia_procedures":  "Endotracheal intubation (if general) or nerve block if regional"
+                                         },
+                                         {
+                                             "name":  "Pelvic Fracture Stabilization",
+                                             "physical_status":  "ASA III-IV",
+                                             "position":  "Supine",
+                                             "anatomical_category":  "Other: Musculoskeletal - Pelvic Ring",
+                                             "anesthesia_type":  "General Anesthesia",
+                                             "anesthesia_procedures":  "Rapid sequence induction; invasive monitoring (arterial catheter, central venous catheter)"
+                                         },
+                                         {
+                                             "name":  "Acetabular Fracture Repair",
+                                             "physical_status":  "ASA III-IV",
+                                             "position":  "Supine or Lateral decubitus",
+                                             "anatomical_category":  "Other: Musculoskeletal - Pelvic/Acetabular",
+                                             "anesthesia_type":  "General Anesthesia",
+                                             "anesthesia_procedures":  "Endotracheal intubation; possible arterial catheter; regional block (as applicable)"
+                                         },
+                                         {
+                                             "name":  "Distal Radius Fracture Fixation",
+                                             "physical_status":  "ASA I-II or II-III",
+                                             "position":  "Supine with arm on hand table",
+                                             "anatomical_category":  "Extremities - Upper (Wrist)",
+                                             "anesthesia_type":  "Regional Anesthesia (e.g., Bier block or nerve block) or General",
+                                             "anesthesia_procedures":  "Nerve block (median nerve block) with sedation or Endotracheal intubation if general"
+                                         },
+                                         {
+                                             "name":  "Proximal Humerus Fracture Fixation",
+                                             "physical_status":  "ASA I-II or II-III",
+                                             "position":  "Supine or Beach chair",
+                                             "anatomical_category":  "Other: Musculoskeletal - Humerus",
+                                             "anesthesia_type":  "General Anesthesia",
+                                             "anesthesia_procedures":  "Endotracheal intubation; adjunct interscalene block"
+                                         },
+                                         {
+                                             "name":  "Scapular Fracture Fixation",
+                                             "physical_status":  "ASA II-III",
+                                             "position":  "Prone or Lateral decubitus",
+                                             "anatomical_category":  "Other: Musculoskeletal - Scapula",
+                                             "anesthesia_type":  "General Anesthesia",
+                                             "anesthesia_procedures":  "Endotracheal intubation"
+                                         },
+                                         {
+                                             "name":  "Clavicle Fracture ORIF",
+                                             "physical_status":  "ASA I-II or II-III",
+                                             "position":  "Supine or Beach chair",
+                                             "anatomical_category":  "Other: Musculoskeletal - Clavicle",
+                                             "anesthesia_type":  "General Anesthesia or Regional",
+                                             "anesthesia_procedures":  "Endotracheal intubation (if general) or nerve block (e.g., interscalene block)"
+        }
+      ]
+    },
+    {
+                      "part_name":  "Neurosurgery",
+                      "cases":  [
+                                    {
+                                        "name":  "Craniectomy",
+                                        "physical_status":  "ASA III-IV",
+                                        "position":  "Supine (head fixed)",
+                                        "anatomical_category":  "Head - Intracranial",
+                                        "anesthesia_type":  "General Anesthesia",
+                                        "anesthesia_procedures":  "Endotracheal intubation, invasive hemodynamic monitoring (arterial catheter)"
+                                    },
+                                    {
+                                        "name":  "Craniotomy for Brain Tumor Removal",
+                                        "physical_status":  "ASA III-IV",
+                                        "position":  "Supine with head fixed",
+                                        "anatomical_category":  "Head - Intracranial",
+                                        "anesthesia_type":  "General Anesthesia",
+                                        "anesthesia_procedures":  "Endotracheal intubation, arterial catheter insertion"
+                                    },
+                                    {
+                                        "name":  "Aneurysm Clipping",
+                                        "physical_status":  "ASA III-IV",
+                                        "position":  "Supine with head fixed",
+                                        "anatomical_category":  "Head - Intracranial",
+                                        "anesthesia_type":  "General Anesthesia",
+                                        "anesthesia_procedures":  "Endotracheal intubation, invasive monitoring (arterial and central venous lines), neuro-monitoring"
+                                    },
+                                    {
+                                        "name":  "Spinal Cord Surgery (Tumor Resection/Decompression)",
+                                        "physical_status":  "ASA II-III",
+                                        "position":  "Prone",
+                                        "anatomical_category":  "Neuroskeletal - Spine",
+                                        "anesthesia_type":  "General Anesthesia",
+                                        "anesthesia_procedures":  "Endotracheal intubation, neuromonitoring, invasive monitoring (arterial catheter)"
+                                    },
+                                    {
+                                        "name":  "Lumbar Discectomy",
+                                        "physical_status":  "ASA I-II or II-III",
+                                        "position":  "Prone",
+                                        "anatomical_category":  "Neuroskeletal - Spine",
+                                        "anesthesia_type":  "General Anesthesia",
+                                        "anesthesia_procedures":  "Endotracheal intubation, ESP block"
+                                    },
+                                    {
+                                        "name":  "Cervical Fusion",
+                                        "physical_status":  "ASA II-III",
+                                        "position":  "Supine (anterior) or Prone (posterior)",
+                                        "anatomical_category":  "Neuroskeletal - Spine",
+                                        "anesthesia_type":  "General Anesthesia",
+                                        "anesthesia_procedures":  "Endotracheal intubation, neuromonitoring, arterial catheter"
+                                    },
+                                    {
+                                        "name":  "Deep Brain Stimulation (DBS) Implantation",
+                                        "physical_status":  "ASA II-III",
+                                        "position":  "Supine (head fixed in stereotactic frame)",
+                                        "anatomical_category":  "Head - Intracranial (or Other: Deep Brain)",
+                                        "anesthesia_type":  "Local with Sedation or General Anesthesia",
+                                        "anesthesia_procedures":  "Stereotactic frame placement, sedation/awake testing or Endotracheal intubation if general"
+                                    },
+                                    {
+                                        "name":  "Stereotactic Radiosurgery (Gamma Knife)",
+                                        "physical_status":  "ASA I-II",
+                                        "position":  "Supine",
+                                        "anatomical_category":  "Head - Intracranial",
+                                        "anesthesia_type":  "MAC with Sedation",
+                                        "anesthesia_procedures":  "Head frame or mask fixation, supplemental oxygen, sedation, monitoring"
+                                    },
+                                    {
+                                        "name":  "Ventriculoperitoneal (VP) Shunt Placement",
+                                        "physical_status":  "ASA II-III",
+                                        "position":  "Supine",
+                                        "anatomical_category":  "Head - Intracranial / Intra-abdominal",
+                                        "anesthesia_type":  "General Anesthesia",
+                                        "anesthesia_procedures":  "Endotracheal intubation"
+                                    },
+                                    {
+                                        "name":  "Endoscopic Third Ventriculostomy (ETV)",
+                                        "physical_status":  "ASA II-III",
+                                        "position":  "Supine",
+                                        "anatomical_category":  "Head - Intracranial",
+                                        "anesthesia_type":  "General Anesthesia",
+                                        "anesthesia_procedures":  "Endotracheal intubation, arterial catheter"
+                                    },
+                                    {
+                                        "name":  "Microvascular Decompression for Trigeminal Neuralgia",
+                                        "physical_status":  "ASA II-III",
+                                        "position":  "Lateral decubitus or Supine with head rotation",
+                                        "anatomical_category":  "Head - Intracranial",
+                                        "anesthesia_type":  "General Anesthesia",
+                                        "anesthesia_procedures":  "Endotracheal intubation"
+                                    },
+                                    {
+                                        "name":  "Thoracic Spinal Fusion",
+                                        "physical_status":  "ASA II-III",
+                                        "position":  "Prone",
+                                        "anatomical_category":  "Neuroskeletal - Spine",
+                                        "anesthesia_type":  "General Anesthesia",
+                                        "anesthesia_procedures":  "Endotracheal intubation, arterial catheter, ESP block"
+                                    },
+                                    {
+                                        "name":  "Spinal Cord Stimulator Trial Implantation",
+                                        "physical_status":  "ASA II-III",
+                                        "position":  "Prone",
+                                        "anatomical_category":  "Neuroskeletal - Spine",
+                                        "anesthesia_type":  "General Anesthesia or MAC with Local",
+                                        "anesthesia_procedures":  "Endotracheal intubation if general; local infiltration and sedation if MAC"
+                                    },
+                                    {
+                                        "name":  "Cranioplasty",
+                                        "physical_status":  "ASA II-III",
+                                        "position":  "Supine",
+                                        "anatomical_category":  "Other: Skull",
+                                        "anesthesia_type":  "General Anesthesia",
+                                        "anesthesia_procedures":  "Endotracheal intubation, invasive monitoring (arterial catheter)"
+                                    },
+                                    {
+                                        "name":  "Epilepsy Surgery (Temporal Lobectomy)",
+                                        "physical_status":  "ASA II-III",
+                                        "position":  "Supine with head fixed",
+                                        "anatomical_category":  "Head - Intracranial",
+                                        "anesthesia_type":  "General Anesthesia",
+                                        "anesthesia_procedures":  "Endotracheal intubation, arterial catheter"
+                                    },
+                                    {
+                                        "name":  "Stereotactic Brain Biopsy",
+                                        "physical_status":  "ASA II-III",
+                                        "position":  "Supine",
+                                        "anatomical_category":  "Head - Intracranial",
+                                        "anesthesia_type":  "General or Local with Sedation",
+                                        "anesthesia_procedures":  "Endotracheal intubation if general; local infiltration and sedation if not"
+                                    },
+                                    {
+                                        "name":  "Intracranial Pressure (ICP) Monitoring",
+                                        "physical_status":  "ASA IV",
+                                        "position":  "Supine",
+                                        "anatomical_category":  "Head - Intracranial",
+                                        "anesthesia_type":  "General Anesthesia (if in OR) or ICU management",
+                                        "anesthesia_procedures":  "Endotracheal intubation (if in OR)"
+                                    },
+                                    {
+                                        "name":  "Foramen Magnum Decompression (Chiari Malformation Repair)",
+                                        "physical_status":  "ASA II-III",
+                                        "position":  "Prone",
+                                        "anatomical_category":  "Neuroskeletal - Spine (Craniovertebral Junction)",
+                                        "anesthesia_type":  "General Anesthesia",
+                                        "anesthesia_procedures":  "Endotracheal intubation, arterial catheter"
+                                    },
+                                    {
+                                        "name":  "Endonasal Pituitary Surgery",
+                                        "physical_status":  "ASA II-III",
+                                        "position":  "Supine with slight head extension",
+                                        "anatomical_category":  "Head - Oropharyngeal/Intracranial",
+                                        "anesthesia_type":  "General Anesthesia",
+                                        "anesthesia_procedures":  "Endotracheal intubation, arterial catheter"
+                                    },
+                                    {
+                                        "name":  "Ventriculostomy (External Ventricular Drain Placement)",
+                                        "physical_status":  "ASA II-III",
+                                        "position":  "Supine",
+                                        "anatomical_category":  "Head - Intracranial",
+                                        "anesthesia_type":  "General Anesthesia or Local with Sedation",
+                                        "anesthesia_procedures":  "Endotracheal intubation if general; local infiltration if sedation"
+                                    },
+                                    {
+                                        "name":  "Cerebral Revascularization (EC-IC Bypass)",
+                                        "physical_status":  "ASA III-IV",
+                                        "position":  "Supine",
+                                        "anatomical_category":  "Head - Intracranial",
+                                        "anesthesia_type":  "General Anesthesia",
+                                        "anesthesia_procedures":  "Endotracheal intubation, arterial catheter"
+                                    },
+                                    {
+                                        "name":  "Spinal Tumor Resection",
+                                        "physical_status":  "ASA III-IV",
+                                        "position":  "Prone (posterior) or Supine (anterior)",
+                                        "anatomical_category":  "Neuroskeletal - Spine",
+                                        "anesthesia_type":  "General Anesthesia",
+                                        "anesthesia_procedures":  "Endotracheal intubation, arterial catheter"
+                                    },
+                                    {
+                                        "name":  "Myelomeningocele Repair",
+                                        "physical_status":  "ASA II-III",
+                                        "position":  "Prone",
+                                        "anatomical_category":  "Other: Neural Tube - Spinal",
+                                        "anesthesia_type":  "General Anesthesia",
+                                        "anesthesia_procedures":  "Endotracheal intubation"
+                                    },
+                                    {
+                                        "name":  "Peripheral Nerve Decompression",
+                                        "physical_status":  "ASA I-II or II-III",
+                                        "position":  "Supine",
+                                        "anatomical_category":  "Other: Peripheral Nerve",
+                                        "anesthesia_type":  "General or Regional Anesthesia",
+                                        "anesthesia_procedures":  "Endotracheal intubation if general; targeted nerve block if regional"
+                                    },
+                                    {
+                                        "name":  "Trigeminal Nerve Decompression",
+                                        "physical_status":  "ASA II-III",
+                                        "position":  "Supine with head rotated",
+                                        "anatomical_category":  "Head - Intracranial",
+                                        "anesthesia_type":  "General Anesthesia",
+                                        "anesthesia_procedures":  "Endotracheal intubation"
+                                    },
+                                    {
+                                        "name":  "Microdiscectomy",
+                                        "physical_status":  "ASA I-II or II-III",
+                                        "position":  "Prone",
+                                        "anatomical_category":  "Neuroskeletal - Spine",
+                                        "anesthesia_type":  "General Anesthesia",
+                                        "anesthesia_procedures":  "Endotracheal intubation"
+                                    },
+                                    {
+                                        "name":  "Posterior Fossa Decompression",
+                                        "physical_status":  "ASA II-III",
+                                        "position":  "Prone",
+                                        "anatomical_category":  "Neuroskeletal - Spine",
+                                        "anesthesia_type":  "General Anesthesia",
+                                        "anesthesia_procedures":  "Endotracheal intubation, arterial catheter"
+                                    },
+                                    {
+                                        "name":  "Shunt Revision Surgery",
+                                        "physical_status":  "ASA II-III",
+                                        "position":  "Supine",
+                                        "anatomical_category":  "Head - Intracranial",
+                                        "anesthesia_type":  "General Anesthesia",
+                                        "anesthesia_procedures":  "Endotracheal intubation, arterial catheter"
+                                    },
+                                    {
+                                        "name":  "Spinal Cord Stimulator Trial Implantation",
+                                        "physical_status":  "ASA II-III",
+                                        "position":  "Prone",
+                                        "anatomical_category":  "Neuroskeletal - Spine",
+                                        "anesthesia_type":  "General Anesthesia or MAC with Local",
+                                        "anesthesia_procedures":  "Endotracheal intubation if general; local infiltration and sedation if MAC"
+                                    },
+                                    {
+                                        "position":  "Supine with head fixed",
+                                        "name":  "Craniotomy",
+                                        "anatomical_category":  "Head - Intracranial",
+                                        "anesthesia_procedures":  "Endotracheal Intubation; Arterial Catheter Insertion Placement",
+                                        "physical_status":  "ASA III-IV",
+                                        "anesthesia_type":  "General Anesthesia"
+        }
+      ]
+    },
+    {
+                      "part_name":  "Thoracic Surgery",
+                      "cases":  [
+                                    {
+                                        "name":  "Lung Decortication",
+                                        "physical_status":  "ASA III",
+                                        "position":  "Lateral decubitus",
+                                        "anatomical_category":  "Intrathoracic - Lung",
+                                        "anesthesia_type":  "General Anesthesia with one-lung ventilation",
+                                        "anesthesia_procedures":  "Endotracheal intubation with DLT confirmed via fiberoptic bronchoscope; invasive monitoring as needed; thoracic nerve block (intercostal or ESP block)"
+                                    },
+                                    {
+                                        "name":  "VATS Lobectomy",
+                                        "physical_status":  "ASA II-III",
+                                        "position":  "Lateral decubitus",
+                                        "anatomical_category":  "Intrathoracic - Lung",
+                                        "anesthesia_type":  "General Anesthesia with one-lung ventilation",
+                                        "anesthesia_procedures":  "Endotracheal intubation with DLT (confirmed with fiberoptic bronchoscope); invasive monitoring as indicated; thoracic nerve block (ESP or intercostal)"
+                                    },
+                                    {
+                                        "name":  "Open Thoracotomy",
+                                        "physical_status":  "ASA III-IV",
+                                        "position":  "Lateral decubitus or Supine",
+                                        "anatomical_category":  "Intrathoracic - Other (Chest Wall/Lung)",
+                                        "anesthesia_type":  "General Anesthesia",
+                                        "anesthesia_procedures":  "Endotracheal intubation with DLT verified by fiberoptic bronchoscope; invasive monitoring (arterial and central venous catheter); thoracic nerve block (ESP or intercostal)"
+                                    },
+                                    {
+                                        "name":  "Pneumonectomy",
+                                        "physical_status":  "ASA III-IV",
+                                        "position":  "Lateral decubitus",
+                                        "anatomical_category":  "Intrathoracic - Lung",
+                                        "anesthesia_type":  "General Anesthesia with one-lung ventilation",
+                                        "anesthesia_procedures":  "Endotracheal intubation with DLT confirmed by fiberoptic bronchoscope; invasive monitoring; thoracic nerve block as needed"
+                                    },
+                                    {
+                                        "name":  "Lung Volume Reduction Surgery",
+                                        "physical_status":  "ASA III",
+                                        "position":  "Lateral decubitus",
+                                        "anatomical_category":  "Intrathoracic - Lung",
+                                        "anesthesia_type":  "General Anesthesia with one-lung ventilation",
+                                        "anesthesia_procedures":  "Endotracheal intubation with DLT confirmed via fiberoptic bronchoscope; invasive monitoring; thoracic nerve block (ESP or intercostal)"
+                                    },
+                                    {
+                                        "name":  "Thymectomy",
+                                        "physical_status":  "ASA II-III",
+                                        "position":  "Supine or Semi-supine with slight neck extension",
+                                        "anatomical_category":  "Intrathoracic - Other (Mediastinum)",
+                                        "anesthesia_type":  "General Anesthesia",
+                                        "anesthesia_procedures":  "Endotracheal intubation (single lumen or DLT if lung isolation needed, confirmed with fiberoptic bronchoscope); invasive monitoring as indicated; thoracic nerve block if indicated"
+                                    },
+                                    {
+                                        "name":  "Mediastinoscopy",
+                                        "physical_status":  "ASA I-II",
+                                        "position":  "Supine with slight neck extension",
+                                        "anatomical_category":  "Intrathoracic - Other (Mediastinum)",
+                                        "anesthesia_type":  "General Anesthesia",
+                                        "anesthesia_procedures":  "Endotracheal intubation (standard tube); invasive monitoring if indicated"
+                                    },
+                                    {
+                                        "name":  "Empyema Decortication",
+                                        "physical_status":  "ASA III-IV",
+                                        "position":  "Lateral decubitus",
+                                        "anatomical_category":  "Intrathoracic - Lung (Pleura)",
+                                        "anesthesia_type":  "General Anesthesia with one-lung ventilation",
+                                        "anesthesia_procedures":  "Endotracheal intubation with DLT (confirmed via fiberoptic bronchoscope); invasive monitoring; thoracic nerve block (ESP or intercostal)"
+                                    },
+                                    {
+                                        "name":  "Pleurodesis",
+                                        "physical_status":  "ASA II-III",
+                                        "position":  "Lateral decubitus or Supine",
+                                        "anatomical_category":  "Intrathoracic - Lung (Pleura)",
+                                        "anesthesia_type":  "General Anesthesia",
+                                        "anesthesia_procedures":  "Endotracheal intubation with DLT (if lung isolation required, confirmed via fiberoptic bronchoscope); invasive monitoring as needed; thoracic nerve block (ESP or intercostal)"
+                                    },
+                                    {
+                                        "name":  "Chest Wall Resection",
+                                        "physical_status":  "ASA III-IV",
+                                        "position":  "Lateral decubitus or Supine",
+                                        "anatomical_category":  "Intrathoracic - Other (Chest Wall)",
+                                        "anesthesia_type":  "General Anesthesia",
+                                        "anesthesia_procedures":  "Endotracheal intubation with DLT (if required, confirmed via fiberoptic bronchoscope); invasive monitoring; thoracic nerve block (ESP or intercostal)"
+                                    },
+                                    {
+                                        "name":  "Resection of Mediastinal Masses",
+                                        "physical_status":  "ASA II-III",
+                                        "position":  "Supine or Lateral decubitus",
+                                        "anatomical_category":  "Intrathoracic - Other (Mediastinum)",
+                                        "anesthesia_type":  "General Anesthesia",
+                                        "anesthesia_procedures":  "Endotracheal intubation (single lumen; DLT if needed, confirmed via fiberoptic bronchoscope); invasive monitoring (arterial catheter); thoracic nerve block as needed"
+                                    },
+                                    {
+                                        "name":  "Tracheal Resection and Reconstruction",
+                                        "physical_status":  "ASA III-IV",
+                                        "position":  "Supine with neck extension",
+                                        "anatomical_category":  "Other: Airway",
+                                        "anesthesia_type":  "General Anesthesia",
+                                        "anesthesia_procedures":  "Endotracheal intubation using specialized techniques (DLT if needed, confirmed via fiberoptic bronchoscope); invasive monitoring (arterial and central venous catheter); local infiltration at incision"
+                                    },
+                                    {
+                                        "name":  "Diaphragmatic Hernia Repair",
+                                        "physical_status":  "ASA III",
+                                        "position":  "Supine or Lateral decubitus",
+                                        "anatomical_category":  "Intra-abdominal - Other (Diaphragm) or Intrathoracic - Other",
+                                        "anesthesia_type":  "General Anesthesia",
+                                        "anesthesia_procedures":  "Endotracheal intubation with DLT (if lung isolation indicated, confirmed via fiberoptic bronchoscope); invasive monitoring; thoracic nerve block (ESP or intercostal) as needed"
+                                    },
+                                    {
+                                        "name":  "Pericardial Window Creation",
+                                        "physical_status":  "ASA III-IV",
+                                        "position":  "Supine",
+                                        "anatomical_category":  "Intrathoracic - Heart (Pericardium)",
+                                        "anesthesia_type":  "General Anesthesia",
+                                        "anesthesia_procedures":  "Endotracheal intubation (standard tube); invasive monitoring (arterial and central venous catheter); thoracic nerve block (ESP or intercostal) if needed"
+                                    },
+                                    {
+                                        "position":  "Lateral decubitus",
+                                        "name":  "Video-Assisted Thoracoscopic Surgery (VATS) Lobectomy",
+                                        "anatomical_category":  "Intrathoracic - Lung",
+                                        "anesthesia_procedures":  "Endotracheal intubation with double-lumen tube or bronchial blocker; arterial line; thoracic epidural or paravertebral block",
+                                        "physical_status":  "ASA II-III",
+                                        "anesthesia_type":  "General Anesthesia with One-Lung Ventilation"
+        }
+      ]
+    },
+    {
+                      "part_name":  "Plastic and Reconstructive Surgery",
+                      "cases":  [
+                                    {
+                                        "name":  "Breast Reconstruction (Post-Mastectomy)",
+                                        "physical_status":  "ASA II-III",
+                                        "position":  "Supine",
+                                        "anatomical_category":  "Other: Soft Tissue - Breast",
+                                        "anesthesia_type":  "General Anesthesia",
+                                        "anesthesia_procedures":  "Endotracheal intubation; adjunct regional block: Pecs I and Pecs II blocks"
+                                    },
+                                    {
+                                        "name":  "Abdominoplasty (Tummy Tuck)",
+                                        "physical_status":  "ASA II-III",
+                                        "position":  "Supine",
+                                        "anatomical_category":  "Other: Soft Tissue - Abdominal Wall",
+                                        "anesthesia_type":  "General Anesthesia",
+                                        "anesthesia_procedures":  "Endotracheal intubation; adjunct regional block: TAP block"
+                                    },
+                                    {
+                                        "name":  "Rhinoplasty",
+                                        "physical_status":  "ASA I-II or II-III",
+                                        "position":  "Supine with head extension",
+                                        "anatomical_category":  "Other: Soft Tissue - Facial (Nose)",
+                                        "anesthesia_type":  "General Anesthesia or Sedation with Local Infiltration",
+                                        "anesthesia_procedures":  "Endotracheal intubation if general; local infiltration with epinephrine; optional infraorbital nerve block"
+                                    },
+                                    {
+                                        "name":  "Blepharoplasty",
+                                        "physical_status":  "ASA I-II",
+                                        "position":  "Supine with head elevation",
+                                        "anatomical_category":  "Other: Soft Tissue - Facial (Eyelids)",
+                                        "anesthesia_type":  "General Anesthesia or Local with Sedation",
+                                        "anesthesia_procedures":  "Endotracheal intubation if general; local infiltration with lidocaine; optional supraorbital/infraorbital nerve block"
+                                    },
+                                    {
+                                        "name":  "Facelift (Rhytidectomy)",
+                                        "physical_status":  "ASA I-II or II-III",
+                                        "position":  "Supine or Beach chair",
+                                        "anatomical_category":  "Other: Soft Tissue - Facial",
+                                        "anesthesia_type":  "General Anesthesia or MAC with Local Infiltration",
+                                        "anesthesia_procedures":  "Endotracheal intubation if general; local infiltration; optional superficial cervical plexus block"
+                                    },
+                                    {
+                                        "name":  "Liposuction",
+                                        "physical_status":  "ASA I-II or II-III",
+                                        "position":  "Supine (or as required)",
+                                        "anatomical_category":  "Other: Soft Tissue - Adipose",
+                                        "anesthesia_type":  "General Anesthesia or Tumescent Local Anesthesia with Sedation",
+                                        "anesthesia_procedures":  "Endotracheal intubation if general; local infiltration with tumescent solution"
+                                    },
+                                    {
+                                        "name":  "Mastopexy (Breast Lift)",
+                                        "physical_status":  "ASA I-II or II-III",
+                                        "position":  "Supine",
+                                        "anatomical_category":  "Other: Soft Tissue - Breast",
+                                        "anesthesia_type":  "General Anesthesia",
+                                        "anesthesia_procedures":  "Endotracheal intubation; adjunct regional block: Pecs I/II block"
+                                    },
+                                    {
+                                        "name":  "Reduction Mammoplasty (Breast Reduction)",
+                                        "physical_status":  "ASA I-II or II-III",
+                                        "position":  "Supine",
+                                        "anatomical_category":  "Other: Soft Tissue - Breast",
+                                        "anesthesia_type":  "General Anesthesia",
+                                        "anesthesia_procedures":  "Endotracheal intubation; invasive monitoring if needed; adjunct regional block: Pecs I/II block"
+                                    },
+                                    {
+                                        "name":  "Breast Augmentation",
+                                        "physical_status":  "ASA I-II or II-III",
+                                        "position":  "Supine",
+                                        "anatomical_category":  "Other: Soft Tissue - Breast",
+                                        "anesthesia_type":  "General Anesthesia",
+                                        "anesthesia_procedures":  "Endotracheal intubation; invasive monitoring as needed; adjunct regional block: Pecs I/II block"
+                                    },
+                                    {
+                                        "name":  "Otoplasty (Ear Reshaping)",
+                                        "physical_status":  "ASA I-II",
+                                        "position":  "Supine or Lateral decubitus",
+                                        "anatomical_category":  "Other: Soft Tissue - Auricular",
+                                        "anesthesia_type":  "General Anesthesia or Local with Sedation",
+                                        "anesthesia_procedures":  "Endotracheal intubation if general; local infiltration; optional superficial cervical plexus block"
+                                    },
+                                    {
+                                        "name":  "Hand Replantation",
+                                        "physical_status":  "ASA II-III",
+                                        "position":  "Supine",
+                                        "anatomical_category":  "Extremities - Upper (Hand)",
+                                        "anesthesia_type":  "General Anesthesia",
+                                        "anesthesia_procedures":  "Endotracheal intubation; invasive monitoring as needed; adjunct regional block: axillary or brachial plexus block"
+                                    },
+                                    {
+                                        "name":  "Scar Revision Surgery",
+                                        "physical_status":  "ASA I-II",
+                                        "position":  "Supine",
+                                        "anatomical_category":  "Other: Soft Tissue - Skin",
+                                        "anesthesia_type":  "Local with Sedation or General Anesthesia",
+                                        "anesthesia_procedures":  "Local infiltration; optional targeted peripheral nerve block"
+                                    },
+                                    {
+                                        "name":  "Cleft Lip and Palate Repair",
+                                        "physical_status":  "ASA II-III",
+                                        "position":  "Supine with head support",
+                                        "anatomical_category":  "Other: Soft Tissue - Facial (Cleft)",
+                                        "anesthesia_type":  "General Anesthesia",
+                                        "anesthesia_procedures":  "Endotracheal intubation"
+                                    },
+                                    {
+                                        "name":  "Burn Reconstruction Surgery",
+                                        "physical_status":  "ASA II-III or higher",
+                                        "position":  "Supine or as required",
+                                        "anatomical_category":  "Other: Soft Tissue - Skin",
+                                        "anesthesia_type":  "General Anesthesia",
+                                        "anesthesia_procedures":  "Endotracheal intubation; invasive monitoring if required; adjunct regional blocks as appropriate"
+                                    },
+                                    {
+                                        "name":  "Flap Surgery (Free/Rotational Tissue Transfer)",
+                                        "physical_status":  "ASA II-III or higher",
+                                        "position":  "Variable",
+                                        "anatomical_category":  "Other: Soft Tissue - Free Flap",
+                                        "anesthesia_type":  "General Anesthesia",
+                                        "anesthesia_procedures":  "Endotracheal intubation; invasive monitoring (arterial catheter); adjunct regional block for donor site (e.g., TAP block)"
+                                    },
+                                    {
+                                        "name":  "Skin Grafting",
+                                        "physical_status":  "ASA I-II or II-III",
+                                        "position":  "Supine",
+                                        "anatomical_category":  "Other: Soft Tissue - Skin",
+                                        "anesthesia_type":  "General Anesthesia or Local with Sedation",
+                                        "anesthesia_procedures":  "Endotracheal intubation if general; local infiltration; adjunct peripheral nerve block as needed"
+                                    },
+                                    {
+                                        "name":  "Facial Reanimation Surgery",
+                                        "physical_status":  "ASA II-III",
+                                        "position":  "Supine with head elevation",
+                                        "anatomical_category":  "Other: Soft Tissue - Facial",
+                                        "anesthesia_type":  "General Anesthesia",
+                                        "anesthesia_procedures":  "Endotracheal intubation; adjunct regional block: infraorbital nerve block"
+                                    },
+                                    {
+                                        "name":  "Body Contouring Surgery",
+                                        "physical_status":  "ASA II-III",
+                                        "position":  "Supine",
+                                        "anatomical_category":  "Other: Soft Tissue - Body Contouring",
+                                        "anesthesia_type":  "General Anesthesia",
+                                        "anesthesia_procedures":  "Endotracheal intubation; adjunct regional block: TAP block or appropriate peripheral nerve block"
+                                    },
+                                    {
+                                        "name":  "Digital Replantation",
+                                        "physical_status":  "ASA II-III",
+                                        "position":  "Supine",
+                                        "anatomical_category":  "Extremities - Upper (or Lower for toes)",
+                                        "anesthesia_type":  "General Anesthesia",
+                                        "anesthesia_procedures":  "Endotracheal intubation; adjunct regional block: digital nerve block or brachial plexus block"
+                                    },
+                                    {
+                                        "name":  "Abdominal Wall Reconstruction",
+                                        "physical_status":  "ASA II-III",
+                                        "position":  "Supine",
+                                        "anatomical_category":  "Other: Soft Tissue - Abdominal Wall",
+                                        "anesthesia_type":  "General Anesthesia",
+                                        "anesthesia_procedures":  "Endotracheal intubation; adjunct regional block: TAP block"
+                                    },
+                                    {
+                                        "name":  "Tissue Expansion Procedures",
+                                        "physical_status":  "ASA I-II or II-III",
+                                        "position":  "Supine (or per expansion site)",
+                                        "anatomical_category":  "Other: Soft Tissue - Skin/Subcutaneous",
+                                        "anesthesia_type":  "General Anesthesia or Local with Sedation",
+                                        "anesthesia_procedures":  "Endotracheal intubation if general; local infiltration; adjunct peripheral nerve block as applicable"
+                                    },
+                                    {
+                                        "name":  "Revision Rhinoplasty",
+                                        "physical_status":  "ASA II-III",
+                                        "position":  "Supine with head extension",
+                                        "anatomical_category":  "Other: Soft Tissue - Facial (Nose)",
+                                        "anesthesia_type":  "General Anesthesia",
+                                        "anesthesia_procedures":  "Endotracheal intubation"
+                                    },
+                                    {
+                                        "name":  "Hair Transplantation",
+                                        "physical_status":  "ASA I-II",
+                                        "position":  "Supine",
+                                        "anatomical_category":  "Other: Soft Tissue - Scalp",
+                                        "anesthesia_type":  "Local Anesthesia with Sedation",
+                                        "anesthesia_procedures":  "Local infiltration with lidocaine"
+                                    },
+                                    {
+                                        "name":  "Gender-Affirming Vaginoplasty (Male-to-Female)",
+                                        "physical_status":  "ASA III-IV",
+                                        "position":  "Lithotomy or Supine",
+                                        "anatomical_category":  "Other: Genital/Reconstructive",
+                                        "anesthesia_type":  "General Anesthesia",
+                                        "anesthesia_procedures":  "Endotracheal intubation; invasive monitoring as needed; local infiltration adjunct"
+                                    },
+                                    {
+                                        "name":  "Gender-Affirming Phalloplasty (Female-to-Male)",
+                                        "physical_status":  "ASA III-IV",
+                                        "position":  "Supine",
+                                        "anatomical_category":  "Other: Genital/Reconstructive",
+                                        "anesthesia_type":  "General Anesthesia",
+                                        "anesthesia_procedures":  "Endotracheal intubation; invasive monitoring as indicated; local infiltration for donor site"
+                                    },
+                                    {
+                                        "name":  "Reduction Cheiloplasty (Lip Reduction)",
+                                        "physical_status":  "ASA I-II",
+                                        "position":  "Supine",
+                                        "anatomical_category":  "Other: Soft Tissue - Facial (Lips)",
+                                        "anesthesia_type":  "Local Anesthesia with Sedation or rarely General Anesthesia",
+                                        "anesthesia_procedures":  "Local infiltration with lidocaine; optionally a mental nerve block"
+                                    },
+                                    {
+                                        "name":  "Microvascular Free Tissue Transfer",
+                                        "physical_status":  "ASA III-IV",
+                                        "position":  "Supine",
+                                        "anatomical_category":  "Other: Soft Tissue - Free Flap",
+                                        "anesthesia_type":  "General Anesthesia",
+                                        "anesthesia_procedures":  "Endotracheal intubation; invasive monitoring (arterial catheter); adjunct regional block based on donor site"
+                                    },
+                                    {
+                                        "name":  "Laser Resurfacing",
+                                        "physical_status":  "ASA I-II",
+                                        "position":  "Supine",
+                                        "anatomical_category":  "Other: Soft Tissue - Skin",
+                                        "anesthesia_type":  "MAC with Sedation or Local Anesthesia",
+                                        "anesthesia_procedures":  "Local infiltration with lidocaine; sedation as needed"
+                                    },
+                                    {
+                                        "name":  "Implant Removal Surgery",
+                                        "physical_status":  "ASA II-III",
+                                        "position":  "Supine",
+                                        "anatomical_category":  "Other: Soft Tissue - Site Dependent",
+                                        "anesthesia_type":  "General Anesthesia or Local with Sedation",
+                                        "anesthesia_procedures":  "Endotracheal intubation if general; local infiltration; adjunct regional block as applicable"
+                                    },
+                                    {
+                                        "name":  "Scar Excision",
+                                        "physical_status":  "ASA I-II or II-III",
+                                        "position":  "Supine",
+                                        "anatomical_category":  "Other: Soft Tissue - Skin",
+                                        "anesthesia_type":  "Local with Sedation or General Anesthesia",
+                                        "anesthesia_procedures":  "Local infiltration; if indicated, appropriate peripheral nerve block"
+        }
+      ]
+    },
+    {
+                      "part_name":  "Otolaryngology (ENT) Surgery",
+                      "cases":  [
+                                    {
+                                        "name":  "Tonsillectomy",
+                                        "physical_status":  "ASA I-II",
+                                        "position":  "Supine with neck extension",
+                                        "anatomical_category":  "Other: Head - Oropharyngeal (Tonsils)",
+                                        "anesthesia_type":  "General Anesthesia or Sedation with Local Infiltration",
+                                        "anesthesia_procedures":  "Endotracheal intubation if general; local infiltration with lidocaine"
+                                    },
+                                    {
+                                        "name":  "Adenoidectomy",
+                                        "physical_status":  "ASA I-II",
+                                        "position":  "Supine with slight neck extension",
+                                        "anatomical_category":  "Other: Head - Oropharyngeal (Adenoids)",
+                                        "anesthesia_type":  "General Anesthesia",
+                                        "anesthesia_procedures":  "Endotracheal intubation; local infiltration as needed"
+                                    },
+                                    {
+                                        "name":  "Septoplasty",
+                                        "physical_status":  "ASA I-II or II-III",
+                                        "position":  "Supine with head extension",
+                                        "anatomical_category":  "Other: Intranasal/Facial (Nasal Septum)",
+                                        "anesthesia_type":  "General Anesthesia or Local with Sedation",
+                                        "anesthesia_procedures":  "Endotracheal intubation if general; local infiltration with vasoconstrictors"
+                                    },
+                                    {
+                                        "name":  "Rhinoplasty",
+                                        "physical_status":  "ASA I-II or II-III",
+                                        "position":  "Supine with head extension",
+                                        "anatomical_category":  "Other: Soft Tissue - Facial (Nose)",
+                                        "anesthesia_type":  "General Anesthesia",
+                                        "anesthesia_procedures":  "Endotracheal intubation; local infiltration for hemostasis"
+                                    },
+                                    {
+                                        "name":  "Tympanoplasty",
+                                        "physical_status":  "ASA I-II or II-III",
+                                        "position":  "Supine or Lateral decubitus",
+                                        "anatomical_category":  "Other: Head - Auditory (Ear)",
+                                        "anesthesia_type":  "General Anesthesia or Local with Sedation",
+                                        "anesthesia_procedures":  "Endotracheal intubation if general; local infiltration with lidocaine"
+                                    },
+                                    {
+                                        "name":  "Mastoidectomy",
+                                        "physical_status":  "ASA I-II or II-III",
+                                        "position":  "Supine or Lateral decubitus with head turned",
+                                        "anatomical_category":  "Other: Head - Auditory (Mastoid)",
+                                        "anesthesia_type":  "General Anesthesia",
+                                        "anesthesia_procedures":  "Endotracheal intubation; local infiltration at incision sites"
+                                    },
+                                    {
+                                        "name":  "Cochlear Implant Surgery",
+                                        "physical_status":  "ASA I-II or II-III",
+                                        "position":  "Supine with head rotated",
+                                        "anatomical_category":  "Other: Head - Auditory (Cochlea)",
+                                        "anesthesia_type":  "General Anesthesia",
+                                        "anesthesia_procedures":  "Endotracheal intubation; local infiltration as needed"
+                                    },
+                                    {
+                                        "name":  "Functional Endoscopic Sinus Surgery (FESS)",
+                                        "physical_status":  "ASA I-II or II-III",
+                                        "position":  "Supine with slight reverse Trendelenburg",
+                                        "anatomical_category":  "Other: Intranasal/Sinus",
+                                        "anesthesia_type":  "General Anesthesia",
+                                        "anesthesia_procedures":  "Endotracheal intubation; application of local vasoconstrictors"
+                                    },
+                                    {
+                                        "name":  "Laryngectomy",
+                                        "physical_status":  "ASA II-III or III-IV",
+                                        "position":  "Supine with neck extension",
+                                        "anatomical_category":  "Other: Head - Laryngeal",
+                                        "anesthesia_type":  "General Anesthesia",
+                                        "anesthesia_procedures":  "Endotracheal intubation, invasive monitoring (arterial catheter, central venous line)"
+                                    },
+                                    {
+                                        "name":  "Thyroidectomy",
+                                        "physical_status":  "ASA II-III",
+                                        "position":  "Supine with neck extension",
+                                        "anatomical_category":  "Neck",
+                                        "anesthesia_type":  "General Anesthesia",
+                                        "anesthesia_procedures":  "Endotracheal intubation with neuromonitoring tube"
+                                    },
+                                    {
+                                        "name":  "Stapedectomy",
+                                        "physical_status":  "ASA I-II or II-III",
+                                        "position":  "Supine with head elevation",
+                                        "anatomical_category":  "Other: Head - Auditory (Stapes)",
+                                        "anesthesia_type":  "General Anesthesia or Local with Sedation",
+                                        "anesthesia_procedures":  "Endotracheal intubation if general; local infiltration with lidocaine"
+                                    },
+                                    {
+                                        "name":  "Uvulopalatopharyngoplasty (UPPP)",
+                                        "physical_status":  "ASA II-III",
+                                        "position":  "Supine with head extension",
+                                        "anatomical_category":  "Other: Head - Oropharyngeal (Soft Tissue)",
+                                        "anesthesia_type":  "General Anesthesia",
+                                        "anesthesia_procedures":  "Nasal Endotracheal intubation; local infiltration as needed"
+                                    },
+                                    {
+                                        "name":  "Endoscopic Skull Base Surgery",
+                                        "physical_status":  "ASA II-III",
+                                        "position":  "Supine with head extension",
+                                        "anatomical_category":  "Other: Skull Base/Intracranial",
+                                        "anesthesia_type":  "General Anesthesia",
+                                        "anesthesia_procedures":  "Endotracheal intubation"
+                                    },
+                                    {
+                                        "name":  "Frontal Sinusotomy",
+                                        "physical_status":  "ASA I-II or II-III",
+                                        "position":  "Supine with head slightly elevated",
+                                        "anatomical_category":  "Other: Intranasal/Sinus",
+                                        "anesthesia_type":  "General Anesthesia",
+                                        "anesthesia_procedures":  "Endotracheal intubation"
+                                    },
+                                    {
+                                        "name":  "Maxillary Sinus Surgery",
+                                        "physical_status":  "ASA I-II or II-III",
+                                        "position":  "Supine with slight reverse Trendelenburg",
+                                        "anatomical_category":  "Other: Intranasal/Sinus",
+                                        "anesthesia_type":  "General Anesthesia",
+                                        "anesthesia_procedures":  "Endotracheal intubation; local vasoconstrictor infiltration"
+                                    },
+                                    {
+                                        "name":  "Epistaxis Control Surgery",
+                                        "physical_status":  "ASA I-II or II-III",
+                                        "position":  "Supine with head elevation",
+                                        "anatomical_category":  "Other: Intranasal/Facial",
+                                        "anesthesia_type":  "General Anesthesia or Local with Sedation",
+                                        "anesthesia_procedures":  "Endotracheal intubation if general; local infiltration with vasoconstrictors"
+                                    },
+                                    {
+                                        "name":  "Laryngeal Framework Surgery",
+                                        "physical_status":  "ASA II-III",
+                                        "position":  "Supine with head extension",
+                                        "anatomical_category":  "Other: Head - Laryngeal",
+                                        "anesthesia_type":  "General Anesthesia",
+                                        "anesthesia_procedures":  "Endotracheal intubation; invasive monitoring (arterial catheter)"
+                                    },
+                                    {
+                                        "name":  "Septorhinoplasty",
+                                        "physical_status":  "ASA I-II or II-III",
+                                        "position":  "Supine with head extension",
+                                        "anatomical_category":  "Other: Soft Tissue - Facial (Nose)",
+                                        "anesthesia_type":  "General Anesthesia",
+                                        "anesthesia_procedures":  "Endotracheal intubation; local infiltration"
+                                    },
+                                    {
+                                        "name":  "Revision Sinus Surgery",
+                                        "physical_status":  "ASA II-III",
+                                        "position":  "Supine with slight reverse Trendelenburg",
+                                        "anatomical_category":  "Other: Intranasal/Sinus",
+                                        "anesthesia_type":  "General Anesthesia",
+                                        "anesthesia_procedures":  "Endotracheal intubation; local vasoconstrictor infiltration"
+                                    },
+                                    {
+                                        "name":  "Myringotomy with Tube Placement",
+                                        "physical_status":  "ASA I-II",
+                                        "position":  "Supine",
+                                        "anatomical_category":  "Other: Head - Auditory",
+                                        "anesthesia_type":  "General Anesthesia or Sedation",
+                                        "anesthesia_procedures":  "MAC or Endotracheal intubation (if general) or use of LMA; local infiltration as needed"
+        }
+      ]
+    },
+    {
+                      "part_name":  "Gynecologic Surgery",
+                      "cases":  [
+                                    {
+                                        "name":  "Total Hysterectomy",
+                                        "physical_status":  "ASA II-III",
+                                        "position":  "Supine with legs in stirrups",
+                                        "anatomical_category":  "Intra-abdominal - Pelvic (Uterus)",
+                                        "anesthesia_type":  "General Anesthesia and Regional Anesthesia",
+                                        "anesthesia_procedures":  "Endotracheal intubation; standard monitoring; adjunct regional block (TAP/QL/ESP block)"
+                                    },
+                                    {
+                                        "name":  "Subtotal Hysterectomy",
+                                        "physical_status":  "ASA II-III",
+                                        "position":  "Supine",
+                                        "anatomical_category":  "Intra-abdominal - Pelvic (Uterus)",
+                                        "anesthesia_type":  "General Anesthesia and Regional Anesthesia",
+                                        "anesthesia_procedures":  "Endotracheal intubation; regional block (TAP/QL/ESP block)"
+                                    },
+                                    {
+                                        "name":  "Laparoscopic Hysterectomy",
+                                        "physical_status":  "ASA II-III",
+                                        "position":  "Supine with Trendelenburg",
+                                        "anatomical_category":  "Intra-abdominal - Pelvic (Uterus)",
+                                        "anesthesia_type":  "General Anesthesia and Regional",
+                                        "anesthesia_procedures":  "Endotracheal intubation; adjunct regional block (TAP/QL/ESP block)"
+                                    },
+                                    {
+                                        "name":  "Myomectomy",
+                                        "physical_status":  "ASA II-III",
+                                        "position":  "Supine (with Trendelenburg if laparoscopic)",
+                                        "anatomical_category":  "Intra-abdominal - Pelvic (Uterus)",
+                                        "anesthesia_type":  "General Anesthesia and Regional",
+                                        "anesthesia_procedures":  "Endotracheal intubation; regional block (TAP/QL/ESP block)"
+                                    },
+                                    {
+                                        "name":  "Oophorectomy",
+                                        "physical_status":  "ASA II-III",
+                                        "position":  "Supine (with Trendelenburg if laparoscopic)",
+                                        "anatomical_category":  "Intra-abdominal - Pelvic (Ovaries)",
+                                        "anesthesia_type":  "General Anesthesia and Regional",
+                                        "anesthesia_procedures":  "Endotracheal intubation; regional block (TAP/QL/ESP block)"
+                                    },
+                                    {
+                                        "name":  "Salpingo-Oophorectomy",
+                                        "physical_status":  "ASA II-III",
+                                        "position":  "Supine (Trendelenburg if laparoscopic)",
+                                        "anatomical_category":  "Intra-abdominal - Pelvic (Ovaries/Fallopian Tubes)",
+                                        "anesthesia_type":  "General Anesthesia and Regional",
+                                        "anesthesia_procedures":  "Endotracheal intubation; regional block (TAP/QL/ESP block)"
+                                    },
+                                    {
+                                        "name":  "Endometrial Ablation",
+                                        "physical_status":  "ASA I-II or II-III",
+                                        "position":  "Supine",
+                                        "anatomical_category":  "Intra-abdominal - Pelvic (Uterus)",
+                                        "anesthesia_type":  "General Anesthesia or Neuraxial (spinal) with sedation",
+                                        "anesthesia_procedures":  "Endotracheal intubation if general; neuraxial block with sedation; adjunct regional block (TAP/QL/ESP) possible"
+                                    },
+                                    {
+                                        "name":  "Laparoscopic Sterilization (Tubal Ligation)",
+                                        "physical_status":  "ASA I-II or II-III",
+                                        "position":  "Supine",
+                                        "anatomical_category":  "Intra-abdominal - Pelvic (Fallopian Tubes)",
+                                        "anesthesia_type":  "General Anesthesia or Local with Sedation",
+                                        "anesthesia_procedures":  "Endotracheal intubation if general; otherwise, local infiltration; adjunct regional block (QL/ESP) possible"
+                                    },
+                                    {
+                                        "name":  "Cesarean Section",
+                                        "physical_status":  "ASA II-III",
+                                        "position":  "Supine with left uterine displacement",
+                                        "anatomical_category":  "Intra-abdominal (uterus)",
+                                        "anesthesia_type":  "Spinal Anesthesia, Epidural, or General Anesthesia",
+                                        "anesthesia_procedures":  "Neuraxial block; if general then endotracheal intubation; adjunct regional block (TAP/QL/ESP) possible postoperatively"
+        }
+      ]
+    },
+    {
+                      "part_name":  "Pediatric Surgery",
+                      "cases":  [
+                                    {
+                                        "name":  "Pyloromyotomy",
+                                        "physical_status":  "ASA II-III",
+                                        "position":  "Supine with slight head elevation",
+                                        "anatomical_category":  "Intra-abdominal - Gastrointestinal (Pylorus)",
+                                        "anesthesia_type":  "General Anesthesia",
+                                        "anesthesia_procedures":  "Endotracheal intubation; standard monitoring"
+                                    },
+                                    {
+                                        "name":  "Pediatric Inguinal Hernia Repair",
+                                        "physical_status":  "ASA I-II",
+                                        "position":  "Supine",
+                                        "anatomical_category":  "Other: Abdominal Wall - Groin (Pediatric)",
+                                        "anesthesia_type":  "General Anesthesia or Neuraxial (spinal) in select cases",
+                                        "anesthesia_procedures":  "Endotracheal intubation if general; neuraxial block if used"
+                                    },
+                                    {
+                                        "name":  "Pediatric Appendectomy",
+                                        "physical_status":  "ASA II-III",
+                                        "position":  "Supine",
+                                        "anatomical_category":  "Intra-abdominal - Gastrointestinal (Appendix)",
+                                        "anesthesia_type":  "General Anesthesia",
+                                        "anesthesia_procedures":  "Endotracheal intubation; standard monitoring"
+        }
+      ]
+    },
+    {
+                      "part_name":  "Vascular Surgery",
+                      "cases":  [
+                                    {
+                                        "name":  "Endovascular Aneurysm Repair (EVAR)",
+                                        "physical_status":  "ASA III-IV",
+                                        "position":  "Supine",
+                                        "anatomical_category":  "Vascular",
+                                        "anesthesia_type":  "Local/Regional with Sedation or General Anesthesia",
+                                        "anesthesia_procedures":  "Femoral artery access, hemodynamic monitoring"
+                                    },
+                                    {
+                                        "name":  "Open Abdominal Aortic Aneurysm Repair",
+                                        "physical_status":  "ASA III-IV",
+                                        "position":  "Supine",
+                                        "anatomical_category":  "Vascular",
+                                        "anesthesia_type":  "General Anesthesia",
+                                        "anesthesia_procedures":  "Endotracheal intubation, arterial catheter, possible central line"
+        }
+      ]
+    },
+    {
+                      "part_name":  "Transplant Surgery",
+                      "cases":  [
+                                    {
+                                        "name":  "Liver Transplant",
+                                        "physical_status":  "ASA IV-V",
+                                        "position":  "Supine",
+                                        "anatomical_category":  "Intra-abdominal - Liver",
+                                        "anesthesia_type":  "General Anesthesia",
+                                        "anesthesia_procedures":  "Endotracheal intubation, arterial and central venous lines, TEE, extensive fluid/blood management"
+                                    },
+                                    {
+                                        "name":  "Kidney Transplant",
+                                        "physical_status":  "ASA III-IV",
+                                        "position":  "Supine",
+                                        "anatomical_category":  "Intra-abdominal - Kidney (Retroperitoneal)",
+                                        "anesthesia_type":  "General Anesthesia",
+                                        "anesthesia_procedures":  "Endotracheal intubation, standard monitoring, invasive monitoring in high-risk cases"
+        }
+      ]
+    },
+    {
+                      "part_name":  "Endocrine Surgery",
+                      "cases":  [
+                                    {
+                                        "name":  "Total Thyroidectomy",
+                                        "physical_status":  "ASA II-III",
+                                        "position":  "Supine with neck extension",
+                                        "anatomical_category":  "Neck - Thyroid",
+                                        "anesthesia_type":  "General Anesthesia",
+                                        "anesthesia_procedures":  "Endotracheal intubation; standard monitoring; optional nerve monitoring"
+                                    },
+                                    {
+                                        "name":  "Thyroid Lobectomy",
+                                        "physical_status":  "ASA I-II or II-III",
+                                        "position":  "Supine with neck extension",
+                                        "anatomical_category":  "Neck - Thyroid",
+                                        "anesthesia_type":  "General Anesthesia",
+                                        "anesthesia_procedures":  "Endotracheal intubation; standard monitoring"
+        }
+      ]
+    },
+    {
+                      "part_name":  "Oral and Maxillofacial Surgery",
+                      "cases":  [
+                                    {
+                                        "name":  "Mandibulectomy",
+                                        "physical_status":  "ASA II-III",
+                                        "position":  "Supine with head extension",
+                                        "anatomical_category":  "Other: Musculoskeletal - Mandible",
+                                        "anesthesia_type":  "General Anesthesia",
+                                        "anesthesia_procedures":  "Endotracheal intubation; standard monitoring; local infiltration as needed"
+                                    },
+                                    {
+                                        "name":  "Maxillectomy",
+                                        "physical_status":  "ASA II-III",
+                                        "position":  "Supine with head extension",
+                                        "anatomical_category":  "Other: Musculoskeletal - Maxilla",
+                                        "anesthesia_type":  "General Anesthesia",
+                                        "anesthesia_procedures":  "Endotracheal intubation; standard monitoring; local infiltration"
+        }
+      ]
+    },
+    {
+                      "part_name":  "Ophthalmic Surgery",
+                      "cases":  [
+                                    {
+                                        "name":  "Cataract Extraction with Intraocular Lens Implantation",
+                                        "physical_status":  "ASA I-II (occasionally II-III)",
+                                        "position":  "Supine with head supported",
+                                        "anatomical_category":  "Other: Ocular (Lens/Cataract)",
+                                        "anesthesia_type":  "MAC with Topical Anesthesia (or General for select cases)",
+                                        "anesthesia_procedures":  "Topical anesthetic drops (or Endotracheal intubation if general), standard monitoring"
+                                    },
+                                    {
+                                        "name":  "LASIK Eye Surgery",
+                                        "physical_status":  "ASA I-II",
+                                        "position":  "Supine with head fixed",
+                                        "anatomical_category":  "Other: Ocular (Corneal/Refractive)",
+                                        "anesthesia_type":  "Topical Anesthesia with Sedation (MAC)",
+                                        "anesthesia_procedures":  "Topical anesthetic drops, standard noninvasive monitoring"
+        }
+      ]
+    },
+    {
+                      "part_name":  "Gynecologic Oncologic Surgery",
+                      "cases":  [
+                                    {
+                                        "name":  "Radical Hysterectomy",
+                                        "physical_status":  "ASA III-IV",
+                                        "position":  "Supine with Trendelenburg/dorsal lithotomy",
+                                        "anatomical_category":  "Intra-abdominal - Pelvic (Uterus/Cervix)",
+                                        "anesthesia_type":  "General Anesthesia",
+                                        "anesthesia_procedures":  "Endotracheal intubation, invasive monitoring as indicated; adjunct epidural block recommended"
+                                    },
+                                    {
+                                        "name":  "Ovarian Cancer Debulking Surgery",
+                                        "physical_status":  "ASA III-IV",
+                                        "position":  "Supine with Trendelenburg (laparoscopic/open)",
+                                        "anatomical_category":  "Intra-abdominal - Pelvic (Ovaries/Peritoneum)",
+                                        "anesthesia_type":  "General Anesthesia",
+                                        "anesthesia_procedures":  "Endotracheal intubation, invasive monitoring; adjunct epidural block recommended for open cases"
+        }
+      ]
+    },
+    {
+                      "part_name":  "Colorectal Surgery",
+                      "cases":  [
+                                    {
+                                        "name":  "Low Anterior Resection (LAR)",
+                                        "physical_status":  "ASA II-III",
+                                        "position":  "Supine with slight Trendelenburg",
+                                        "anatomical_category":  "Intra-abdominal - Pelvic (Rectum)",
+                                        "anesthesia_type":  "General Anesthesia",
+                                        "anesthesia_procedures":  "Endotracheal intubation, standard monitoring; adjunct lumbar epidural block recommended"
+                                    },
+                                    {
+                                        "name":  "Abdominoperineal Resection (APR)",
+                                        "physical_status":  "ASA III-IV",
+                                        "position":  "Supine with dorsal lithotomy/Trendelenburg",
+                                        "anatomical_category":  "Intra-abdominal - Pelvic (Rectum, Perineum)",
+                                        "anesthesia_type":  "General Anesthesia",
+                                        "anesthesia_procedures":  "Endotracheal intubation, invasive monitoring; adjunct lumbar epidural block recommended"
+                                    },
+                                    {
+                                        "position":  "Lithotomy and Trendelenburg",
+                                        "name":  "Hartmann\u0027s Colostomy Reversal",
+                                        "anatomical_category":  "Intraabdominal",
+                                        "anesthesia_procedures":  "Endotracheal Intubation; Regional Anesthesia Lower; Ultrasound-Guided Procedure",
+                                        "physical_status":  "ASA II-III",
+                                        "anesthesia_type":  "General Anesthesia"
+        }
+      ]
+    },
+    {
+                      "part_name":  "Hand Surgery",
+                      "cases":  [
+                                    {
+                                        "name":  "Carpal Tunnel Release",
+                                        "physical_status":  "ASA I-II",
+                                        "position":  "Supine (arm on arm board)",
+                                        "anatomical_category":  "Extremities - Upper (Hand/Wrist)",
+                                        "anesthesia_type":  "Local with Sedation or Regional",
+                                        "anesthesia_procedures":  "Local infiltration or median nerve block; sedation as needed"
+                                    },
+                                    {
+                                        "name":  "Trigger Finger Release",
+                                        "physical_status":  "ASA I-II",
+                                        "position":  "Supine",
+                                        "anatomical_category":  "Extremities - Upper (Hand)",
+                                        "anesthesia_type":  "Local with Sedation or Regional",
+                                        "anesthesia_procedures":  "Local infiltration or digital nerve block"
+        }
+      ]
+    },
+    {
+                      "part_name":  "Obstetric Surgery",
+                      "cases":  [
+                                    {
+                                        "name":  "Episiotomy Repair",
+                                        "physical_status":  "ASA I-II",
+                                        "position":  "Dorsal lithotomy",
+                                        "anatomical_category":  "Other: Perineal - Obstetric",
+                                        "anesthesia_type":  "Local with Sedation",
+                                        "anesthesia_procedures":  "Local infiltration with lidocaine"
+                                    },
+                                    {
+                                        "name":  "Vacuum Extraction Delivery",
+                                        "physical_status":  "ASA I-II",
+                                        "position":  "Supine with left lateral tilt",
+                                        "anatomical_category":  "Other: Obstetric - Uterine/Fetal Extraction",
+                                        "anesthesia_type":  "Neuraxial (Spinal or Epidural)",
+                                        "anesthesia_procedures":  "Neuraxial block with IV sedation; standard monitoring"
+                                    },
+                                    {
+                                        "position":  "Sitting",
+                                        "name":  "Labor Analgesia",
+                                        "anatomical_category":  "N/A",
+                                        "anesthesia_procedures":  "Epidural",
+                                        "physical_status":  "ASA I-III",
+                                        "anesthesia_type":  "Neuraxial Anesthesia"
+        }
+      ]
+    },
+    {
+                      "part_name":  "Interventional \u0026 Minimally Invasive Procedures",
+                      "cases":  [
+                                    {
+                                        "name":  "Radiofrequency Ablation for Liver Tumors",
+                                        "physical_status":  "ASA II-III",
+                                        "position":  "Supine",
+                                        "anatomical_category":  "Intra-abdominal - Liver",
+                                        "anesthesia_type":  "General Anesthesia or MAC with Sedation",
+                                        "anesthesia_procedures":  "Endotracheal intubation if general; local infiltration at probe site; imaging guidance"
+                                    },
+                                    {
+                                        "name":  "Microwave Ablation for Liver Tumors",
+                                        "physical_status":  "ASA II-III",
+                                        "position":  "Supine",
+                                        "anatomical_category":  "Intra-abdominal - Liver",
+                                        "anesthesia_type":  "General Anesthesia",
+                                        "anesthesia_procedures":  "Endotracheal intubation, local infiltration at access site; imaging guidance"
+        }
+      ]
+    },
+    {
+                      "part_name":  "Trauma Surgery",
+                      "cases":  [
+                                    {
+                                        "name":  "Damage Control Laparotomy (DCL)",
+                                        "physical_status":  "ASA IV-V",
+                                        "position":  "Supine",
+                                        "anatomical_category":  "Intra-abdominal - General",
+                                        "anesthesia_type":  "General Anesthesia",
+                                        "anesthesia_procedures":  "Endotracheal intubation with rapid sequence induction; invasive monitoring (arterial and central venous catheters); rapid fluid and blood management"
+                                    },
+                                    {
+                                        "name":  "Emergency Thoracotomy for Trauma",
+                                        "physical_status":  "ASA V",
+                                        "position":  "Supine or Lateral decubitus",
+                                        "anatomical_category":  "Intrathoracic - Heart",
+                                        "anesthesia_type":  "General Anesthesia",
+                                        "anesthesia_procedures":  "Endotracheal intubation via rapid sequence; invasive monitoring as indicated"
+        }
+      ]
+    },
+    {
+                      "part_name":  "Urology Surgery",
+                      "cases":  [
+                                    {
+                                        "name":  "Transurethral Resection of the Prostate (TURP)",
+                                        "physical_status":  "ASA II-III",
+                                        "position":  "Lithotomy",
+                                        "anatomical_category":  "Other: Urologic - Prostate",
+                                        "anesthesia_type":  "General Anesthesia or Neuraxial (spinal)",
+                                        "anesthesia_procedures":  "Endotracheal intubation if general; spinal block with sedation if neuraxial"
+                                    },
+                                    {
+                                        "name":  "Ureteroscopy with Laser Lithotripsy",
+                                        "physical_status":  "ASA II-III",
+                                        "position":  "Lithotomy",
+                                        "anatomical_category":  "Other: Urologic - Urinary Tract",
+                                        "anesthesia_type":  "General Anesthesia",
+                                        "anesthesia_procedures":  "Endotracheal intubation; standard monitoring"
+                                    },
+                                    {
+                                        "name":  "Percutaneous Nephrolithotomy (PCNL)",
+                                        "physical_status":  "ASA II-III",
+                                        "position":  "Prone or Supine",
+                                        "anatomical_category":  "Other: Urologic - Kidney",
+                                        "anesthesia_type":  "General Anesthesia",
+                                        "anesthesia_procedures":  "Endotracheal intubation; standard monitoring; consider invasive monitoring in complex cases"
+                                    },
+                                    {
+                                        "name":  "Transurethral Resection of Bladder Tumor (TURBT)",
+                                        "physical_status":  "ASA II-III",
+                                        "position":  "Lithotomy",
+                                        "anatomical_category":  "Other: Urologic - Bladder",
+                                        "anesthesia_type":  "General Anesthesia",
+                                        "anesthesia_procedures":  "Endotracheal intubation; standard monitoring"
+                                    },
+                                    {
+                                        "name":  "Radical Prostatectomy",
+                                        "physical_status":  "ASA II-III",
+                                        "position":  "Lithotomy with steep Trendelenburg",
+                                        "anatomical_category":  "Other: Urologic - Prostate",
+                                        "anesthesia_type":  "General Anesthesia",
+                                        "anesthesia_procedures":  "Endotracheal intubation; standard monitoring; invasive monitoring in high-risk cases"
+                                    },
+                                    {
+                                        "name":  "Partial Nephrectomy",
+                                        "physical_status":  "ASA II-III",
+                                        "position":  "Supine or Lateral decubitus",
+                                        "anatomical_category":  "Other: Urologic - Kidney",
+                                        "anesthesia_type":  "General Anesthesia",
+                                        "anesthesia_procedures":  "Endotracheal intubation; standard monitoring"
+                                    },
+                                    {
+                                        "name":  "Radical Nephrectomy",
+                                        "physical_status":  "ASA II-III or III-IV",
+                                        "position":  "Supine",
+                                        "anatomical_category":  "Other: Urologic - Kidney",
+                                        "anesthesia_type":  "General Anesthesia",
+                                        "anesthesia_procedures":  "Endotracheal intubation; invasive monitoring as needed"
+                                    },
+                                    {
+                                        "name":  "Vasectomy",
+                                        "physical_status":  "ASA I-II",
+                                        "position":  "Supine with scrotal elevation",
+                                        "anatomical_category":  "Other: Urologic - Male Genital",
+                                        "anesthesia_type":  "Local Anesthesia with Sedation",
+                                        "anesthesia_procedures":  "Local infiltration with lidocaine; standard monitoring"
+                                    },
+                                    {
+                                        "name":  "Urethroplasty for Urethral Stricture",
+                                        "physical_status":  "ASA I-II or II-III",
+                                        "position":  "Supine",
+                                        "anatomical_category":  "Other: Urologic - Urethra",
+                                        "anesthesia_type":  "General Anesthesia",
+                                        "anesthesia_procedures":  "Endotracheal intubation; standard monitoring; optional local infiltration"
+                                    },
+                                    {
+                                        "name":  "Varicocelectomy",
+                                        "physical_status":  "ASA I-II or II-III",
+                                        "position":  "Supine or slight lateral decubitus",
+                                        "anatomical_category":  "Other: Urologic - Scrotum/Varicose Veins",
+                                        "anesthesia_type":  "General Anesthesia or Local with Sedation",
+                                        "anesthesia_procedures":  "Endotracheal intubation if general; local infiltration if local"
+                                    },
+                                    {
+                                        "name":  "Pyeloplasty",
+                                        "physical_status":  "ASA II-III",
+                                        "position":  "Supine or Lateral decubitus",
+                                        "anatomical_category":  "Other: Urologic - Ureteropelvic Junction",
+                                        "anesthesia_type":  "General Anesthesia",
+                                        "anesthesia_procedures":  "Endotracheal intubation; standard monitoring"
+                                    },
+                                    {
+                                        "name":  "Holmium Laser Enucleation of the Prostate (HoLEP)",
+                                        "physical_status":  "ASA II-III",
+                                        "position":  "Lithotomy",
+                                        "anatomical_category":  "Other: Urologic - Prostate",
+                                        "anesthesia_type":  "General Anesthesia or Neuraxial (spinal)",
+                                        "anesthesia_procedures":  "Endotracheal intubation if general; spinal block with sedation if neuraxial"
+                                    },
+                                    {
+                                        "name":  "Cystoscopy with Ureteral Stent Placement",
+                                        "physical_status":  "ASA I-II or II-III",
+                                        "position":  "Lithotomy",
+                                        "anatomical_category":  "Other: Urologic - Urinary Tract",
+                                        "anesthesia_type":  "General Anesthesia or MAC with Sedation and Local Infiltration",
+                                        "anesthesia_procedures":  "Endotracheal intubation if general; otherwise sedation with local infiltration"
+                                    },
+                                    {
+                                        "name":  "Transurethral Incision of the Prostate (TUIP)",
+                                        "physical_status":  "ASA II-III",
+                                        "position":  "Lithotomy",
+                                        "anatomical_category":  "Other: Urologic - Prostate",
+                                        "anesthesia_type":  "General Anesthesia or Neuraxial (spinal)",
+                                        "anesthesia_procedures":  "Endotracheal intubation if general; spinal block with sedation if neuraxial"
+                                    },
+                                    {
+                                        "name":  "Radical Cystectomy",
+                                        "physical_status":  "ASA II-III or III-IV",
+                                        "position":  "Supine",
+                                        "anatomical_category":  "Other: Urologic - Bladder",
+                                        "anesthesia_type":  "General Anesthesia",
+                                        "anesthesia_procedures":  "Endotracheal intubation; invasive monitoring (arterial and central venous lines) in high-risk patients"
+                                    }
+                                ]
+                  },
+                  {
+                      "cases":  [
+                                    {
+                                        "position":  "Supine",
+                                        "name":  "Total Knee Arthroplasty (TKA)",
+                                        "anatomical_category":  "Extremities - Lower (Knee)",
+                                        "anesthesia_procedures":  "Spinal block with sedation or endotracheal intubation if general; adjunct regional block: adductor canal block and IPACK block",
+                                        "physical_status":  "ASA II-III",
+                                        "anesthesia_type":  "Spinal Anesthesia with Sedation or General Anesthesia"
+                                    }
+                                ],
+                      "part_name":  "Orthopedic Surgery"
+                  },
+                  {
+                      "cases":  [
+                                    {
+                                        "position":  "Supine",
+                                        "name":  "Coronary Artery Bypass Graft (CABG)",
+                                        "anatomical_category":  "Intrathoracic - Heart",
+                                        "anesthesia_procedures":  "Endotracheal intubation; central line; arterial line; TEE; cardiopulmonary bypass",
+                                        "physical_status":  "ASA III-IV",
+                                        "anesthesia_type":  "General Anesthesia"
+                                    }
+                                ],
+                      "part_name":  "Cardiac Surgery"
+                  }
+              ]
+}

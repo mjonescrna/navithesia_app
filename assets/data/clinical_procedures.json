@@ -1,0 +1,258 @@
+{
+  "procedures": [
+    {
+      "id": 1,
+      "name": "General Anesthesia",
+      "category": "Anesthesia Type",
+      "coa_categories": ["General Anesthesia"],
+      "keywords": ["general", "GA", "GETA", "general anesthesia"]
+    },
+    {
+      "id": 2,
+      "name": "Epidural Anesthesia",
+      "category": "Anesthesia Type",
+      "coa_categories": ["Epidural"],
+      "keywords": ["epidural", "epidural anesthesia", "neuraxial"]
+    },
+    {
+      "id": 3,
+      "name": "Spinal Anesthesia",
+      "category": "Anesthesia Type",
+      "coa_categories": ["Spinal"],
+      "keywords": ["spinal", "spinal anesthesia", "subarachnoid block", "neuraxial"]
+    },
+    {
+      "id": 4,
+      "name": "Monitored Anesthesia Care",
+      "category": "Anesthesia Type",
+      "coa_categories": ["MAC"],
+      "keywords": ["MAC", "monitored anesthesia care", "sedation"]
+    },
+    {
+      "id": 5,
+      "name": "Laparoscopic Cholecystectomy",
+      "category": "Surgical Procedure",
+      "coa_categories": ["Intraabdominal", "Laparoscopic Procedure"],
+      "keywords": ["lap chole", "cholecystectomy", "gallbladder removal", "laparoscopic"]
+    },
+    {
+      "id": 6,
+      "name": "Total Knee Arthroplasty",
+      "category": "Surgical Procedure",
+      "coa_categories": ["Orthopedic", "Lower Extremity"],
+      "keywords": ["TKA", "knee replacement", "arthroplasty", "total knee"]
+    },
+    {
+      "id": 7,
+      "name": "Endotracheal Intubation",
+      "category": "Airway Management",
+      "coa_categories": ["Tracheal Intubation", "Airway Management"],
+      "keywords": ["intubation", "ETT", "endotracheal tube", "airway"]
+    },
+    {
+      "id": 8,
+      "name": "Laryngeal Mask Airway",
+      "category": "Airway Management",
+      "coa_categories": ["Alternative Airway Management"],
+      "keywords": ["LMA", "laryngeal mask", "supraglottic device"]
+    },
+    {
+      "id": 9,
+      "name": "Cesarean Section",
+      "category": "Surgical Procedure",
+      "coa_categories": ["Obstetrics", "Cesarean Delivery"],
+      "keywords": ["c-section", "cesarean", "c/s", "obstetrics"]
+    },
+    {
+      "id": 10,
+      "name": "Pediatric Case - 2-12 years",
+      "category": "Patient Demographics",
+      "coa_categories": ["Pediatric 2-12 years"],
+      "keywords": ["pediatric", "child", "peds", "children"]
+    },
+    {
+      "id": 11,
+      "name": "Pediatric Case - Infant",
+      "category": "Patient Demographics",
+      "coa_categories": ["Pediatric Infant"],
+      "keywords": ["infant", "baby", "newborn", "pediatric"]
+    },
+    {
+      "id": 12,
+      "name": "Geriatric Case - 65+ years",
+      "category": "Patient Demographics",
+      "coa_categories": ["Geriatric 65+ years"],
+      "keywords": ["geriatric", "elderly", "senior", "65+"]
+    },
+    {
+      "id": 13,
+      "name": "ASA Classification III",
+      "category": "Patient Status",
+      "coa_categories": ["ASA Physical Status III"],
+      "keywords": ["ASA III", "ASA 3", "ASA physical status 3"]
+    },
+    {
+      "id": 14,
+      "name": "ASA Classification IV",
+      "category": "Patient Status",
+      "coa_categories": ["ASA Physical Status IV-V"],
+      "keywords": ["ASA IV", "ASA 4", "ASA physical status 4"]
+    },
+    {
+      "id": 15,
+      "name": "Arterial Line Placement",
+      "category": "Invasive Monitoring",
+      "coa_categories": ["Arterial Line", "Vascular Access"],
+      "keywords": ["a-line", "arterial line", "art line", "invasive monitoring"]
+    }
+  ],
+  "coa_categories": [
+    {
+      "id": 1,
+      "name": "General Anesthesia",
+      "required_count": 400,
+      "description": "Administration of general anesthesia and anesthetic care"
+    },
+    {
+      "id": 2,
+      "name": "Epidural",
+      "required_count": 25,
+      "description": "Administration or management of epidural anesthetics"
+    },
+    {
+      "id": 3,
+      "name": "Spinal",
+      "required_count": 25,
+      "description": "Administration of spinal anesthetics"
+    },
+    {
+      "id": 4,
+      "name": "MAC",
+      "required_count": 25,
+      "description": "Monitored anesthesia care"
+    },
+    {
+      "id": 5,
+      "name": "Intraabdominal",
+      "required_count": 75,
+      "description": "Intraabdominal procedures"
+    },
+    {
+      "id": 6,
+      "name": "Laparoscopic Procedure",
+      "required_count": 25,
+      "description": "Laparoscopic procedures"
+    },
+    {
+      "id": 7,
+      "name": "Orthopedic",
+      "required_count": 30,
+      "description": "Orthopedic procedures"
+    },
+    {
+      "id": 8,
+      "name": "Lower Extremity",
+      "required_count": 10,
+      "description": "Lower extremity procedures"
+    },
+    {
+      "id": 9,
+      "name": "Tracheal Intubation",
+      "required_count": 250,
+      "description": "Tracheal intubation"
+    },
+    {
+      "id": 10,
+      "name": "Airway Management",
+      "required_count": 300,
+      "description": "Management of difficult airways"
+    },
+    {
+      "id": 11,
+      "name": "Alternative Airway Management",
+      "required_count": 25,
+      "description": "Management of airways using alternative methods"
+    },
+    {
+      "id": 12,
+      "name": "Obstetrics",
+      "required_count": 30,
+      "description": "Care for obstetrical patients"
+    },
+    {
+      "id": 13,
+      "name": "Cesarean Delivery",
+      "required_count": 10,
+      "description": "Care for patients undergoing cesarean delivery"
+    },
+    {
+      "id": 14,
+      "name": "Pediatric 2-12 years",
+      "required_count": 30,
+      "description": "Care for pediatric patients (2-12 years)"
+    },
+    {
+      "id": 15,
+      "name": "Pediatric Infant",
+      "required_count": 10,
+      "description": "Care for pediatric patients (infant)"
+    },
+    {
+      "id": 16,
+      "name": "Geriatric 65+ years",
+      "required_count": 50,
+      "description": "Care for geriatric patients (65+ years)"
+    },
+    {
+      "id": 17,
+      "name": "ASA Physical Status III",
+      "required_count": 50,
+      "description": "Care for ASA physical status III patients"
+    },
+    {
+      "id": 18,
+      "name": "ASA Physical Status IV-V",
+      "required_count": 10,
+      "description": "Care for ASA physical status IV-V patients"
+    },
+    {
+      "id": 19,
+      "name": "Arterial Line",
+      "required_count": 25,
+      "description": "Arterial line insertion"
+    },
+    {
+      "id": 20,
+      "name": "Vascular Access",
+      "required_count": 35,
+      "description": "Management and insertion of vascular access"
+    }
+  ],
+  "schools": [
+    {
+      "id": 1,
+      "name": "University of Alabama at Birmingham",
+      "acronym": "UAB"
+    },
+    {
+      "id": 2,
+      "name": "Duke University",
+      "acronym": "Duke"
+    },
+    {
+      "id": 3,
+      "name": "Mayo Clinic School of Health Sciences",
+      "acronym": "Mayo"
+    },
+    {
+      "id": 4,
+      "name": "Johns Hopkins University",
+      "acronym": "JHU"
+    },
+    {
+      "id": 5,
+      "name": "Vanderbilt University",
+      "acronym": "Vanderbilt"
+    }
+  ]
+} 
